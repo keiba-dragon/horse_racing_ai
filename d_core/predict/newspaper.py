@@ -45,6 +45,19 @@ target_date = cache.get('target_date', '?')
 res = cache['result']
 print(f"読み込み: {target_date}  ({os.path.basename(pkl_path)})")
 
+# odds.json があれば cache の単勝オッズを上書き（odds_watcher.py が更新）
+import json as _json
+_odds_json_path = os.path.join(CACHE_DIR, f'{target_date}.odds.json')
+_odds_json = {}
+if os.path.exists(_odds_json_path):
+    with open(_odds_json_path, encoding='utf-8') as _f:
+        try:
+            _odds_json = _json.load(_f)
+        except Exception:
+            pass
+if _odds_json:
+    print(f"odds.json 読み込み: {len(_odds_json)}頭")
+
 # card_df からレース別カード頭数を取得 (NON率計算用)
 import re as _re
 _card_df = cache.get('card_df')
@@ -67,6 +80,10 @@ sub_ri = gs('sub_レース内偏差値')
 cur_r  = gs('cur_ランカー順位')
 sub_r  = gs('sub_ランカー順位')
 odds   = gs('単勝オッズ')
+if _odds_json:
+    _uma_s = pd.Series(res['馬名S'].tolist())
+    _odds_new = _uma_s.map(lambda x: _odds_json.get(str(x), float('nan')))
+    odds = _odds_new.combine_first(odds)  # json値優先、NaNは旧値にフォールバック
 venue  = pd.Series((res['会場'] if '会場' in res.columns else res['開催']).tolist())
 rnum   = pd.Series(res['Ｒ'].tolist())
 uma    = pd.Series(res['馬名S'].tolist())
@@ -98,6 +115,8 @@ def _gap(g):
 
 gap_df = df.groupby('race_key').apply(_gap)
 df = df.merge(gap_df, left_on='race_key', right_index=True, how='left')
+
+odds_confirmed = df['odds'].notna().mean() > 0.1  # 10%以上オッズあれば確定済み
 
 # ── 印判定 ──
 def gekiatsu_level(gap):
@@ -138,6 +157,7 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#0d1117;color
 .top-bar h1{font-size:24px;color:#e8b400;letter-spacing:2px}
 .top-bar .date{font-size:15px;color:#fff;margin-top:6px;font-weight:bold}
 .top-bar .subtitle{color:#aaa;font-size:12px;margin-top:4px}
+.odds-banner{background:#3d2000;border:1px solid #f39c12;color:#f39c12;padding:7px 16px;border-radius:6px;font-size:12px;margin-top:10px;text-align:center;letter-spacing:0.05em}
 .top-nav{position:sticky;top:0;z-index:100;background:#161b22;border-bottom:2px solid #30363d;padding:10px 12px;display:flex;gap:8px;overflow-x:auto;flex-wrap:wrap}
 .top-nav a{padding:5px 14px;background:#21262d;border-radius:14px;text-decoration:none;font-size:13px;font-weight:bold;white-space:nowrap;border:1px solid transparent;color:#e6edf3}
 .top-nav a:hover{background:#30363d}
@@ -289,14 +309,14 @@ summary_html = f'''
   </table>
 </div>
 <div class="summary-box">
-  <div class="summary-title">単勝まとめ　◎単(OD&gt;8+1頭抜け +515%) / ○単(OD&gt;6+gap≥3x +354%)</div>
+  <div class="summary-title">単勝まとめ　◎単(OD&gt;8+1頭抜け +515%) / ○単(OD&gt;6+gap≥3x +354%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
   <table class="picks-table">
     <thead><tr><th>印</th><th>会場</th><th>R</th><th>馬名</th><th>オッズ</th><th>gap</th></tr></thead>
     <tbody>{tan_rows()}</tbody>
   </table>
 </div>
 <div class="summary-fuku">
-  <div class="summary-title">複勝まとめ　◎複(OD&gt;6+gap≥3x +89%) / ○複(OD&gt;5+gap≥3x +62%)</div>
+  <div class="summary-title">複勝まとめ　◎複(OD&gt;6+gap≥3x +89%) / ○複(OD&gt;5+gap≥3x +62%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
   <table class="picks-table">
     <thead><tr><th>印</th><th>会場</th><th>R</th><th>馬名</th><th>オッズ</th><th>gap</th></tr></thead>
     <tbody>{fuku_rows()}</tbody>
@@ -452,6 +472,7 @@ HTML = f"""<!DOCTYPE html>
   <div class="date">{target_date} — {venues_str}</div>
   <div class="subtitle">D = sub_cs × sub_ri ÷ (cur_r × sub_r)　実績: 8796レース / 2023-07〜</div>
   <div style="color:#666;font-size:11px;margin-top:4px">更新: {now_str}</div>
+  {"" if odds_confirmed else '<div class="odds-banner">⚠️ オッズ未反映 — 印は候補です（オッズ確定後に自動更新）</div>'}
 </div>
 <nav class="top-nav">{nav_links}</nav>
 {legend}
