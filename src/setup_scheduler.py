@@ -34,21 +34,35 @@ TASKS = [
         'desc':  '競馬AI 週末予測（金曜・印候補新聞生成）',
         'day':   'FRI',
         'time':  '21:00',
-        'mode':  'predict',
+        'args':  '--mode predict',
     },
     {
-        'name':  'KeibAI-Watch-Sat',
-        'desc':  '競馬AI 土曜オッズ更新',
+        'name':  'KeibAI-Watch-Sat-AM',
+        'desc':  '競馬AI 土曜 午前オッズスナップショット',
         'day':   'SAT',
-        'time':  '08:00',
-        'mode':  'watch',
+        'time':  '10:00',
+        'args':  '--mode watch --once',
     },
     {
-        'name':  'KeibAI-Watch-Sun',
-        'desc':  '競馬AI 日曜オッズ更新',
+        'name':  'KeibAI-Watch-Sat-PM',
+        'desc':  '競馬AI 土曜 午後オッズスナップショット',
+        'day':   'SAT',
+        'time':  '15:00',
+        'args':  '--mode watch --once',
+    },
+    {
+        'name':  'KeibAI-Watch-Sun-AM',
+        'desc':  '競馬AI 日曜 午前オッズスナップショット',
         'day':   'SUN',
-        'time':  '08:00',
-        'mode':  'watch',
+        'time':  '10:00',
+        'args':  '--mode watch --once',
+    },
+    {
+        'name':  'KeibAI-Watch-Sun-PM',
+        'desc':  '競馬AI 日曜 午後オッズスナップショット',
+        'day':   'SUN',
+        'time':  '15:00',
+        'args':  '--mode watch --once',
     },
 ]
 
@@ -65,20 +79,18 @@ def schtasks(*args) -> tuple[int, str]:
     return r.returncode, out
 
 
-def build_tr(mode: str, task_name: str) -> str:
-    """/tr パラメータ: python auto_pipeline.py --mode MODE > log.txt 2>&1"""
+def build_tr(task_args: str, task_name: str) -> str:
+    """/tr パラメータ: cmd /c "python auto_pipeline.py ARGS >> log 2>&1" """
     os.makedirs(LOG_DIR, exist_ok=True)
     log_path = os.path.join(LOG_DIR, f'{task_name}.log')
-    # cmd /c でリダイレクト付き実行
-    inner = f'"{PYTHON}" "{SCRIPT}" --mode {mode}'
-    # タスクスケジューラは /tr でリダイレクト不可→ cmd /c 経由
+    inner = f'"{PYTHON}" "{SCRIPT}" {task_args}'
     return f'cmd /c "{inner} >> "{log_path}" 2>&1"'
 
 
 def register():
     print("=== タスクスケジューラ 登録 ===\n")
     for t in TASKS:
-        tr = build_tr(t['mode'], t['name'])
+        tr = build_tr(t['args'], t['name'])
         print(f"登録: {t['name']}  ({t['day']} {t['time']})")
         rc, _ = schtasks(
             '/create', '/f',

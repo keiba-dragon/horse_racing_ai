@@ -180,19 +180,20 @@ def run_predict(target_dates: list[str]):
 
 # ── watch モード ────────────────────────────────────────────────────────────
 
-def run_watch(target_dates: list[str], interval: int = 10, until: str = '17:30'):
+def run_watch(target_dates: list[str], interval: int = 10, until: str = '17:30',
+              once: bool = False):
     """odds_watcher.py を呼び出す（ブロッキング）"""
-    print(f"\n【watch モード】対象: {target_dates}")
+    print(f"\n【watch モード】対象: {target_dates}  once={once}")
     watcher = os.path.join(SRC_DIR, 'odds_watcher.py')
     from_date = (datetime.now() - timedelta(days=7)).strftime('%Y%m%d')
-    run(
-        [PYTHON, watcher,
-         '--date', ','.join(target_dates),
-         '--from', from_date,
-         '--interval', str(interval),
-         '--until', until],
-        'odds_watcher'
-    )
+    cmd = [PYTHON, watcher,
+           '--date', ','.join(target_dates),
+           '--from', from_date,
+           '--interval', str(interval),
+           '--until', until]
+    if once:
+        cmd.append('--once')
+    run(cmd, 'odds_watcher')
 
 
 # ── main ────────────────────────────────────────────────────────────────────
@@ -204,6 +205,7 @@ def main():
                     help='対象日 YYYYMMDD（カンマ区切りで複数可）。省略時は今週末')
     ap.add_argument('--interval', type=int, default=10, help='watch ポーリング間隔（分）')
     ap.add_argument('--until', default='17:30', help='watch 終了時刻 HH:MM')
+    ap.add_argument('--once', action='store_true', help='1回だけ取得して終了')
     args = ap.parse_args()
 
     if args.date:
@@ -229,7 +231,7 @@ def main():
         today_dates = [d for d in target_dates if d == today]
         if not today_dates:
             today_dates = [today]
-        run_watch(today_dates, args.interval, args.until)
+        run_watch(today_dates, args.interval, args.until, once=args.once)
 
 
 if __name__ == '__main__':
