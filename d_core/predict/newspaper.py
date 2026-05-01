@@ -372,10 +372,17 @@ for v in venues:
             ba   = str(int(row['banum'])) if str(row['banum']).isdigit() else str(row['banum'])
             od_s = f'{row["odds"]:.1f}' if pd.notna(row['odds']) else '-'
             od_c = '#f0a500' if (pd.notna(row['odds']) and row['odds'] > 6) else '#8b949e'
-            d_s  = f'{row["D"]:,.0f}'
             pct  = row['D_pct']
-            pct_c = '#e74c3c' if pct>=200 else ('#e67e22' if pct>=50 else ('#555' if pct<-70 else '#8b949e'))
+            pct_c = '#e74c3c' if pct>=200 else ('#e67e22' if pct>=100 else ('#f39c12' if pct>=50 else ('#555' if pct<-70 else '#8b949e')))
             pct_s = f'{pct:+.0f}%'
+            # D_pct表示: 200%超は大きく強調
+            if pct >= 200:
+                pct_html = f'<span style="color:{pct_c};font-weight:bold;font-size:15px">{pct_s}</span>'
+            elif pct >= 50:
+                pct_html = f'<span style="color:{pct_c};font-weight:bold;font-size:13px">{pct_s}</span>'
+            else:
+                pct_html = f'<span style="color:{pct_c};font-size:12px">{pct_s}</span>'
+            d_s  = f'{row["D"]:,.0f}'
             cs_s  = f'{row["sub_cs"]:.1f}' if pd.notna(row['sub_cs']) else '-'
             ri_s  = f'{row["sub_ri"]:.1f}' if pd.notna(row['sub_ri']) else '-'
             cr_s  = f'{row["cur_r"]:.0f}' if pd.notna(row['cur_r']) else '-'
@@ -395,8 +402,8 @@ for v in venues:
               <td style="color:#8b949e">{ba}</td>
               <td style="text-align:left;font-weight:bold;font-size:13px">{row['uma']} {mark_badges}</td>
               <td style="color:{od_c};font-weight:bold">{od_s}倍</td>
-              <td style="font-weight:bold">{d_s}</td>
-              <td style="color:{pct_c};font-weight:bold">{pct_s}</td>
+              <td>{pct_html}</td>
+              <td style="color:#444;font-size:11px">{d_s}</td>
               <td style="color:#555;font-size:11px">{cs_s}</td>
               <td style="color:#555;font-size:11px">{ri_s}</td>
               <td style="color:#555;font-size:11px">{cr_s}</td>
@@ -410,14 +417,14 @@ for v in venues:
     <div class="race-info">
       <div class="race-name">{d1['race_name']}</div>
       <div class="race-badges">{badges}</div>
-      <div class="gap-info">gap: {gap_s}　D1位: <b>{d1['uma']}</b>　D={d1['D']:,.0f}　OD={f"{d1['odds']:.1f}倍" if pd.notna(d1['odds']) else '-'}</div>
+      <div class="gap-info">D1位: <b>{d1['uma']}</b>　<span style="color:#e74c3c;font-weight:bold">{d1['D_pct']:+.0f}%</span>　OD={f"{d1['odds']:.1f}倍" if pd.notna(d1['odds']) else '-'}　gap: {gap_s}</div>
     </div>
   </div>
   <div class="table-wrap">
     <table class="horse-table">
       <thead><tr>
         <th>印</th><th>馬番</th><th style="text-align:left">馬名</th>
-        <th>オッズ</th><th>D値</th><th>D_pct</th>
+        <th>オッズ</th><th>D_pct</th><th style="font-size:10px;color:#555">D値</th>
         <th style="font-size:9px;color:#555">sub_cs</th><th style="font-size:9px;color:#555">sub_ri</th>
         <th style="font-size:9px;color:#555">cur_r</th><th style="font-size:9px;color:#555">sub_r</th>
       </tr></thead>
