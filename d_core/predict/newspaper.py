@@ -157,6 +157,21 @@ FUKU_LABEL = {3:'◎複', 2:'○複', 1:'▲複', 0:''}
 TAN_COLOR  = {3:'#e74c3c', 2:'#e67e22', 1:'#f39c12'}
 FUKU_COLOR = {3:'#2471a3', 2:'#1a9ed4', 1:'#5dade2'}
 
+# オッズ未反映時の候補判定（gap条件のみ・オッズ条件を省略）
+def tan_level_cand(row):
+    gap, dpct, nq = row['gap_ratio'], row['D_pct'], row['_n_qual']
+    if (dpct > 200) and (nq == 1) and pd.notna(gap) and gap >= 3: return 3
+    if pd.notna(gap) and gap >= 3:                                  return 2
+    return 0
+
+def fuku_level_cand(row):
+    gap = row['gap_ratio']
+    if pd.notna(gap) and gap >= 3: return 2
+    return 0
+
+TAN_LABEL_CAND  = {3:'◎単候', 2:'○単候', 0:''}
+FUKU_LABEL_CAND = {2:'○複候', 0:''}
+
 CSS = """
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#0d1117;color:#e6edf3;font-size:13px;line-height:1.5}
@@ -232,8 +247,8 @@ for rk in df['race_key'].unique():
     d1  = sub.iloc[0]
     gap = d1['gap_ratio']
     gl  = gekiatsu_level(gap)
-    tl  = tan_level(d1)
-    fl  = fuku_level(d1)
+    tl  = tan_level(d1) if odds_confirmed else tan_level_cand(d1)
+    fl  = fuku_level(d1) if odds_confirmed else fuku_level_cand(d1)
     od  = f"{d1['odds']:.1f}" if pd.notna(d1['odds']) else '-'
     gap_s = f"{gap:.1f}x" if pd.notna(gap) else '-'
     if pd.isna(d1['R']): continue
@@ -278,10 +293,11 @@ def geki_rows():
 
 def tan_rows():
     if not sum_tan: return '<tr><td colspan="5" style="color:#555;padding:12px">該当なし</td></tr>'
+    lbl = TAN_LABEL_CAND if not odds_confirmed else TAN_LABEL
     rows = ''
     for tl, v, r, rn, u, od, gap_s in sum_tan:
-        mk = TAN_LABEL[tl]
-        c  = TAN_COLOR[tl]
+        mk = lbl.get(tl, '')
+        c  = TAN_COLOR.get(tl, '#aaa')
         rows += f'''<tr>
           <td style="font-weight:bold;color:{c};font-size:15px">{mk}</td>
           <td style="color:#aaa">{v}</td>
@@ -294,10 +310,11 @@ def tan_rows():
 
 def fuku_rows():
     if not sum_fuku: return '<tr><td colspan="5" style="color:#555;padding:12px">該当なし</td></tr>'
+    lbl = FUKU_LABEL_CAND if not odds_confirmed else FUKU_LABEL
     rows = ''
     for fl, v, r, rn, u, od, gap_s in sum_fuku:
-        mk = FUKU_LABEL[fl]
-        c  = FUKU_COLOR[fl]
+        mk = lbl.get(fl, '')
+        c  = FUKU_COLOR.get(fl, '#aaa')
         rows += f'''<tr>
           <td style="font-weight:bold;color:{c};font-size:15px">{mk}</td>
           <td style="color:#aaa">{v}</td>
