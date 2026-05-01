@@ -1117,7 +1117,8 @@ def generate_html(result, card_df, target_date_num, out_path):
     race_pages = []
     for gk, idx in sorted_race_groups:
         grp = df.loc[idx].copy()
-        grp = grp.sort_values('dc_馬番', na_position='last')
+        if 'dc_馬番' in grp.columns:
+            grp = grp.sort_values('dc_馬番', na_position='last')
         kaikai    = gk[0]
         race_name = gk[-1] if 'レース名' in df.columns else ''
         r_n       = int(gk[1]) if 'Ｒ' in df.columns and pd.notna(gk[1]) else ''
