@@ -125,12 +125,7 @@ df = df.merge(gap_df, left_on='race_key', right_index=True, how='left')
 
 odds_confirmed = df['odds'].notna().mean() > 0.1  # 10%以上オッズあれば確定済み
 
-# ── 印判定 ──
-def gekiatsu_level(gap):
-    if pd.isna(gap): return 0
-    if gap > 20: return 2
-    if gap > 10: return 1
-    return 0
+# ── 印判定（新ルールA: D_pct × OD 全馬対応） ──
 
 def race_mark(rank, dpct):
     if dpct < -90:        return 'keshi'
@@ -138,18 +133,17 @@ def race_mark(rank, dpct):
     return {1:'◎', 2:'○', 3:'▲', 4:'△', 5:'×'}.get(int(rank), '')
 
 def tan_level(row):
-    od, gap, dpct, nq = row['odds'], row['gap_ratio'], row['D_pct'], row['_n_qual']
-    is_ippon = (dpct > 200) and (nq == 1)
-    if pd.notna(od) and od > 8 and is_ippon:                   return 3
-    if pd.notna(od) and od > 6 and pd.notna(gap) and gap >= 3: return 2
-    if pd.notna(od) and od > 6:                                 return 1
+    od, dpct, nq, dr = row['odds'], row['D_pct'], row['_n_qual'], row['D_rank']
+    if pd.notna(od) and od > 8 and dpct > 200 and nq == 1: return 3  # ◎ 唯一突出×高配当
+    if pd.notna(od) and od > 6 and dpct > 100:             return 2  # ○ 中突出×中配当
+    if pd.notna(od) and od > 5 and dr <= 3 and dpct > 30:  return 1  # ▲ 上位3頭×平均超え
     return 0
 
 def fuku_level(row):
-    od, gap = row['odds'], row['gap_ratio']
-    if pd.notna(od) and od > 6 and pd.notna(gap) and gap >= 3: return 3
-    if pd.notna(od) and od > 5 and pd.notna(gap) and gap >= 3: return 2
-    if pd.notna(od) and od > 5:                                 return 1
+    od, dpct, nq, dr = row['odds'], row['D_pct'], row['_n_qual'], row['D_rank']
+    if pd.notna(od) and od > 6 and dpct > 200 and nq == 1: return 3  # ◎
+    if pd.notna(od) and od > 5 and dpct > 100:             return 2  # ○
+    if pd.notna(od) and od > 4 and dr <= 3 and dpct > 30:  return 1  # ▲
     return 0
 
 TAN_LABEL  = {3:'◎単', 2:'○単', 1:'▲単', 0:''}
@@ -157,20 +151,21 @@ FUKU_LABEL = {3:'◎複', 2:'○複', 1:'▲複', 0:''}
 TAN_COLOR  = {3:'#e74c3c', 2:'#e67e22', 1:'#f39c12'}
 FUKU_COLOR = {3:'#2471a3', 2:'#1a9ed4', 1:'#5dade2'}
 
-# オッズ未反映時の候補判定（gap条件のみ・オッズ条件を省略）
+# オッズ未反映時の候補印（D_pct条件のみ）
 def tan_level_cand(row):
-    gap, dpct, nq = row['gap_ratio'], row['D_pct'], row['_n_qual']
-    if (dpct > 200) and (nq == 1) and pd.notna(gap) and gap >= 3: return 3
-    if pd.notna(gap) and gap >= 3:                                  return 2
+    dpct, nq, dr = row['D_pct'], row['_n_qual'], row['D_rank']
+    if dpct > 200 and nq == 1: return 3  # ◎候
+    if dpct > 100 and dr <= 3: return 2  # ○候
     return 0
 
 def fuku_level_cand(row):
-    gap = row['gap_ratio']
-    if pd.notna(gap) and gap >= 3: return 2
+    dpct, nq, dr = row['D_pct'], row['_n_qual'], row['D_rank']
+    if dpct > 200 and nq == 1: return 3  # ◎候
+    if dpct > 100 and dr <= 3: return 2  # ○候
     return 0
 
 TAN_LABEL_CAND  = {3:'◎単候', 2:'○単候', 0:''}
-FUKU_LABEL_CAND = {2:'○複候', 0:''}
+FUKU_LABEL_CAND = {3:'◎複候', 2:'○複候', 0:''}
 
 CSS = """
 *{box-sizing:border-box;margin:0;padding:0}
@@ -187,8 +182,6 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#0d1117;color
 .summary-title{font-size:16px;font-weight:bold;color:#e74c3c;margin-bottom:10px}
 .summary-fuku{margin:14px;padding:14px 16px;background:linear-gradient(135deg,#0a0a1a,#10102d);border:2px solid #2471a3;border-radius:10px}
 .summary-fuku .summary-title{color:#2471a3}
-.summary-geki{margin:14px;padding:14px 16px;background:linear-gradient(135deg,#1a0000,#3d0000);border:2px solid #8b0000;border-radius:10px}
-.summary-geki .summary-title{color:#ff6b6b}
 .picks-table{width:100%;border-collapse:collapse}
 .picks-table th{background:rgba(255,255,255,0.05);color:#8b949e;padding:6px 10px;text-align:center;font-size:11px;border-bottom:1px solid #30363d}
 .picks-table td{padding:7px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04)}
@@ -204,8 +197,6 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#0d1117;color
 .race-info{flex:1;min-width:200px}
 .race-name{font-size:17px;font-weight:bold;color:#fff}
 .race-badges{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center}
-.badge-geki-s{background:#8b0000;color:#ffd700;font-weight:bold;padding:3px 10px;border-radius:12px;font-size:12px;border:1px solid #ffd700}
-.badge-geki{background:#3d0000;color:#ff9;font-weight:bold;padding:3px 10px;border-radius:12px;font-size:12px;border:1px solid #c0392b}
 .badge-tan{background:#c0392b;color:white;font-weight:bold;padding:3px 10px;border-radius:12px;font-size:12px}
 .badge-fuku{background:#2471a3;color:white;font-weight:bold;padding:3px 10px;border-radius:12px;font-size:12px}
 .gap-info{color:#aaa;font-size:12px;margin-top:4px}
@@ -218,8 +209,6 @@ body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#0d1117;color
 .horse-table tr:hover{background:rgba(88,166,255,0.05)}
 .row-d1{background:rgba(232,180,0,0.07)!important}
 .row-keshi{background:rgba(255,255,255,0.02)!important;opacity:0.5}
-.row-geki-s{background:rgba(139,0,0,0.2)!important}
-.row-geki{background:rgba(139,0,0,0.1)!important}
 .mark-honmei{color:#e74c3c;font-size:16px;font-weight:bold}
 .mark-taikou{color:#2ecc71;font-size:16px;font-weight:bold}
 .mark-tanki{color:#9b59b6;font-size:16px;font-weight:bold}
@@ -240,22 +229,20 @@ colors = ['#e8b400','#58a6ff','#f85149','#3fb950','#d2a8ff']
 for i, v in enumerate(venues):
     venue_colors[v] = colors[i % len(colors)]
 
-# サマリー収集
-sum_geki, sum_tan, sum_fuku = [], [], []
+# サマリー収集（全馬対象）
+sum_tan, sum_fuku = [], []
 for rk in df['race_key'].unique():
     sub = df[df['race_key'] == rk].sort_values('D', ascending=False).reset_index(drop=True)
-    d1  = sub.iloc[0]
-    gap = d1['gap_ratio']
-    gl  = gekiatsu_level(gap)
-    tl  = tan_level(d1) if odds_confirmed else tan_level_cand(d1)
-    fl  = fuku_level(d1) if odds_confirmed else fuku_level_cand(d1)
-    od  = f"{d1['odds']:.1f}" if pd.notna(d1['odds']) else '-'
-    gap_s = f"{gap:.1f}x" if pd.notna(gap) else '-'
+    d1 = sub.iloc[0]
     if pd.isna(d1['R']): continue
-    v, r, rn, u = str(d1['venue']), int(d1['R']), str(d1['race_name']), str(d1['uma'])
-    if gl >= 1: sum_geki.append((gl, v, r, rn, u, od, gap_s))
-    if tl >= 2: sum_tan.append((tl, v, r, rn, u, od, gap_s))
-    if fl >= 2: sum_fuku.append((fl, v, r, rn, u, od, gap_s))
+    gap_s = f"{d1['gap_ratio']:.1f}x" if pd.notna(d1['gap_ratio']) else '-'
+    for _, row in sub.iterrows():
+        tl = tan_level(row) if odds_confirmed else tan_level_cand(row)
+        fl = fuku_level(row) if odds_confirmed else fuku_level_cand(row)
+        od = f"{row['odds']:.1f}" if pd.notna(row['odds']) else '-'
+        v, r, rn, u = str(row['venue']), int(row['R']), str(row['race_name']), str(row['uma'])
+        if tl >= 2: sum_tan.append((tl, v, r, rn, u, od, gap_s))
+        if fl >= 2: sum_fuku.append((fl, v, r, rn, u, od, gap_s))
 
 # ── HTML構築 ──
 now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -274,22 +261,6 @@ nav_links = ''
 for v in venues:
     c = venue_colors[v]
     nav_links += f'<a href="#venue-{v}" style="border-color:{c};color:{c}">{v}</a>'
-
-# サマリー：激熱
-def geki_rows():
-    if not sum_geki: return '<tr><td colspan="5" style="color:#555;padding:12px">該当なし</td></tr>'
-    rows = ''
-    for gl, v, r, rn, u, od, gap_s in sum_geki:
-        badge = '<span class="badge-geki-s">◆◆超激熱</span>' if gl==2 else '<span class="badge-geki">◆激熱</span>'
-        rows += f'''<tr>
-          <td>{badge}</td>
-          <td style="color:#aaa">{v}</td>
-          <td style="font-weight:bold;color:#e8b400">{r}R</td>
-          <td style="font-weight:bold;color:#fff;font-size:14px">{u}</td>
-          <td style="color:#f0a500">{od}倍</td>
-          <td style="color:#aaa">{gap_s}</td>
-        </tr>'''
-    return rows
 
 def tan_rows():
     if not sum_tan: return '<tr><td colspan="5" style="color:#555;padding:12px">該当なし</td></tr>'
@@ -326,22 +297,15 @@ def fuku_rows():
     return rows
 
 summary_html = f'''
-<div class="summary-geki">
-  <div class="summary-title">◆ 激熱まとめ　gap&gt;10x 勝率58% / gap&gt;20x 勝率71%</div>
-  <table class="picks-table">
-    <thead><tr><th>種別</th><th>会場</th><th>R</th><th>馬名</th><th>オッズ</th><th>gap</th></tr></thead>
-    <tbody>{geki_rows()}</tbody>
-  </table>
-</div>
 <div class="summary-box">
-  <div class="summary-title">単勝まとめ　◎単(OD&gt;8+1頭抜け +515%) / ○単(OD&gt;6+gap≥3x +354%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
+  <div class="summary-title">単勝まとめ　◎単(OD&gt;8+1頭抜け +494%) / ○単(OD&gt;6+D突出 +131%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
   <table class="picks-table">
     <thead><tr><th>印</th><th>会場</th><th>R</th><th>馬名</th><th>オッズ</th><th>gap</th></tr></thead>
     <tbody>{tan_rows()}</tbody>
   </table>
 </div>
 <div class="summary-fuku">
-  <div class="summary-title">複勝まとめ　◎複(OD&gt;6+gap≥3x +89%) / ○複(OD&gt;5+gap≥3x +62%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
+  <div class="summary-title">複勝まとめ　◎複(OD&gt;6+1頭抜け +344%) / ○複(OD&gt;5+D突出 +95%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
   <table class="picks-table">
     <thead><tr><th>印</th><th>会場</th><th>R</th><th>馬名</th><th>オッズ</th><th>gap</th></tr></thead>
     <tbody>{fuku_rows()}</tbody>
@@ -365,10 +329,10 @@ for v in venues:
         d1  = sub.iloc[0]
         r   = int(d1['R'])
         gap = d1['gap_ratio']
-        gl  = gekiatsu_level(gap)
-        tl  = tan_level(d1)
-        fl  = fuku_level(d1)
         gap_s = f"{gap:.1f}x" if pd.notna(gap) else '-'
+        # レース内の最良印
+        best_tl = max((tan_level(row) if odds_confirmed else tan_level_cand(row)) for _, row in sub.iterrows())
+        best_fl = max((fuku_level(row) if odds_confirmed else fuku_level_cand(row)) for _, row in sub.iterrows())
 
         # NON率計算
         n_pred = len(sub)
@@ -383,27 +347,22 @@ for v in venues:
             non_badge = ''
 
         # ヘッダーバッジ
+        lbl_t = TAN_LABEL_CAND if not odds_confirmed else TAN_LABEL
+        lbl_f = FUKU_LABEL_CAND if not odds_confirmed else FUKU_LABEL
         badges = ''
-        if gl == 2: badges += '<span class="badge-geki-s">◆◆超激熱</span>'
-        elif gl==1: badges += '<span class="badge-geki">◆激熱</span>'
-        if tl >= 1: badges += f'<span class="badge-tan">{TAN_LABEL[tl]}</span>'
-        if fl >= 1: badges += f'<span class="badge-fuku">{FUKU_LABEL[fl]}</span>'
+        if best_tl >= 1: badges += f'<span class="badge-tan">{lbl_t[best_tl]}</span>'
+        if best_fl >= 1: badges += f'<span class="badge-fuku">{lbl_f[best_fl]}</span>'
         badges += non_badge
 
-        # カードヘッダー背景
-        hdr_bg = 'linear-gradient(90deg,#3d0000,#1a2035)' if gl>=1 else 'linear-gradient(90deg,#1f2937,#1a2035)'
+        hdr_bg = 'linear-gradient(90deg,#1f2937,#1a2035)'
 
         # 馬テーブル
         horse_rows = ''
         for i, row in sub.iterrows():
             mk   = race_mark(row['D_rank'], row['D_pct'])
             is_keshi = mk in ('keshi', 'keshi2')
-            row_cls = 'row-keshi' if is_keshi else (
-                'row-geki-s' if (i==0 and gl==2) else
-                'row-geki'   if (i==0 and gl==1) else
-                'row-d1'     if i==0 else '')
+            row_cls = 'row-keshi' if is_keshi else ('row-d1' if i==0 else '')
 
-            # 印HTML
             mk_cls = {'◎':'mark-honmei','○':'mark-taikou','▲':'mark-tanki',
                       '△':'mark-renpuku','×':'mark-oshi',
                       'keshi':'mark-keshi','keshi2':'mark-keshi'}.get(mk,'')
@@ -422,14 +381,19 @@ for v in venues:
             cr_s  = f'{row["cur_r"]:.0f}' if pd.notna(row['cur_r']) else '-'
             sr_s  = f'{row["sub_r"]:.0f}' if pd.notna(row['sub_r']) else '-'
 
-            ref = ''
-            if row['D_rank']==2 and pd.notna(row['odds']) and row['odds']>6 and row['D_pct']>100:
-                ref = '<span class="ref-badge">参考複</span>'
+            # 単複印バッジ（各馬）
+            h_tl = tan_level(row) if odds_confirmed else tan_level_cand(row)
+            h_fl = fuku_level(row) if odds_confirmed else fuku_level_cand(row)
+            lbl_t = TAN_LABEL_CAND if not odds_confirmed else TAN_LABEL
+            lbl_f = FUKU_LABEL_CAND if not odds_confirmed else FUKU_LABEL
+            mark_badges = ''
+            if h_tl >= 1: mark_badges += f'<span style="background:#c0392b;color:white;font-size:9px;padding:1px 5px;border-radius:8px">{lbl_t[h_tl]}</span>'
+            if h_fl >= 1: mark_badges += f'<span style="background:#2471a3;color:white;font-size:9px;padding:1px 5px;border-radius:8px;margin-left:2px">{lbl_f[h_fl]}</span>'
 
             horse_rows += f'''<tr class="{row_cls}">
               <td>{mk_html}</td>
               <td style="color:#8b949e">{ba}</td>
-              <td style="text-align:left;font-weight:bold;font-size:13px">{row['uma']}{ref}</td>
+              <td style="text-align:left;font-weight:bold;font-size:13px">{row['uma']} {mark_badges}</td>
               <td style="color:{od_c};font-weight:bold">{od_s}倍</td>
               <td style="font-weight:bold">{d_s}</td>
               <td style="color:{pct_c};font-weight:bold">{pct_s}</td>
@@ -476,10 +440,10 @@ for v in venues:
 legend = '''
 <div style="margin:14px;padding:12px 16px;background:#161b22;border-radius:8px;border:1px solid #30363d;font-size:11px;color:#8b949e;line-height:1.8">
   <b style="color:#e6edf3">印の見方</b><br>
-  レース内印: <span style="color:#e74c3c">◎</span>D1位  <span style="color:#2ecc71">○</span>D2位  <span style="color:#9b59b6">▲</span>D3位  <span style="color:#3498db">△</span>D4位  <span style="color:#7f8c8d">×</span>D5位  消し(D_pct&lt;-90% 複勝率7%)  消候(D_pct -90〜-70% 複勝率19%)<br>
-  熱さ印(D1位のみ): <span style="color:#e74c3c">◎単</span>(OD&gt;8+1頭抜け 単ROI+515%)  <span style="color:#e67e22">○単</span>(OD&gt;6+gap≥3x +354%)  <span style="color:#2471a3">◎複</span>(OD&gt;6+gap≥3x 複ROI+89%)  <span style="color:#1a9ed4">○複</span>(OD&gt;5+gap≥3x +62%)<br>
-  激熱: <span style="color:#ff9">◆激熱</span>(gap&gt;10x 勝率58%)  <span style="color:#ffd700">◆◆超激熱</span>(gap&gt;20x 勝率71%) ※オッズ無関係・D指標のみ判定<br>
-  <span style="color:#85c1e9">参考複</span>: D2位 & OD&gt;6 & D_pct&gt;100% (複ROI+13%)
+  レース内印: <span style="color:#e74c3c">◎</span>D1位  <span style="color:#2ecc71">○</span>D2位  <span style="color:#9b59b6">▲</span>D3位  <span style="color:#3498db">△</span>D4位  <span style="color:#7f8c8d">×</span>D5位  消し(D_pct&lt;-90%)  消候(D_pct -90〜-70%)<br>
+  単複印(全馬対象): <span style="color:#e74c3c">◎単</span>(OD&gt;8+D_pct&gt;200%+1頭抜け ROI+494%)  <span style="color:#e67e22">○単</span>(OD&gt;6+D_pct&gt;100% +131%)  <span style="color:#f39c12">▲単</span>(OD&gt;5+D上位3頭+D_pct&gt;30% +21%)<br>
+  <span style="color:#2471a3">◎複</span>(OD&gt;6+D_pct&gt;200%+1頭抜け +344%)  <span style="color:#1a9ed4">○複</span>(OD&gt;5+D_pct&gt;100% +95%)  <span style="color:#5dade2">▲複</span>(OD&gt;4+D上位3頭 +13%)<br>
+  gap: レース内D1位÷D2位の比率（参考表示）
 </div>
 '''
 
