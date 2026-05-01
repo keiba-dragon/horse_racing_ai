@@ -31,10 +31,17 @@ for p in pkl_files:
     except: pass
 
 if args.date:
-    if args.date not in date_map:
+    # 6桁(YYMMDD)と8桁(YYYYMMDD)の両方を試みる
+    candidates = [args.date]
+    if len(args.date) == 6:
+        candidates.append('20' + args.date)
+    elif len(args.date) == 8:
+        candidates.append(args.date[2:])
+    lookup = next((c for c in candidates if c in date_map), None)
+    if lookup is None:
         print(f"{args.date} に対応する cache pkl が見つかりません")
         print(f"利用可能: {sorted(date_map.keys())[-5:]}"); sys.exit(1)
-    pkl_path = date_map[args.date]
+    pkl_path = date_map[lookup]
 else:
     pkl_path = date_map[max(date_map.keys())]
 
@@ -99,7 +106,7 @@ df = pd.DataFrame({
     'D': D, 'sub_cs': sub_cs, 'sub_ri': sub_ri,
     'cur_r': cur_r, 'sub_r': sub_r,
 })
-df = df.dropna(subset=['D'])
+df = df.dropna(subset=['D', 'R', 'venue'])
 df['race_key'] = df['venue'].astype(str) + '_' + df['R'].astype(str)
 
 df['D_rank']  = df.groupby('race_key')['D'].rank(ascending=False, method='min')
@@ -229,6 +236,7 @@ for rk in df['race_key'].unique():
     fl  = fuku_level(d1)
     od  = f"{d1['odds']:.1f}" if pd.notna(d1['odds']) else '-'
     gap_s = f"{gap:.1f}x" if pd.notna(gap) else '-'
+    if pd.isna(d1['R']): continue
     v, r, rn, u = str(d1['venue']), int(d1['R']), str(d1['race_name']), str(d1['uma'])
     if gl >= 1: sum_geki.append((gl, v, r, rn, u, od, gap_s))
     if tl >= 2: sum_tan.append((tl, v, r, rn, u, od, gap_s))

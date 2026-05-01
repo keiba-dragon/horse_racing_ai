@@ -103,9 +103,8 @@ def main():
 
         # D指標新聞
         if not args.no_newspaper:
-            short_date = date_str[2:]  # '260502'
             rc = run(
-                [sys.executable, newspaper_script, short_date],
+                [sys.executable, newspaper_script, date_str],  # 8桁YYYYMMDD
                 f'STEP 3: D指標新聞  {date_str}'
             )
 
