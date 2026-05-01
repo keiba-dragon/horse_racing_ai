@@ -67,51 +67,56 @@ TASKS = [
 ]
 
 
-def schtasks(*args) -> tuple[int, str]:
-    cmd = ['schtasks'] + list(args)
-    print(f"  $ {' '.join(cmd)}")
-    r = subprocess.run(cmd, capture_output=True, text=True, encoding='cp932', errors='replace')
-    out = r.stdout.strip()
+DAY_MAP = {'MON': 'Monday', 'TUE': 'Tuesday', 'WED': 'Wednesday',
+           'THU': 'Thursday', 'FRI': 'Friday', 'SAT': 'Saturday', 'SUN': 'Sunday'}
+
+
+def ps_run(script: str) -> tuple[int, str]:
+    r = subprocess.run(
+        ['powershell', '-NoProfile', '-NonInteractive', '-Command', script],
+        capture_output=True, text=True, encoding='utf-8', errors='replace',
+        cwd=BASE_DIR
+    )
+    out = (r.stdout + r.stderr).strip()
     if out:
-        print(f"    {out}")
-    if r.returncode != 0 and r.stderr.strip():
-        print(f"    [ERR] {r.stderr.strip()}", file=sys.stderr)
-    return r.returncode, out
-
-
-def build_tr(task_args: str, task_name: str) -> str:
-    """/tr パラメータ: cmd /c "python auto_pipeline.py ARGS >> log 2>&1" """
-    os.makedirs(LOG_DIR, exist_ok=True)
-    log_path = os.path.join(LOG_DIR, f'{task_name}.log')
-    inner = f'"{PYTHON}" "{SCRIPT}" {task_args}'
-    return f'cmd /c "{inner} >> "{log_path}" 2>&1"'
+        for line in out.splitlines():
+            print(f"    {line}")
+    return r.returncode, r.stdout.strip()
 
 
 def register():
     print("=== タスクスケジューラ 登録 ===\n")
+    os.makedirs(LOG_DIR, exist_ok=True)
+
     for t in TASKS:
-        tr = build_tr(t['args'], t['name'])
+        log_path  = os.path.join(LOG_DIR, f'{t["name"]}.log').replace('\\', '\\\\')
+        py_path   = PYTHON.replace('\\', '\\\\')
+        scr_path  = SCRIPT.replace('\\', '\\\\')
+        base_path = BASE_DIR.replace('\\', '\\\\')
+        day_full  = DAY_MAP[t['day']]
+
+        # PowerShell Register-ScheduledTask（管理者不要）
+        ps = f"""
+$a = New-ScheduledTaskAction `
+    -Execute '{py_path}' `
+    -Argument '"{scr_path}" {t["args"]}' `
+    -WorkingDirectory '{base_path}'
+$t = New-ScheduledTaskTrigger -Weekly -DaysOfWeek {day_full} -At '{t["time"]}'
+$s = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 4) -StartWhenAvailable
+Register-ScheduledTask -TaskName '{t["name"]}' -Description '{t["desc"]}' `
+    -Action $a -Trigger $t -Settings $s -Force | Out-Null
+Write-Output "OK: {t['name']}"
+"""
         print(f"登録: {t['name']}  ({t['day']} {t['time']})")
-        rc, _ = schtasks(
-            '/create', '/f',
-            '/tn', t['name'],
-            '/tr', tr,
-            '/sc', 'WEEKLY',
-            '/d', t['day'],
-            '/st', t['time'],
-            '/rl', 'HIGHEST',
-        )
-        if rc == 0:
-            print(f"  ✓ 登録完了\n")
-        else:
-            print(f"  ✗ 登録失敗\n")
+        rc, out = ps_run(ps)
+        print(f"  {'✓ 登録完了' if rc == 0 else '✗ 登録失敗'}\n")
 
 
 def delete():
     print("=== タスクスケジューラ 削除 ===\n")
     for t in TASKS:
         print(f"削除: {t['name']}")
-        schtasks('/delete', '/f', '/tn', t['name'])
+        ps_run(f"Unregister-ScheduledTask -TaskName '{t['name']}' -Confirm:$false -ErrorAction SilentlyContinue")
         print()
 
 
@@ -119,8 +124,12 @@ def status():
     print("=== タスクスケジューラ 確認 ===\n")
     for t in TASKS:
         print(f"── {t['name']} ──")
-        rc, out = schtasks('/query', '/tn', t['name'], '/fo', 'LIST')
-        if rc != 0:
+        rc, out = ps_run(
+            f"Get-ScheduledTask -TaskName '{t['name']}' -ErrorAction SilentlyContinue "
+            f"| Select-Object TaskName,State,@{{n='NextRun';e={{($_ | Get-ScheduledTaskInfo).NextRunTime}}}} "
+            f"| Format-List"
+        )
+        if not out.strip():
             print("  (未登録)")
         print()
 

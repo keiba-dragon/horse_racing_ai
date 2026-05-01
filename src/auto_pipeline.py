@@ -224,14 +224,28 @@ def main():
 
     os.makedirs(LOG_DIR, exist_ok=True)
 
-    if mode == 'predict':
-        run_predict(target_dates)
-    elif mode == 'watch':
-        today = datetime.now().strftime('%Y%m%d')
-        today_dates = [d for d in target_dates if d == today]
-        if not today_dates:
-            today_dates = [today]
-        run_watch(today_dates, args.interval, args.until, once=args.once)
+    # ログをファイルにも出力（Task Scheduler 実行時の記録）
+    log_path = os.path.join(LOG_DIR, f'{mode}_{datetime.now().strftime("%Y%m%d_%H%M")}.log')
+    log_fh = open(log_path, 'w', encoding='utf-8')
+    _orig_write = sys.stdout.write
+    def _tee(s):
+        _orig_write(s)
+        log_fh.write(s)
+        log_fh.flush()
+    sys.stdout.write = _tee
+
+    try:
+        if mode == 'predict':
+            run_predict(target_dates)
+        elif mode == 'watch':
+            today = datetime.now().strftime('%Y%m%d')
+            today_dates = [d for d in target_dates if d == today]
+            if not today_dates:
+                today_dates = [today]
+            run_watch(today_dates, args.interval, args.until, once=args.once)
+    finally:
+        sys.stdout.write = _orig_write
+        log_fh.close()
 
 
 if __name__ == '__main__':
