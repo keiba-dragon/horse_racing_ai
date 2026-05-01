@@ -45,6 +45,17 @@ target_date = cache.get('target_date', '?')
 res = cache['result']
 print(f"読み込み: {target_date}  ({os.path.basename(pkl_path)})")
 
+# card_df からレース別カード頭数を取得 (NON率計算用)
+import re as _re
+_card_df = cache.get('card_df')
+card_count_map = {}  # "venue_R" → カード頭数
+if _card_df is not None and '場 R' in _card_df.columns:
+    for _bar, _grp in _card_df.groupby('場 R'):
+        _m = _re.match(r'^([^\d]+)(\d+)$', str(_bar).strip())
+        if _m:
+            _v, _r = _m.group(1), float(_m.group(2))
+            card_count_map[f'{_v}_{_r}'] = len(_grp)
+
 # ── D指標計算 ──
 def gs(col):
     return pd.to_numeric(
@@ -206,7 +217,14 @@ for rk in df['race_key'].unique():
 # ── HTML構築 ──
 now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
 total_races = df['race_key'].nunique()
-venues_str = '・'.join(venues) + f' 計{total_races}レース'
+total_pred  = len(df)
+total_card  = sum(card_count_map.values()) if card_count_map else total_pred
+non_total   = max(0, total_card - total_pred)
+non_pct_all = non_total / total_card * 100 if total_card > 0 else 0
+non_str     = (f'　／　<span style="color:#f39c12">NON {non_total}頭 ({non_pct_all:.1f}%)</span>'
+               if non_total > 0 else
+               f'　／　<span style="color:#2ecc71">NON 0頭</span>')
+venues_str = '・'.join(venues) + f' 計{total_races}レース　{total_pred}頭予測{non_str}'
 
 # トップナビ
 nav_links = ''
@@ -307,12 +325,25 @@ for v in venues:
         fl  = fuku_level(d1)
         gap_s = f"{gap:.1f}x" if pd.notna(gap) else '-'
 
+        # NON率計算
+        n_pred = len(sub)
+        n_card = card_count_map.get(rk, n_pred)
+        non_count = max(0, n_card - n_pred)
+        if non_count > 0:
+            non_pct = non_count / n_card * 100
+            non_badge = (f'<span style="background:#5a3800;color:#f39c12;font-size:10px;'
+                         f'padding:2px 7px;border-radius:8px;margin-left:4px">'
+                         f'NON {non_count}頭 ({non_pct:.0f}%)</span>')
+        else:
+            non_badge = ''
+
         # ヘッダーバッジ
         badges = ''
         if gl == 2: badges += '<span class="badge-geki-s">◆◆超激熱</span>'
         elif gl==1: badges += '<span class="badge-geki">◆激熱</span>'
         if tl >= 1: badges += f'<span class="badge-tan">{TAN_LABEL[tl]}</span>'
         if fl >= 1: badges += f'<span class="badge-fuku">{FUKU_LABEL[fl]}</span>'
+        badges += non_badge
 
         # カードヘッダー背景
         hdr_bg = 'linear-gradient(90deg,#3d0000,#1a2035)' if gl>=1 else 'linear-gradient(90deg,#1f2937,#1a2035)'
