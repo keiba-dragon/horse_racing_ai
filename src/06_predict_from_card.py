@@ -1,5 +1,6 @@
 import sys
 import io
+from datetime import datetime
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
@@ -63,8 +64,19 @@ def convert_card_to_base_format(card_path):
             except Exception:
                 return np.nan
         df['日付'] = df['日付S'].apply(parse_date_s)
-    else:
+    elif '日付' in df.columns:
         df['日付'] = pd.to_numeric(df['日付'], errors='coerce')
+    else:
+        # 日付列なし → ファイル名から推定 (例: 出馬表形式5月2日.csv → 260502)
+        import re as _re
+        _bn = os.path.basename(card_path)
+        _dm = _re.search(r'(\d{1,2})月(\d{1,2})日', _bn)
+        if _dm:
+            _m, _d = int(_dm.group(1)), int(_dm.group(2))
+            _y = datetime.now().year - 2000
+            df['日付'] = _y * 10000 + _m * 100 + _d
+        else:
+            df['日付'] = np.nan
 
     # ── 開催コード生成: 場 R (京3) → 開催='1京1', Ｒ=3 ─────────────
     if '場 R' in df.columns and '開催' not in df.columns:
