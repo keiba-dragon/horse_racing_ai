@@ -66,7 +66,7 @@ def convert_card_to_base_format(card_path):
     else:
         df['日付'] = pd.to_numeric(df['日付'], errors='coerce')
 
-    # ── 開催コード生成: 場 R (中1) → 1中1 ─────────────
+    # ── 開催コード生成: 場 R (京3) → 開催='1京1', Ｒ=3 ─────────────
     if '場 R' in df.columns and '開催' not in df.columns:
         def make_kaikai(bar):
             s = str(bar).strip()
@@ -74,6 +74,11 @@ def convert_card_to_base_format(card_path):
             vc = m.group(1) if m else s
             return f'1{vc}1'
         df['開催'] = df['場 R'].apply(make_kaikai)
+    if '場 R' in df.columns and 'Ｒ' not in df.columns:
+        def extract_r_from_bar(bar):
+            m = re.search(r'(\d+)$', str(bar).strip())
+            return int(m.group(1)) if m else np.nan
+        df['Ｒ'] = df['場 R'].apply(extract_r_from_bar)
 
     # ── 列名マッピング ─────────────────────────────────
     col_map = {
