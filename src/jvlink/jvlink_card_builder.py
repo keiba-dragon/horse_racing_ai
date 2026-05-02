@@ -77,7 +77,7 @@ def fetch_upcoming_races(from_date_str, to_date_str=None):
 
     buf = " " * 110000
     ra_data = {}     # (kaisai_date, venue_cd, race_no) → (dist, track_code)
-    se_upcoming = defaultdict(list)  # (kaisai_date, venue_cd, race_no) → [horse_name, ...]
+    se_upcoming = defaultdict(list)  # (kaisai_date, venue_cd, race_no) → [(horse_name, umaban), ...]
 
     n_ra = n_se_up = n_se_done = 0
 
@@ -122,11 +122,13 @@ def fetch_upcoming_races(from_date_str, to_date_str=None):
         elif rt == "SE":
             chakujun = data[212:214].strip() if len(data) > 214 else '??'
             uma = data[40:58].strip() if len(data) > 58 else ''
+            umaban_raw = data[27:29].strip() if len(data) > 29 else ''
+            umaban = int(umaban_raw) if umaban_raw.isdigit() and int(umaban_raw) > 0 else None
             if not uma:
                 continue
             if chakujun == '00':
                 # 未確定 → 出馬表エントリー
-                se_upcoming[key].append(uma)
+                se_upcoming[key].append((uma, umaban))
                 n_se_up += 1
             else:
                 n_se_done += 1
@@ -156,11 +158,12 @@ def build_card_df(ra_data, se_upcoming, exclude_shoegai=True):
         date_s = kaisai_to_date_s(kd)
         ba_r = f"{jyo}{int(rn)}"
 
-        for horse in horses:
+        for horse, umaban in horses:
             rows.append({
                 '日付S':   date_s,
                 '場 R':   ba_r,
                 '馬名S':  horse,
+                '馬番':    umaban,
                 '芝ダ':   surface,
                 '距離':   int(dist),
                 '単オッズ': np.nan,

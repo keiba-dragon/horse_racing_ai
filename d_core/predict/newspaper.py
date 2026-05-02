@@ -94,7 +94,12 @@ if _odds_json:
 venue  = pd.Series((res['会場'] if '会場' in res.columns else res['開催']).tolist())
 rnum   = pd.Series(res['Ｒ'].tolist())
 uma    = pd.Series(res['馬名S'].tolist())
-banum  = pd.Series(res['馬番'].tolist()) if '馬番' in res.columns else pd.Series(['-']*len(res))
+# 馬番はカードデータから取る（特徴量データの馬番は過去レースのものなので使わない）
+if _card_df is not None and '馬番' in _card_df.columns:
+    _banum_map = _card_df.set_index('馬名S')['馬番'].to_dict()
+    banum = uma.map(lambda x: _banum_map.get(x, '-'))
+else:
+    banum = pd.Series(['-'] * len(res))
 rname  = pd.Series(res['レース名'].tolist()) if 'レース名' in res.columns else pd.Series(['']*len(res))
 
 prod_r = (cur_r * sub_r).clip(lower=0.25)
