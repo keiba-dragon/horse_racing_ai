@@ -6,7 +6,7 @@ JV-Link 単勝オッズ取得 → odds.json 保存
   python src/jvlink/jvlink_odds_fetch.py --date 20260503
   python src/jvlink/jvlink_odds_fetch.py           # 今日の日付
 
-O1 レコード（リアルタイム単勝オッズ）を JVRTOpen で取得し、
+速報系単複枠オッズ（dataspec "0B31"）を JVRTOpen で取得し、
 SE レコード（枠順確定後）で馬番→馬名のマッピングを作成して
 data/raw/cache/YYYYMMDD.odds.json に保存する。
 
@@ -93,8 +93,11 @@ def fetch_umaban_map(target_date: str, from_date: str) -> dict:
 
 def fetch_o1_odds(uma_map: dict, target_date: str) -> dict:
     """
-    JVRTOpen("O1") でリアルタイム単勝オッズを取得し、
+    JVRTOpen("0B31") で速報系単複オッズを取得し、
     {horse_name: odds_float} を返す（馬名マッチできたもののみ）。
+
+    "0B31" は JVRTOpen 専用の速報系単複枠オッズ dataspec。
+    "O1" は JVOpen(蓄積系)用であり JVRTOpen には使えない（rc=-111）。
 
     O1 レコード固定長レイアウト（JVLink仕様書準拠, 1レコード=1頭分）:
       [0:2]   RecordSpec "O1"
@@ -112,9 +115,10 @@ def fetch_o1_odds(uma_map: dict, target_date: str) -> dict:
         print(f"[ERROR] JVInit失敗: {rc}", file=sys.stderr)
         return {}
 
-    rc = jv.JVRTOpen("O1", "")
+    # "0B31" = 速報系単複枠オッズ。key に日付を渡すことで当日分のみ取得。
+    rc = jv.JVRTOpen("0B31", target_date)
     if rc < 0:
-        print(f"[WARN] JVRTOpen(O1) rc={rc} (オッズ未配信 or レース日以外)", file=sys.stderr)
+        print(f"[WARN] JVRTOpen(0B31) rc={rc} (オッズ未配信 or レース日以外)", file=sys.stderr)
         jv.JVClose()
         return {}
 
@@ -139,11 +143,11 @@ def fetch_o1_odds(uma_map: dict, target_date: str) -> dict:
             continue
 
         # フィールド抽出
-        kd     = data[2:10]
-        jyo_cd = data[10:12]
-        race_no = data[14:16]
-        umaban  = data[16:18]
-        tansho  = data[18:23]
+        kd      = data[2:10].strip()
+        jyo_cd  = data[10:12].strip()
+        race_no = data[14:16].strip()
+        umaban  = data[16:18].strip()
+        tansho  = data[18:23].strip()
 
         if kd != target_date:
             continue
