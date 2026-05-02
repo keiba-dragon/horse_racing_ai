@@ -133,17 +133,17 @@ def race_mark(rank, dpct):
     return {1:'◎', 2:'○', 3:'▲', 4:'△', 5:'×'}.get(int(rank), '')
 
 def tan_level(row):
-    od, dpct, nq, dr = row['odds'], row['D_pct'], row['_n_qual'], row['D_rank']
-    if pd.notna(od) and od > 8 and dpct > 200 and nq == 1: return 3  # ◎ 唯一突出×高配当
-    if pd.notna(od) and od > 6 and dpct > 100:             return 2  # ○ 中突出×中配当
-    if pd.notna(od) and od > 5 and dr <= 3 and dpct > 30:  return 1  # ▲ 上位3頭×平均超え
+    od, dpct, dr = row['odds'], row['D_pct'], row['D_rank']
+    if pd.notna(od) and od > 8 and dpct > 200 and dr <= 1: return 3  # ◎ D1位×高配当×大突出
+    if pd.notna(od) and od > 7 and dpct > 100 and dr <= 1: return 2  # ○ D1位×中配当×突出
+    if pd.notna(od) and od > 6 and dpct > 30  and dr <= 1: return 1  # ▲ D1位×中配当×平均超
     return 0
 
 def fuku_level(row):
-    od, dpct, nq, dr = row['odds'], row['D_pct'], row['_n_qual'], row['D_rank']
-    if pd.notna(od) and od > 6 and dpct > 200 and nq == 1: return 3  # ◎
-    if pd.notna(od) and od > 5 and dpct > 100:             return 2  # ○
-    if pd.notna(od) and od > 4 and dr <= 3 and dpct > 30:  return 1  # ▲
+    od, dpct, dr = row['odds'], row['D_pct'], row['D_rank']
+    if pd.notna(od) and od > 8 and dpct > 200 and dr <= 1: return 3  # ◎
+    if pd.notna(od) and od > 7 and dpct > 100 and dr <= 1: return 2  # ○
+    if pd.notna(od) and od > 6 and dpct > 30  and dr <= 1: return 1  # ▲
     return 0
 
 TAN_LABEL  = {3:'◎単', 2:'○単', 1:'▲単', 0:''}
@@ -153,19 +153,21 @@ FUKU_COLOR = {3:'#2471a3', 2:'#1a9ed4', 1:'#5dade2'}
 
 # オッズ未反映時の候補印（D_pct条件のみ）
 def tan_level_cand(row):
-    dpct, nq, dr = row['D_pct'], row['_n_qual'], row['D_rank']
-    if dpct > 200 and nq == 1: return 3  # ◎候
-    if dpct > 100 and dr <= 3: return 2  # ○候
+    dpct, dr = row['D_pct'], row['D_rank']
+    if dpct > 200 and dr <= 1: return 3  # ◎候
+    if dpct > 100 and dr <= 1: return 2  # ○候
+    if dpct > 30  and dr <= 1: return 1  # ▲候
     return 0
 
 def fuku_level_cand(row):
-    dpct, nq, dr = row['D_pct'], row['_n_qual'], row['D_rank']
-    if dpct > 200 and nq == 1: return 3  # ◎候
-    if dpct > 100 and dr <= 3: return 2  # ○候
+    dpct, dr = row['D_pct'], row['D_rank']
+    if dpct > 200 and dr <= 1: return 3  # ◎候
+    if dpct > 100 and dr <= 1: return 2  # ○候
+    if dpct > 30  and dr <= 1: return 1  # ▲候
     return 0
 
-TAN_LABEL_CAND  = {3:'◎単候', 2:'○単候', 0:''}
-FUKU_LABEL_CAND = {3:'◎複候', 2:'○複候', 0:''}
+TAN_LABEL_CAND  = {3:'◎単候', 2:'○単候', 1:'▲単候', 0:''}
+FUKU_LABEL_CAND = {3:'◎複候', 2:'○複候', 1:'▲複候', 0:''}
 
 CSS = """
 *{box-sizing:border-box;margin:0;padding:0}
@@ -298,14 +300,14 @@ def fuku_rows():
 
 summary_html = f'''
 <div class="summary-box">
-  <div class="summary-title">単勝まとめ　◎単(OD&gt;8+1頭抜け +494%) / ○単(OD&gt;6+D突出 +131%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
+  <div class="summary-title">単勝まとめ　◎単(OD&gt;8+D1位+D_pct&gt;200% 2025+12.5%) / ○単(OD&gt;7+D1位+D_pct&gt;100%) / ▲単(OD&gt;6+D1位+D_pct&gt;30%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
   <table class="picks-table">
     <thead><tr><th>印</th><th>会場</th><th>R</th><th>馬名</th><th>オッズ</th><th>gap</th></tr></thead>
     <tbody>{tan_rows()}</tbody>
   </table>
 </div>
 <div class="summary-fuku">
-  <div class="summary-title">複勝まとめ　◎複(OD&gt;6+1頭抜け +344%) / ○複(OD&gt;5+D突出 +95%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
+  <div class="summary-title">複勝まとめ　◎複(OD&gt;8+D1位+D_pct&gt;200%) / ○複(OD&gt;7+D1位+D_pct&gt;100%) / ▲複(OD&gt;6+D1位+D_pct&gt;30%){"　<span style='color:#f39c12;font-size:12px'>※オッズ未反映</span>" if not odds_confirmed else ""}</div>
   <table class="picks-table">
     <thead><tr><th>印</th><th>会場</th><th>R</th><th>馬名</th><th>オッズ</th><th>gap</th></tr></thead>
     <tbody>{fuku_rows()}</tbody>
@@ -448,8 +450,8 @@ legend = '''
 <div style="margin:14px;padding:12px 16px;background:#161b22;border-radius:8px;border:1px solid #30363d;font-size:11px;color:#8b949e;line-height:1.8">
   <b style="color:#e6edf3">印の見方</b><br>
   レース内印: <span style="color:#e74c3c">◎</span>D1位  <span style="color:#2ecc71">○</span>D2位  <span style="color:#9b59b6">▲</span>D3位  <span style="color:#3498db">△</span>D4位  <span style="color:#7f8c8d">×</span>D5位  消し(D_pct&lt;-90%)  消候(D_pct -90〜-70%)<br>
-  単複印(全馬対象): <span style="color:#e74c3c">◎単</span>(OD&gt;8+D_pct&gt;200%+1頭抜け ROI+494%)  <span style="color:#e67e22">○単</span>(OD&gt;6+D_pct&gt;100% +131%)  <span style="color:#f39c12">▲単</span>(OD&gt;5+D上位3頭+D_pct&gt;30% +21%)<br>
-  <span style="color:#2471a3">◎複</span>(OD&gt;6+D_pct&gt;200%+1頭抜け +344%)  <span style="color:#1a9ed4">○複</span>(OD&gt;5+D_pct&gt;100% +95%)  <span style="color:#5dade2">▲複</span>(OD&gt;4+D上位3頭 +13%)<br>
+  単複印(D1位限定): <span style="color:#e74c3c">◎単</span>(OD&gt;8+D1位+D_pct&gt;200% 2025+12.5%/2026+84%)  <span style="color:#e67e22">○単</span>(OD&gt;7+D1位+D_pct&gt;100%)  <span style="color:#f39c12">▲単</span>(OD&gt;6+D1位+D_pct&gt;30%)<br>
+  <span style="color:#2471a3">◎複</span>(OD&gt;8+D1位+D_pct&gt;200%)  <span style="color:#1a9ed4">○複</span>(OD&gt;7+D1位+D_pct&gt;100%)  <span style="color:#5dade2">▲複</span>(OD&gt;6+D1位+D_pct&gt;30%)<br>
   gap: レース内D1位÷D2位の比率（参考表示）
 </div>
 '''
