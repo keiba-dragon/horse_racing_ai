@@ -67,8 +67,11 @@ def fetch_upcoming_races(from_date_str, to_date_str=None):
         print("JVInit失敗。ターゲットFrontierが起動しているか確認してください。")
         sys.exit(1)
 
-    from_dt = from_date_str + "000000"
-    rc, readcnt, dldcnt, lts = jv.JVOpen("RACE", from_dt, 1, 0, 0, "")
+    # レースデータはレース日より前にJVLinkへアップロードされるため、
+    # 7日前から取得してレース日フィルタで絞る
+    fetch_from = (datetime.strptime(from_date_str, '%Y%m%d') - timedelta(days=7)).strftime('%Y%m%d')
+    from_dt = fetch_from + "000000"
+    rc, readcnt, dldcnt, lts = jv.JVOpen("RACE", from_dt, 3, 0, 0, "")
     print(f"JVOpen rc={rc} readcnt={readcnt}")
     if rc not in (0, 1):
         print(f"JVOpenエラー rc={rc}")
@@ -122,7 +125,7 @@ def fetch_upcoming_races(from_date_str, to_date_str=None):
         elif rt == "SE":
             chakujun = data[212:214].strip() if len(data) > 214 else '??'
             uma = data[40:58].strip() if len(data) > 58 else ''
-            umaban_raw = data[27:29].strip() if len(data) > 29 else ''
+            umaban_raw = data[28:30].strip() if len(data) > 30 else ''
             umaban = int(umaban_raw) if umaban_raw.isdigit() and int(umaban_raw) > 0 else None
             if not uma:
                 continue
