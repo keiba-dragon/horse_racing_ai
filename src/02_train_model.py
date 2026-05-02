@@ -30,8 +30,11 @@ def train_one(X_train, y_train, X_test, y_test):
     )
     return model
 
+TRAIN_START = 240101  # 2024/1/1以降のみ学習に使用（2023をOOSとして評価）
+
 def main():
     print("--- 競馬AI モデル学習処理を開始します（会場×コース別 / 単勝・複勝2モデル）---")
+    print(f"学習データ: {TRAIN_START}以降のみ使用（2023はOOS検証用）\n")
 
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) if 'src' in os.path.abspath(__file__) else '.'
     input_file = os.path.join(base_dir, 'data', 'processed', 'all_venues_features.csv')
@@ -145,7 +148,9 @@ def main():
     results = []
 
     for i, key in enumerate(target_groups, 1):
-        df_g = df[df['model_key'] == key].sort_values('日付_num').reset_index(drop=True)
+        df_g_all = df[df['model_key'] == key].sort_values('日付_num').reset_index(drop=True)
+        # 2024以降のみを学習プールとする（2023はOOS）
+        df_g = df_g_all[df_g_all['日付_num'] >= TRAIN_START].reset_index(drop=True)
         n    = len(df_g)
 
         split     = int(n * 0.8)
@@ -173,7 +178,7 @@ def main():
         with open(os.path.join(model_dir, fn_plc), 'wb') as f:
             pickle.dump(m_plc, f)
 
-        # コース偏差値の基準となる統計（学習データ全体での分布）を保存
+        # コース偏差値の基準統計（学習プール全体の分布）
         prob_win_all   = m_win.predict_proba(df_g[features])[:, 1]
         prob_place_all = m_plc.predict_proba(df_g[features])[:, 1]
         course_stats = {
@@ -188,7 +193,8 @@ def main():
             '会場_コース': key, 'サンプル数': n,
             '単勝正解率': f'{acc_win:.1%}', '複勝正解率': f'{acc_plc:.1%}'
         })
-        print(f"[{i:3d}/{len(target_groups)}] {key:12s} {n:6,}件  単勝:{acc_win:.1%}  複勝:{acc_plc:.1%}")
+        n_all = len(df_g_all)
+        print(f"[{i:3d}/{len(target_groups)}] {key:12s} 全{n_all:5,}件→学習{n:5,}件  単勝:{acc_win:.1%}  複勝:{acc_plc:.1%}")
 
     # 6. モデル情報を保存
     model_info = {
