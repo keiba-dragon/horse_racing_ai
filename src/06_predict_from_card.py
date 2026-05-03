@@ -21,6 +21,29 @@ def extract_venue(kaikai):
     m = re.search(r'\d+([^\d]+)', str(kaikai))
     return m.group(1) if m else str(kaikai)
 
+def add_pace_features(sub):
+    """レース内全馬を使って展開予想特徴量をリアルタイム計算"""
+    if '近5走_平均4角位置' not in sub.columns:
+        return sub
+    pos = pd.to_numeric(sub['近5走_平均4角位置'], errors='coerce')
+    n   = max(len(sub), 1)
+
+    sub = sub.copy()
+    sub['推定_脚質率']      = (pos / n).clip(0, 1)
+    sub['レース内_逃げ馬数'] = float((pos <= 2).sum())
+    sub['レース内_先行馬数'] = float((pos <= 5).sum())
+    sub['レース内_平均脚質'] = float(pos.mean()) if pos.notna().any() else np.nan
+    sub['レース内_脚質std']  = float(pos.std())  if pos.notna().sum() > 1 else 0.0
+    sub['推定ペース']        = sub['レース内_先行馬数'] / n
+    optimal = 1 - sub['推定ペース']
+    sub['展開フィット_v2']   = 1 - (sub['推定_脚質率'] - optimal).abs()
+    sub['レース内_相対脚質'] = sub['レース内_平均脚質'] - pos
+    if 'コース_先行有利度' in sub.columns:
+        course_pace = pd.to_numeric(sub['コース_先行有利度'], errors='coerce') / n
+        sub['コース展開マッチ']        = 1 - (sub['推定ペース'] - course_pace).abs()
+        sub['展開_コース_脚質フィット'] = sub['展開フィット_v2'] * sub['コース展開マッチ']
+    return sub
+
 def get_distance_band(dist):
     m = re.search(r'\d+', str(dist))
     if not m:
@@ -198,7 +221,7 @@ def predict_date(base_dir, target_date_num, card_df=None):
     import time as _time
 
     # ── サブモデル情報を読み込む ──────────────────────────
-    sub_info_path = os.path.join(base_dir, 'models_2025', 'submodel', 'submodel_info.json')
+    sub_info_path = os.path.join(base_dir, 'models', 'submodel', 'submodel_info.json')
     sub_features  = None
     sub_models    = {}
     sub_rankers   = {}
@@ -207,13 +230,13 @@ def predict_date(base_dir, target_date_num, card_df=None):
             sub_info = json.load(f)
         sub_features = sub_info['features']
         sub_models   = sub_info['models']
-        rinfo_sub_path = os.path.join(base_dir, 'models_2025', 'submodel_ranker', 'class_ranker_info.json')
+        rinfo_sub_path = os.path.join(base_dir, 'models', 'sub_ranker', 'sub_ranker_info.json')
         if os.path.exists(rinfo_sub_path):
             with open(rinfo_sub_path, 'r', encoding='utf-8') as f:
                 sub_rankers = json.load(f).get('rankers', {})
 
     # ── 現行モデル情報を読み込む ──────────────────────────
-    cur_info_path = os.path.join(base_dir, 'models_2025', 'model_info.json')
+    cur_info_path = os.path.join(base_dir, 'models', 'model_info.json')
     cur_features  = None
     cur_models    = {}
     cur_rankers   = {}
@@ -222,7 +245,7 @@ def predict_date(base_dir, target_date_num, card_df=None):
             cur_info = json.load(f)
         cur_features = cur_info['features']
         cur_models   = cur_info['models']
-        rinfo_path   = os.path.join(base_dir, 'models_2025', 'ranker', 'ranker_info.json')
+        rinfo_path   = os.path.join(base_dir, 'models', 'ranker', 'ranker_info.json')
         if os.path.exists(rinfo_path):
             with open(rinfo_path, 'r', encoding='utf-8') as f:
                 cur_rankers = json.load(f).get('rankers', {})
@@ -412,26 +435,26 @@ def predict_date(base_dir, target_date_num, card_df=None):
     cur_ranker_cache = {}
     for sk in day['sub_key'].dropna().unique():
         if sk in sub_models:
-            win_path = os.path.join(base_dir, 'models_2025', 'submodel', sub_models[sk]['win'])
+            win_path = os.path.join(base_dir, 'models', 'submodel', sub_models[sk]['win'])
             if os.path.exists(win_path):
                 with open(win_path, 'rb') as f:
                     m = pickle.load(f)
                 model_cache[sk] = (m, m.booster_.feature_name())
         if sk in sub_rankers:
-            rpath = os.path.join(base_dir, 'models_2025', 'submodel_ranker', sub_rankers[sk])
+            rpath = os.path.join(base_dir, 'models', 'sub_ranker', sub_rankers[sk])
             if os.path.exists(rpath):
                 with open(rpath, 'rb') as f:
                     ranker_cache[sk] = pickle.load(f)
     if cur_features:
         for ck in day['cur_key'].dropna().unique():
             if ck in cur_models:
-                win_path = os.path.join(base_dir, 'models_2025', cur_models[ck]['win'])
+                win_path = os.path.join(base_dir, 'models', cur_models[ck]['win'])
                 if os.path.exists(win_path):
                     with open(win_path, 'rb') as f:
                         m = pickle.load(f)
                     cur_model_cache[ck] = (m, m.booster_.feature_name())
             if ck in cur_rankers:
-                rpath = os.path.join(base_dir, 'models_2025', 'ranker', cur_rankers[ck])
+                rpath = os.path.join(base_dir, 'models', 'ranker', cur_rankers[ck])
                 if os.path.exists(rpath):
                     with open(rpath, 'rb') as f:
                         cur_ranker_cache[ck] = pickle.load(f)
@@ -456,6 +479,9 @@ def predict_date(base_dir, target_date_num, card_df=None):
         sub       = day.loc[idx].copy()
         sub_key   = sub['sub_key'].iloc[0]
         cur_key   = sub['cur_key'].iloc[0]
+
+        # ── 展開予想特徴量（レース内集計） ──
+        sub = add_pace_features(sub)
 
         # ── サブモデル予測 ──
         sub['sub_prob_win']       = np.nan
@@ -544,7 +570,7 @@ def generate_html(result, card_df, target_date_num, out_path):
     # ROI統計JSON読み込み
     _roi_stats_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        'models_2025', 'roi_stats.json')
+        'models', 'roi_stats.json')
     _roi_stats = {}
     if os.path.exists(_roi_stats_path):
         with open(_roi_stats_path, encoding='utf-8') as _f:

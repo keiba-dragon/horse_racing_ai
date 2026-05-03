@@ -30,11 +30,12 @@ def train_one(X_train, y_train, X_test, y_test):
     )
     return model
 
-TRAIN_START = 240101  # 2024/1/1以降のみ学習に使用（2023をOOSとして評価）
+TRAIN_START = 130105  # 学習開始: 2013/1/5 (master_kihon.csv の先頭)
+TRAIN_END   = 201231  # 学習終了: 2020/12/31 → 2021以降は真のOOSテスト
 
 def main():
     print("--- 競馬AI モデル学習処理を開始します（会場×コース別 / 単勝・複勝2モデル）---")
-    print(f"学習データ: {TRAIN_START}以降のみ使用（2023はOOS検証用）\n")
+    print(f"学習データ: {TRAIN_START}–{TRAIN_END}  (2021+はOOSホールドアウト)\n")
 
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) if 'src' in os.path.abspath(__file__) else '.'
     input_file = os.path.join(base_dir, 'data', 'processed', 'all_venues_features.csv')
@@ -117,7 +118,8 @@ def main():
         + [f'{n}走前_距離'    for n in range(1, 11)]
         + [f'{n}走前_開催'    for n in range(1, 11)]
         + [f'{n}走前_馬場状態' for n in range(1, 11)]
-        + ['前走走破タイム_sec', '前走_4角位置']
+        + ['前走走破タイム_sec']
+        # 前走_4角位置 は脚質指標なので除外しない
     )
     zero_importance_cols = string_raw_cols + course_id_cols
     exclude_cols = set(in_race_cols + current_race_result_cols + odds_cols + meta_cols + zero_importance_cols)
@@ -149,8 +151,11 @@ def main():
 
     for i, key in enumerate(target_groups, 1):
         df_g_all = df[df['model_key'] == key].sort_values('日付_num').reset_index(drop=True)
-        # 2024以降のみを学習プールとする（2023はOOS）
-        df_g = df_g_all[df_g_all['日付_num'] >= TRAIN_START].reset_index(drop=True)
+        # 2013–2020 のみを学習プールとする（2021+はOOS）
+        df_g = df_g_all[
+            (df_g_all['日付_num'] >= TRAIN_START) &
+            (df_g_all['日付_num'] <= TRAIN_END)
+        ].reset_index(drop=True)
         n    = len(df_g)
 
         split     = int(n * 0.8)
@@ -194,7 +199,8 @@ def main():
             '単勝正解率': f'{acc_win:.1%}', '複勝正解率': f'{acc_plc:.1%}'
         })
         n_all = len(df_g_all)
-        print(f"[{i:3d}/{len(target_groups)}] {key:12s} 全{n_all:5,}件→学習{n:5,}件  単勝:{acc_win:.1%}  複勝:{acc_plc:.1%}")
+        n_oos = len(df_g_all[df_g_all['日付_num'] > TRAIN_END])
+        print(f"[{i:3d}/{len(target_groups)}] {key:12s} 全{n_all:5,}件→学習{n:5,}件(OOS:{n_oos})  単勝:{acc_win:.1%}  複勝:{acc_plc:.1%}")
 
     # 6. モデル情報を保存
     model_info = {

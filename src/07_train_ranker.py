@@ -16,11 +16,12 @@ def extract_venue(kaikai):
     m = re.search(r'\d+([^\d]+)', str(kaikai))
     return m.group(1) if m else str(kaikai)
 
-TRAIN_START = 240101  # 2024/1/1以降のみ学習に使用（2023をOOSとして評価）
+TRAIN_START = 130105  # 学習開始: 2013/1/5
+TRAIN_END   = 201231  # 学習終了: 2020/12/31 → 2021以降は真のOOSテスト
 
 def main():
     print("--- 競馬AI ランキングモデル学習（LGBMRanker / 会場×コース別）---")
-    print(f"学習データ: {TRAIN_START}以降のみ使用（2023はOOS検証用）")
+    print(f"学習データ: {TRAIN_START}–{TRAIN_END}  (2021+はOOSホールドアウト)")
 
     base_dir   = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) if 'src' in os.path.abspath(__file__) else '.'
     input_file = os.path.join(base_dir, 'data', 'processed', 'all_venues_features.csv')
@@ -70,8 +71,11 @@ def main():
 
     for i, key in enumerate(target_groups, 1):
         df_g_all = df[df['model_key'] == key].sort_values('日付_num').reset_index(drop=True)
-        # 2024以降のみを学習プールとする（2023はOOS）
-        df_g = df_g_all[df_g_all['日付_num'] >= TRAIN_START].reset_index(drop=True)
+        # 2013–2020のみを学習プールとする（2021+はOOS）
+        df_g = df_g_all[
+            (df_g_all['日付_num'] >= TRAIN_START) &
+            (df_g_all['日付_num'] <= TRAIN_END)
+        ].reset_index(drop=True)
         n = len(df_g)
         split = int(n * 0.8)
 

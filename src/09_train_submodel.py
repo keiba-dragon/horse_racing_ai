@@ -72,12 +72,13 @@ def train_one(X_train, y_train, X_test, y_test):
     )
     return model
 
-TRAIN_START = 240101  # 2024/1/1以降のみ学習に使用（2023をOOSとして評価）
+TRAIN_START = 130105  # 学習開始: 2013/1/5
+TRAIN_END   = 201231  # 学習終了: 2020/12/31 → 2021以降は真のOOSテスト
 
 def main():
     print("--- サブモデル学習: 芝ダ × 距離帯 × クラスグループ ---")
     print("（現行 models/ は変更しません → models/submodel/ に保存）")
-    print(f"学習データ: {TRAIN_START}以降のみ使用（2023はOOS検証用）\n")
+    print(f"学習データ: {TRAIN_START}–{TRAIN_END}  (2021+はOOSホールドアウト)\n")
 
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) if 'src' in os.path.abspath(__file__) else '.'
     input_file  = os.path.join(base_dir, 'data', 'processed', 'all_venues_features.csv')
@@ -226,8 +227,11 @@ def main():
 
     for i, key in enumerate(sorted(target_groups), 1):
         df_g_all = df[df['model_key'] == key].sort_values('日付_num').reset_index(drop=True)
-        # 2024以降のみを学習プールとする（2023はOOS）
-        df_g = df_g_all[df_g_all['日付_num'] >= TRAIN_START].reset_index(drop=True)
+        # 2013–2020のみを学習プールとする（2021+はOOS）
+        df_g = df_g_all[
+            (df_g_all['日付_num'] >= TRAIN_START) &
+            (df_g_all['日付_num'] <= TRAIN_END)
+        ].reset_index(drop=True)
         n    = len(df_g)
 
         split     = int(n * 0.8)
