@@ -1,0 +1,4918 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>clogit競馬新聞 2026.05.17</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+  font-size: 11px;
+  background: #f5f0e8;
+  color: #1a1a1a;
+}
+/* ── ヘッダー ── */
+.page-header {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 10px 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.page-title {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #f0d060;
+}
+.page-sub {
+  font-size: 12px;
+  color: #aaa;
+}
+.page-meta {
+  margin-left: auto;
+  font-size: 11px;
+  color: #ccc;
+}
+/* 凡例バー */
+.legend-bar {
+  background: #2d2d44;
+  color: #eee;
+  padding: 5px 16px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+.legend-bar span { white-space: nowrap; }
+.leg-mark { font-weight: bold; }
+/* ── 会場グリッド ── */
+.venue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 12px;
+  padding: 12px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.venue-col { display: flex; flex-direction: column; gap: 8px; }
+.venue-title {
+  background: #1a1a2e;
+  color: #f0d060;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px 4px 0 0;
+  letter-spacing: 4px;
+}
+/* ── レースカード ── */
+.race-card {
+  background: #fff;
+  border: 1px solid #c8b89a;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.race-header {
+  background: #3a3a5c;
+  color: #fff;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.race-label {
+  font-size: 15px;
+  font-weight: bold;
+  color: #f0d060;
+  min-width: 28px;
+}
+.course { font-size: 12px; color: #cce0ff; }
+.n-horses { font-size: 11px; color: #aaa; margin-left: auto; }
+.badge-ev {
+  background: #e8a000;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+/* ── テーブル ── */
+.race-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.race-table th {
+  background: #eae4d8;
+  color: #555;
+  font-size: 10px;
+  padding: 3px 4px;
+  text-align: center;
+  border-bottom: 1px solid #c8b89a;
+}
+.race-table td {
+  padding: 3px 4px;
+  border-bottom: 1px solid #ede8df;
+  vertical-align: middle;
+}
+.race-table tr:last-child td { border-bottom: none; }
+/* 行ハイライト */
+.row-top { background: #fff8f0; }
+.row-ev  { background: #f0fff4; }
+.race-table tr:hover { background: #f5f0e8; }
+/* 各列 */
+.mark   { text-align: center; font-size: 14px; font-weight: bold; width: 22px; }
+.umaban { text-align: center; color: #666; width: 24px; }
+.horse  { font-weight: 500; max-width: 110px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.pop    { text-align: right; color: #555; width: 28px; }
+.odds   { text-align: right; font-weight: bold; color: #1a3a6e; width: 38px; }
+.score  { text-align: right; color: #555; width: 44px; font-size: 10px; }
+.ev-col { text-align: right; width: 60px; font-size: 10px; }
+/* EV バッジ */
+.ev-high { color: #fff; background: #cc0000; border-radius: 2px; padding: 0 3px; font-weight: bold; }
+.ev-mid  { color: #fff; background: #e08000; border-radius: 2px; padding: 0 3px; font-weight: bold; }
+.ev-low  { color: #006000; font-weight: bold; }
+.ev-neg  { color: #aaa; }
+/* フッター */
+.page-footer {
+  text-align: center;
+  padding: 12px;
+  color: #888;
+  font-size: 10px;
+  border-top: 1px solid #c8b89a;
+  margin-top: 8px;
+}
+@media (max-width: 700px) {
+  .venue-grid { grid-template-columns: 1fr; }
+  .horse { max-width: 80px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-title">clogit 競馬新聞</div>
+  <div class="page-sub">2026.05.17（日）</div>
+  <div class="page-meta">
+    京都・新潟・東京 &nbsp;|&nbsp;
+    34レース 456頭 &nbsp;|&nbsp;
+    OOS ROI -12.7%&nbsp;(EV>0.05: 76%)
+  </div>
+</div>
+
+<div class="legend-bar">
+  <span><span class="leg-mark" style="color:#f0d060">◎</span> 1位</span>
+  <span><span class="leg-mark" style="color:#88ccff">○</span> 2位</span>
+  <span><span class="leg-mark" style="color:#88ff88">▲</span> 3位</span>
+  <span><span class="leg-mark" style="color:#ffaa55">△</span> 4位</span>
+  <span><span class="leg-mark" style="color:#aaa">×</span> 5位</span>
+  <span style="margin-left:8px">|</span>
+  <span><span style="background:#cc0000;color:#fff;padding:0 4px;border-radius:2px">EV+0.10〜</span> 強推奨</span>
+  <span><span style="background:#e08000;color:#fff;padding:0 4px;border-radius:2px">EV+0.03〜</span> 推奨</span>
+  <span style="color:#aaa">人気・オッズは Yahoo競馬 取得</span>
+</div>
+
+<div class="venue-grid">
+
+    <div class="venue-col">
+      <div class="venue-title">京都</div>
+      
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">1R</span>
+      <span class="course">🏜️ダ1800m</span>
+      <span class="n-horses">14頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">11</td>
+          <td class="horse">ティアーズクィーン</td>
+          <td class="pop">7</td>
+          <td class="odds">24.1</td>
+          <td class="score">0.582</td>
+          <td class="ev-col"><span class="ev-high">EV+0.55</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">5</td>
+          <td class="horse">ボッチョ</td>
+          <td class="pop">9</td>
+          <td class="odds">69.5</td>
+          <td class="score">0.103</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">8</td>
+          <td class="horse">ルージュエピック</td>
+          <td class="pop">2</td>
+          <td class="odds">3.6</td>
+          <td class="score">0.063</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.16</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">3</td>
+          <td class="horse">マカロンブルー</td>
+          <td class="pop">1</td>
+          <td class="odds">3.6</td>
+          <td class="score">0.033</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.19</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">13</td>
+          <td class="horse">ノーブルクインダム</td>
+          <td class="pop">4</td>
+          <td class="odds">5.5</td>
+          <td class="score">0.025</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ルパピヨンブラン</td>
+          <td class="pop">5</td>
+          <td class="odds">11.4</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ミリオンアップ</td>
+          <td class="pop">6</td>
+          <td class="odds">15.0</td>
+          <td class="score">0.009</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">シエーナカラー</td>
+          <td class="pop">3</td>
+          <td class="odds">3.9</td>
+          <td class="score">0.009</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.20</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ファントムグレース</td>
+          <td class="pop">10</td>
+          <td class="odds">125.8</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">ワイルドカグラ</td>
+          <td class="pop">8</td>
+          <td class="odds">36.8</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">ペプチドプラタ</td>
+          <td class="pop">11</td>
+          <td class="odds">155.0</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">エルヴ</td>
+          <td class="pop">13</td>
+          <td class="odds">257.1</td>
+          <td class="score">0.003</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">クレスコフェーヴ</td>
+          <td class="pop">12</td>
+          <td class="odds">255.5</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">サンミスメロディ</td>
+          <td class="pop">14</td>
+          <td class="odds">271.4</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">2R</span>
+      <span class="course">🏜️ダ1400m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">9</td>
+          <td class="horse">サトノフレイ</td>
+          <td class="pop">2</td>
+          <td class="odds">3.3</td>
+          <td class="score">0.348</td>
+          <td class="ev-col"><span class="ev-high">EV+0.11</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">1</td>
+          <td class="horse">マクアケ</td>
+          <td class="pop">4</td>
+          <td class="odds">8.3</td>
+          <td class="score">0.227</td>
+          <td class="ev-col"><span class="ev-high">EV+0.13</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">10</td>
+          <td class="horse">モズプリフォール</td>
+          <td class="pop">1</td>
+          <td class="odds">2.5</td>
+          <td class="score">0.194</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.13</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">2</td>
+          <td class="horse">ジャカルタバオ</td>
+          <td class="pop">3</td>
+          <td class="odds">7.2</td>
+          <td class="score">0.078</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">13</td>
+          <td class="horse">サカキ</td>
+          <td class="pop">11</td>
+          <td class="odds">147.2</td>
+          <td class="score">0.033</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">プッシュフォワード</td>
+          <td class="pop">8</td>
+          <td class="odds">33.2</td>
+          <td class="score">0.028</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ラッキーヴォーグ</td>
+          <td class="pop">5</td>
+          <td class="odds">10.7</td>
+          <td class="score">0.024</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">ハクアイタワー</td>
+          <td class="pop">6</td>
+          <td class="odds">15.6</td>
+          <td class="score">0.021</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">ホープレイジング</td>
+          <td class="pop">16</td>
+          <td class="odds">347.8</td>
+          <td class="score">0.008</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">イコミキマル</td>
+          <td class="pop">13</td>
+          <td class="odds">210.1</td>
+          <td class="score">0.003</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">セルリアンライオン</td>
+          <td class="pop">10</td>
+          <td class="odds">134.5</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">アライブテーラー</td>
+          <td class="pop">14</td>
+          <td class="odds">226.7</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ブラストビート</td>
+          <td class="pop">15</td>
+          <td class="odds">296.4</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">メイショウトッド</td>
+          <td class="pop">12</td>
+          <td class="odds">201.1</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">ジェイソンバローズ</td>
+          <td class="pop">9</td>
+          <td class="odds">40.6</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">16</td>
+          <td class="horse">ビーアイジーニー</td>
+          <td class="pop">7</td>
+          <td class="odds">19.6</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">3R</span>
+      <span class="course">🏜️ダ1900m</span>
+      <span class="n-horses">12頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">4</td>
+          <td class="horse">ウィムーヴ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.2</td>
+          <td class="score">0.348</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">11</td>
+          <td class="horse">サトノトリニティ</td>
+          <td class="pop">4</td>
+          <td class="odds">7.6</td>
+          <td class="score">0.151</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">7</td>
+          <td class="horse">マテンロウプリンス</td>
+          <td class="pop">6</td>
+          <td class="odds">21.9</td>
+          <td class="score">0.145</td>
+          <td class="ev-col"><span class="ev-high">EV+0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">9</td>
+          <td class="horse">アスクハッピーマン</td>
+          <td class="pop">2</td>
+          <td class="odds">4.0</td>
+          <td class="score">0.145</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">12</td>
+          <td class="horse">ロスニーニョス</td>
+          <td class="pop">10</td>
+          <td class="odds">122.0</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">ヒラボクソライア</td>
+          <td class="pop">5</td>
+          <td class="odds">9.1</td>
+          <td class="score">0.028</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">クリコバロー</td>
+          <td class="pop">7</td>
+          <td class="odds">27.9</td>
+          <td class="score">0.021</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ラスカルキッド</td>
+          <td class="pop">12</td>
+          <td class="odds">197.3</td>
+          <td class="score">0.008</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">マーゴットショット</td>
+          <td class="pop">9</td>
+          <td class="odds">74.6</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">キタノトレボーネ</td>
+          <td class="pop">3</td>
+          <td class="odds">5.1</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.15</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ジャストグレース</td>
+          <td class="pop">11</td>
+          <td class="odds">139.1</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">サマーナジュム</td>
+          <td class="pop">8</td>
+          <td class="odds">51.8</td>
+          <td class="score">0.003</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">4R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">17頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">3</td>
+          <td class="horse">アロハ</td>
+          <td class="pop">3</td>
+          <td class="odds">5.2</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-high">EV+0.30</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">17</td>
+          <td class="horse">フレッチャアズーラ</td>
+          <td class="pop">1</td>
+          <td class="odds">3.5</td>
+          <td class="score">0.244</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">12</td>
+          <td class="horse">セコンドトゥベスト</td>
+          <td class="pop">2</td>
+          <td class="odds">4.7</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.08</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">11</td>
+          <td class="horse">エアヴァイブス</td>
+          <td class="pop">5</td>
+          <td class="odds">6.4</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">16</td>
+          <td class="horse">オーロラボレアリス</td>
+          <td class="pop">6</td>
+          <td class="odds">22.0</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">カステッロトゥーレ</td>
+          <td class="pop">9</td>
+          <td class="odds">36.1</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">アスコットダンス</td>
+          <td class="pop">11</td>
+          <td class="odds">41.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">ジャミールアイン</td>
+          <td class="pop">7</td>
+          <td class="odds">33.3</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">ペプチドブッドレア</td>
+          <td class="pop">4</td>
+          <td class="odds">5.5</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.14</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">マスティカーレ</td>
+          <td class="pop">10</td>
+          <td class="odds">39.4</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ダンツアラーム</td>
+          <td class="pop">13</td>
+          <td class="odds">71.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">ジリアート</td>
+          <td class="pop">14</td>
+          <td class="odds">109.2</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">バルフルール</td>
+          <td class="pop">8</td>
+          <td class="odds">35.9</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">チアフルドア</td>
+          <td class="pop">17</td>
+          <td class="odds">443.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">グッデイ</td>
+          <td class="pop">12</td>
+          <td class="odds">68.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ベンティガスエルテ</td>
+          <td class="pop">15</td>
+          <td class="odds">174.1</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">ワダツミ</td>
+          <td class="pop">16</td>
+          <td class="odds">267.1</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">5R</span>
+      <span class="course">🌿芝2000m</span>
+      <span class="n-horses">10頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">5</td>
+          <td class="horse">オンザムービー</td>
+          <td class="pop">1</td>
+          <td class="odds">3.6</td>
+          <td class="score">0.381</td>
+          <td class="ev-col"><span class="ev-high">EV+0.16</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">9</td>
+          <td class="horse">ライツェントライゼ</td>
+          <td class="pop">2</td>
+          <td class="odds">3.7</td>
+          <td class="score">0.171</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">6</td>
+          <td class="horse">ショウナンアワード</td>
+          <td class="pop">3</td>
+          <td class="odds">4.0</td>
+          <td class="score">0.134</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">2</td>
+          <td class="horse">ウインラファーガ</td>
+          <td class="pop">4</td>
+          <td class="odds">5.6</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">3</td>
+          <td class="horse">エンジェルボイス</td>
+          <td class="pop">5</td>
+          <td class="odds">6.8</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">グリミスティ</td>
+          <td class="pop">6</td>
+          <td class="odds">14.1</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ワンダーデリエール</td>
+          <td class="pop">8</td>
+          <td class="odds">43.9</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">テイクザスローン</td>
+          <td class="pop">7</td>
+          <td class="odds">41.9</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">トンデトンデトンデ</td>
+          <td class="pop">9</td>
+          <td class="odds">96.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">アクティブヘイロー</td>
+          <td class="pop">10</td>
+          <td class="odds">117.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">6R</span>
+      <span class="course">🏜️ダ1800m</span>
+      <span class="n-horses">16頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">6</td>
+          <td class="horse">システマソラー</td>
+          <td class="pop">2</td>
+          <td class="odds">4.2</td>
+          <td class="score">0.233</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">16</td>
+          <td class="horse">オオツカ</td>
+          <td class="pop">8</td>
+          <td class="odds">17.4</td>
+          <td class="score">0.225</td>
+          <td class="ev-col"><span class="ev-high">EV+0.18</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">12</td>
+          <td class="horse">ベルウッドピース</td>
+          <td class="pop">12</td>
+          <td class="odds">94.0</td>
+          <td class="score">0.135</td>
+          <td class="ev-col"><span class="ev-high">EV+0.13</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">5</td>
+          <td class="horse">トーアエレクトラム</td>
+          <td class="pop">14</td>
+          <td class="odds">101.5</td>
+          <td class="score">0.065</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">7</td>
+          <td class="horse">テスタヴェローチェ</td>
+          <td class="pop">4</td>
+          <td class="odds">7.1</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">アビラーシャ</td>
+          <td class="pop">5</td>
+          <td class="odds">14.4</td>
+          <td class="score">0.054</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">フクシマブリルハム</td>
+          <td class="pop">16</td>
+          <td class="odds">201.8</td>
+          <td class="score">0.043</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">ラブインアクション</td>
+          <td class="pop">7</td>
+          <td class="odds">16.0</td>
+          <td class="score">0.043</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">バケラッタ</td>
+          <td class="pop">10</td>
+          <td class="odds">34.9</td>
+          <td class="score">0.037</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">ロードアマルフィ</td>
+          <td class="pop">3</td>
+          <td class="odds">5.1</td>
+          <td class="score">0.033</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ジャイアンバローズ</td>
+          <td class="pop">6</td>
+          <td class="odds">15.0</td>
+          <td class="score">0.024</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">ディープスリー</td>
+          <td class="pop">15</td>
+          <td class="odds">162.6</td>
+          <td class="score">0.021</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">チェリヴェント</td>
+          <td class="pop">1</td>
+          <td class="odds">3.5</td>
+          <td class="score">0.008</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.22</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">ジーティーシップ</td>
+          <td class="pop">13</td>
+          <td class="odds">99.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">ケンフィールド</td>
+          <td class="pop">11</td>
+          <td class="odds">40.1</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">マイコンチェルト</td>
+          <td class="pop">9</td>
+          <td class="odds">23.0</td>
+          <td class="score">0.003</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">7R</span>
+      <span class="course">🌿芝2000m</span>
+      <span class="n-horses">12頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">1</td>
+          <td class="horse">レイデラティエラ</td>
+          <td class="pop">4</td>
+          <td class="odds">6.3</td>
+          <td class="score">0.244</td>
+          <td class="ev-col"><span class="ev-high">EV+0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">デリュージョン</td>
+          <td class="pop">1</td>
+          <td class="odds">3.1</td>
+          <td class="score">0.182</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.08</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">12</td>
+          <td class="horse">サミダレナイツ</td>
+          <td class="pop">2</td>
+          <td class="odds">4.2</td>
+          <td class="score">0.142</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">5</td>
+          <td class="horse">ボナペティアスク</td>
+          <td class="pop">12</td>
+          <td class="odds">125.6</td>
+          <td class="score">0.127</td>
+          <td class="ev-col"><span class="ev-high">EV+0.12</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">2</td>
+          <td class="horse">ヴォラヴィア</td>
+          <td class="pop">8</td>
+          <td class="odds">34.2</td>
+          <td class="score">0.082</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">メイショウアゴナス</td>
+          <td class="pop">6</td>
+          <td class="odds">13.7</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ビヨンドザドリーム</td>
+          <td class="pop">10</td>
+          <td class="odds">44.8</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">オーシンエス</td>
+          <td class="pop">3</td>
+          <td class="odds">5.9</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ゴッドヴァレー</td>
+          <td class="pop">7</td>
+          <td class="odds">19.7</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ヴェストラン</td>
+          <td class="pop">9</td>
+          <td class="odds">35.3</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">ラブカ</td>
+          <td class="pop">5</td>
+          <td class="odds">6.6</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">メイショウヒュウガ</td>
+          <td class="pop">11</td>
+          <td class="odds">72.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">8R</span>
+      <span class="course">🏜️ダ1900m</span>
+      <span class="n-horses">8頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">3</td>
+          <td class="horse">ゴッドエスパーダ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.7</td>
+          <td class="score">0.488</td>
+          <td class="ev-col"><span class="ev-high">EV+0.19</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">ソウルアンドジャズ</td>
+          <td class="pop">6</td>
+          <td class="odds">8.6</td>
+          <td class="score">0.233</td>
+          <td class="ev-col"><span class="ev-high">EV+0.14</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">7</td>
+          <td class="horse">ジョータルマエ</td>
+          <td class="pop">5</td>
+          <td class="odds">6.9</td>
+          <td class="score">0.117</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">2</td>
+          <td class="horse">レッドボブ</td>
+          <td class="pop">3</td>
+          <td class="odds">5.8</td>
+          <td class="score">0.073</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">1</td>
+          <td class="horse">フクキタテーラー</td>
+          <td class="pop">7</td>
+          <td class="odds">16.5</td>
+          <td class="score">0.063</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ブルーワール</td>
+          <td class="pop">4</td>
+          <td class="odds">6.3</td>
+          <td class="score">0.033</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">ワイドクリーガー</td>
+          <td class="pop">2</td>
+          <td class="odds">4.8</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.15</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">ヒデノレインボー</td>
+          <td class="pop">8</td>
+          <td class="odds">29.9</td>
+          <td class="score">0.009</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">9R</span>
+      <span class="course">🌿芝2400m</span>
+      <span class="n-horses">10頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">5</td>
+          <td class="horse">ファーングロット</td>
+          <td class="pop">1</td>
+          <td class="odds">1.4</td>
+          <td class="score">0.366</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.21</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">1</td>
+          <td class="horse">サトノソティラス</td>
+          <td class="pop">3</td>
+          <td class="odds">8.4</td>
+          <td class="score">0.233</td>
+          <td class="ev-col"><span class="ev-high">EV+0.14</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">6</td>
+          <td class="horse">アスクデッドヒート</td>
+          <td class="pop">2</td>
+          <td class="odds">7.5</td>
+          <td class="score">0.171</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">8</td>
+          <td class="horse">メイショウアイル</td>
+          <td class="pop">4</td>
+          <td class="odds">11.2</td>
+          <td class="score">0.110</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">3</td>
+          <td class="horse">ベイラム</td>
+          <td class="pop">5</td>
+          <td class="odds">11.4</td>
+          <td class="score">0.077</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">エルディアブロ</td>
+          <td class="pop">6</td>
+          <td class="odds">27.4</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ビップチェイス</td>
+          <td class="pop">7</td>
+          <td class="odds">31.6</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">シュプリンガー</td>
+          <td class="pop">9</td>
+          <td class="odds">63.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">パープルクラウド</td>
+          <td class="pop">8</td>
+          <td class="odds">43.6</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">プレイリードリーム</td>
+          <td class="pop">10</td>
+          <td class="odds">73.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">10R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">13頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">10</td>
+          <td class="horse">インヴォーグ</td>
+          <td class="pop">1</td>
+          <td class="odds">3.5</td>
+          <td class="score">1.000</td>
+          <td class="ev-col"><span class="ev-high">EV+0.77</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">ゼンダンハヤブサ</td>
+          <td class="pop">6</td>
+          <td class="odds">10.5</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">1</td>
+          <td class="horse">セブンマジシャン</td>
+          <td class="pop">2</td>
+          <td class="odds">7.0</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">3</td>
+          <td class="horse">バレルターン</td>
+          <td class="pop">5</td>
+          <td class="odds">10.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">8</td>
+          <td class="horse">チェルノボーグ</td>
+          <td class="pop">8</td>
+          <td class="odds">13.5</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">ボーモンド</td>
+          <td class="pop">13</td>
+          <td class="odds">25.4</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">キングメーカー</td>
+          <td class="pop">7</td>
+          <td class="odds">11.7</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">プッシュオン</td>
+          <td class="pop">11</td>
+          <td class="odds">20.9</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">カズミクラーシュ</td>
+          <td class="pop">4</td>
+          <td class="odds">8.8</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ジェットマグナム</td>
+          <td class="pop">12</td>
+          <td class="odds">21.2</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">スズカダブル</td>
+          <td class="pop">10</td>
+          <td class="odds">19.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">エポックヴィーナス</td>
+          <td class="pop">3</td>
+          <td class="odds">7.6</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">ハワイアンティアレ</td>
+          <td class="pop">9</td>
+          <td class="odds">18.9</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">11R</span>
+      <span class="course">🏜️ダ1400m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">11</td>
+          <td class="horse">ベルジュロネット</td>
+          <td class="pop">2</td>
+          <td class="odds">5.4</td>
+          <td class="score">0.582</td>
+          <td class="ev-col"><span class="ev-high">EV+0.43</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">2</td>
+          <td class="horse">ゲッティヴィラ</td>
+          <td class="pop">12</td>
+          <td class="odds">36.2</td>
+          <td class="score">0.117</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">8</td>
+          <td class="horse">スリーピース</td>
+          <td class="pop">15</td>
+          <td class="odds">56.5</td>
+          <td class="score">0.063</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">3</td>
+          <td class="horse">エートラックス</td>
+          <td class="pop">11</td>
+          <td class="odds">33.4</td>
+          <td class="score">0.033</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">6</td>
+          <td class="horse">ルークススペイ</td>
+          <td class="pop">6</td>
+          <td class="odds">10.7</td>
+          <td class="score">0.028</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">サフランヒーロー</td>
+          <td class="pop">16</td>
+          <td class="odds">66.6</td>
+          <td class="score">0.021</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">クロジシジョー</td>
+          <td class="pop">9</td>
+          <td class="odds">26.8</td>
+          <td class="score">0.009</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">タガノミスト</td>
+          <td class="pop">8</td>
+          <td class="odds">13.2</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">ハワイアンタイム</td>
+          <td class="pop">7</td>
+          <td class="odds">11.1</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">ジャスティンアース</td>
+          <td class="pop">1</td>
+          <td class="odds">5.1</td>
+          <td class="score">0.003</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.15</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">レアンダー</td>
+          <td class="pop">13</td>
+          <td class="odds">40.9</td>
+          <td class="score">0.003</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">インユアパレス</td>
+          <td class="pop">3</td>
+          <td class="odds">6.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.13</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">アドバンスファラオ</td>
+          <td class="pop">10</td>
+          <td class="odds">30.1</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ハッピーマン</td>
+          <td class="pop">4</td>
+          <td class="odds">7.6</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">トリリオンボーイ</td>
+          <td class="pop">14</td>
+          <td class="odds">55.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">16</td>
+          <td class="horse">ナムラクララ</td>
+          <td class="pop">5</td>
+          <td class="odds">8.1</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">12R</span>
+      <span class="course">🌿芝1400m</span>
+      <span class="n-horses">13頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">5</td>
+          <td class="horse">ダノンブランニュー</td>
+          <td class="pop">7</td>
+          <td class="odds">8.5</td>
+          <td class="score">0.212</td>
+          <td class="ev-col"><span class="ev-high">EV+0.12</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">7</td>
+          <td class="horse">タガノアンファン</td>
+          <td class="pop">3</td>
+          <td class="odds">7.1</td>
+          <td class="score">0.212</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.10</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">8</td>
+          <td class="horse">ホウオウトランプ</td>
+          <td class="pop">2</td>
+          <td class="odds">5.6</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">10</td>
+          <td class="horse">リアライズ</td>
+          <td class="pop">6</td>
+          <td class="odds">8.4</td>
+          <td class="score">0.171</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.08</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">11</td>
+          <td class="horse">メイショウカイト</td>
+          <td class="pop">4</td>
+          <td class="odds">8.0</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">カリーシ</td>
+          <td class="pop">10</td>
+          <td class="odds">28.0</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ビップジーニー</td>
+          <td class="pop">8</td>
+          <td class="odds">12.2</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">アムールリーベ</td>
+          <td class="pop">1</td>
+          <td class="odds">4.7</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.15</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">インブロリオ</td>
+          <td class="pop">5</td>
+          <td class="odds">8.4</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">インフローレ</td>
+          <td class="pop">12</td>
+          <td class="odds">29.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">マイネルラッシュ</td>
+          <td class="pop">11</td>
+          <td class="odds">28.5</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">マテンロウボンド</td>
+          <td class="pop">9</td>
+          <td class="odds">23.4</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">タガノスペルノヴァ</td>
+          <td class="pop">13</td>
+          <td class="odds">67.2</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    </div>
+
+    <div class="venue-col">
+      <div class="venue-title">新潟</div>
+      
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">2R</span>
+      <span class="course">🌿芝1800m</span>
+      <span class="n-horses">9頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">1</td>
+          <td class="horse">ナウオアネヴァー</td>
+          <td class="pop">3</td>
+          <td class="odds">4.8</td>
+          <td class="score">0.322</td>
+          <td class="ev-col"><span class="ev-high">EV+0.16</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">6</td>
+          <td class="horse">エタンセル</td>
+          <td class="pop">1</td>
+          <td class="odds">1.9</td>
+          <td class="score">0.322</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">7</td>
+          <td class="horse">アデルフィー</td>
+          <td class="pop">2</td>
+          <td class="odds">3.0</td>
+          <td class="score">0.142</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.12</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">3</td>
+          <td class="horse">クロームクロス</td>
+          <td class="pop">5</td>
+          <td class="odds">16.9</td>
+          <td class="score">0.110</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">5</td>
+          <td class="horse">ヴァルク</td>
+          <td class="pop">8</td>
+          <td class="odds">119.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">カフジマリボー</td>
+          <td class="pop">4</td>
+          <td class="odds">11.3</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">パイザナンバー</td>
+          <td class="pop">7</td>
+          <td class="odds">54.4</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">カンフーヒーロー</td>
+          <td class="pop">9</td>
+          <td class="odds">214.6</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">マーゴットデウス</td>
+          <td class="pop">6</td>
+          <td class="odds">39.4</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">3R</span>
+      <span class="course">🌿芝1200m</span>
+      <span class="n-horses">15頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">6</td>
+          <td class="horse">マリリンバローズ</td>
+          <td class="pop">2</td>
+          <td class="odds">2.8</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-high">EV+0.17</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">5</td>
+          <td class="horse">パピヨンヴェール</td>
+          <td class="pop">8</td>
+          <td class="odds">46.6</td>
+          <td class="score">0.212</td>
+          <td class="ev-col"><span class="ev-high">EV+0.19</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">12</td>
+          <td class="horse">エコロセレナ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.7</td>
+          <td class="score">0.134</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.16</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">14</td>
+          <td class="horse">リトセア</td>
+          <td class="pop">4</td>
+          <td class="odds">9.8</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">2</td>
+          <td class="horse">ベルオーシャン</td>
+          <td class="pop">3</td>
+          <td class="odds">6.0</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">スカット</td>
+          <td class="pop">6</td>
+          <td class="odds">22.3</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">マジンタクシー</td>
+          <td class="pop">5</td>
+          <td class="odds">10.5</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">プティシラー</td>
+          <td class="pop">7</td>
+          <td class="odds">26.1</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">リリーサンライズ</td>
+          <td class="pop">10</td>
+          <td class="odds">82.9</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">パソドブレ</td>
+          <td class="pop">11</td>
+          <td class="odds">84.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">ジョイベル</td>
+          <td class="pop">15</td>
+          <td class="odds">314.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">ロンバスブレス</td>
+          <td class="pop">9</td>
+          <td class="odds">53.6</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">アドバンスジェンヌ</td>
+          <td class="pop">13</td>
+          <td class="odds">119.9</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">アンジュリオ</td>
+          <td class="pop">14</td>
+          <td class="odds">205.1</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">ライブリピュア</td>
+          <td class="pop">12</td>
+          <td class="odds">103.7</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">5R</span>
+      <span class="course">🌿芝2000m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">8</td>
+          <td class="horse">ウインターブレス</td>
+          <td class="pop">2</td>
+          <td class="odds">4.3</td>
+          <td class="score">0.322</td>
+          <td class="ev-col"><span class="ev-high">EV+0.14</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">13</td>
+          <td class="horse">レゼルフォート</td>
+          <td class="pop">1</td>
+          <td class="odds">2.4</td>
+          <td class="score">0.249</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.08</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">4</td>
+          <td class="horse">ラップトップ</td>
+          <td class="pop">5</td>
+          <td class="odds">14.6</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">12</td>
+          <td class="horse">ジャスティンカレラ</td>
+          <td class="pop">8</td>
+          <td class="odds">38.6</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">5</td>
+          <td class="horse">ブランニューホーム</td>
+          <td class="pop">4</td>
+          <td class="odds">6.9</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">コスモアミュレット</td>
+          <td class="pop">7</td>
+          <td class="odds">24.2</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ウインポーシャ</td>
+          <td class="pop">3</td>
+          <td class="odds">4.8</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">セーヌデローヴ</td>
+          <td class="pop">6</td>
+          <td class="odds">20.1</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">16</td>
+          <td class="horse">ナムラシンジロー</td>
+          <td class="pop">10</td>
+          <td class="odds">80.4</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ゴールドフリーダム</td>
+          <td class="pop">13</td>
+          <td class="odds">134.1</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">サンタカタリナ</td>
+          <td class="pop">9</td>
+          <td class="odds">38.7</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">カタカムナ</td>
+          <td class="pop">15</td>
+          <td class="odds">206.2</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">マイネルパーロル</td>
+          <td class="pop">14</td>
+          <td class="odds">148.1</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">スカーレットジーン</td>
+          <td class="pop">12</td>
+          <td class="odds">122.8</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">サファイアプレミア</td>
+          <td class="pop">16</td>
+          <td class="odds">387.3</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">ヴァールザーゲン</td>
+          <td class="pop">11</td>
+          <td class="odds">99.2</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">6R</span>
+      <span class="course">🌿芝1800m</span>
+      <span class="n-horses">13頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">2</td>
+          <td class="horse">エコロラヴァー</td>
+          <td class="pop">2</td>
+          <td class="odds">4.7</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-high">EV+0.29</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">10</td>
+          <td class="horse">テンタイムトップ</td>
+          <td class="pop">10</td>
+          <td class="odds">36.0</td>
+          <td class="score">0.142</td>
+          <td class="ev-col"><span class="ev-high">EV+0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">4</td>
+          <td class="horse">ブエノスオプティマ</td>
+          <td class="pop">6</td>
+          <td class="odds">15.1</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">8</td>
+          <td class="horse">ライトオブジアース</td>
+          <td class="pop">3</td>
+          <td class="odds">4.7</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">9</td>
+          <td class="horse">スマートエトワール</td>
+          <td class="pop">9</td>
+          <td class="odds">32.9</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">チョコスコーン</td>
+          <td class="pop">13</td>
+          <td class="odds">94.3</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">オーケーリアン</td>
+          <td class="pop">5</td>
+          <td class="odds">6.0</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">タイセイルビー</td>
+          <td class="pop">1</td>
+          <td class="odds">4.6</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.14</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">トランセンコ</td>
+          <td class="pop">7</td>
+          <td class="odds">16.8</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">サイモンセレーノ</td>
+          <td class="pop">4</td>
+          <td class="odds">5.7</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">フライスカイハイ</td>
+          <td class="pop">8</td>
+          <td class="odds">21.7</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ノーブルスアーク</td>
+          <td class="pop">12</td>
+          <td class="odds">78.4</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ピンクカメリア</td>
+          <td class="pop">11</td>
+          <td class="odds">52.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">7R</span>
+      <span class="course">🌿芝2000m</span>
+      <span class="n-horses">13頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">10</td>
+          <td class="horse">ディーンズリスター</td>
+          <td class="pop">4</td>
+          <td class="odds">7.4</td>
+          <td class="score">0.366</td>
+          <td class="ev-col"><span class="ev-high">EV+0.26</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">1</td>
+          <td class="horse">マイネルアウルム</td>
+          <td class="pop">3</td>
+          <td class="odds">6.4</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">8</td>
+          <td class="horse">ベネスピラ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.6</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">2</td>
+          <td class="horse">アンドローゼス</td>
+          <td class="pop">7</td>
+          <td class="odds">27.9</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">4</td>
+          <td class="horse">コスモアチーブ</td>
+          <td class="pop">5</td>
+          <td class="odds">13.8</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ウインボレロ</td>
+          <td class="pop">6</td>
+          <td class="odds">16.7</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ダノンアトラス</td>
+          <td class="pop">2</td>
+          <td class="odds">2.9</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.25</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">トラストモアリズム</td>
+          <td class="pop">8</td>
+          <td class="odds">34.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">ロジウムエポック</td>
+          <td class="pop">12</td>
+          <td class="odds">193.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">コンサートマスター</td>
+          <td class="pop">9</td>
+          <td class="odds">55.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">コーラスライン</td>
+          <td class="pop">13</td>
+          <td class="odds">281.7</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">デビューフライト</td>
+          <td class="pop">11</td>
+          <td class="odds">102.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">ソリッドベーシス</td>
+          <td class="pop">10</td>
+          <td class="odds">86.9</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">8R</span>
+      <span class="course">🌿芝1800m</span>
+      <span class="n-horses">10頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">2</td>
+          <td class="horse">ココデイック</td>
+          <td class="pop">1</td>
+          <td class="odds">2.5</td>
+          <td class="score">0.322</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">ミッキーコンドル</td>
+          <td class="pop">3</td>
+          <td class="odds">6.4</td>
+          <td class="score">0.182</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.06</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">5</td>
+          <td class="horse">ラテライト</td>
+          <td class="pop">8</td>
+          <td class="odds">19.4</td>
+          <td class="score">0.146</td>
+          <td class="ev-col"><span class="ev-high">EV+0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">10</td>
+          <td class="horse">ゴルデールスカー</td>
+          <td class="pop">2</td>
+          <td class="odds">3.4</td>
+          <td class="score">0.127</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">7</td>
+          <td class="horse">ダノンアンチュラス</td>
+          <td class="pop">5</td>
+          <td class="odds">9.7</td>
+          <td class="score">0.110</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">アバレリュウ</td>
+          <td class="pop">4</td>
+          <td class="odds">9.3</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">オンクラウドナイン</td>
+          <td class="pop">6</td>
+          <td class="odds">18.3</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ビスケットマリー</td>
+          <td class="pop">9</td>
+          <td class="odds">41.8</td>
+          <td class="score">0.015</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">グランコネクシオン</td>
+          <td class="pop">7</td>
+          <td class="odds">19.4</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">アイファーファイト</td>
+          <td class="pop">10</td>
+          <td class="odds">45.5</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">9R</span>
+      <span class="course">🌿芝1000m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">13</td>
+          <td class="horse">グランプレジール</td>
+          <td class="pop">4</td>
+          <td class="odds">7.1</td>
+          <td class="score">0.271</td>
+          <td class="ev-col"><span class="ev-high">EV+0.16</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">16</td>
+          <td class="horse">ミエノブラボー</td>
+          <td class="pop">5</td>
+          <td class="odds">8.1</td>
+          <td class="score">0.269</td>
+          <td class="ev-col"><span class="ev-high">EV+0.17</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">15</td>
+          <td class="horse">ダノンゴーイチ</td>
+          <td class="pop">1</td>
+          <td class="odds">3.5</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.14</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">4</td>
+          <td class="horse">ベルタソ</td>
+          <td class="pop">7</td>
+          <td class="odds">12.9</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">10</td>
+          <td class="horse">マグネシアブリック</td>
+          <td class="pop">3</td>
+          <td class="odds">6.9</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ブラックティンカー</td>
+          <td class="pop">6</td>
+          <td class="odds">9.5</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">グッバイウェーブ</td>
+          <td class="pop">9</td>
+          <td class="odds">27.1</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ウインマスカレード</td>
+          <td class="pop">2</td>
+          <td class="odds">6.3</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">パレスドフィーヌ</td>
+          <td class="pop">11</td>
+          <td class="odds">38.3</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">フェリーニ</td>
+          <td class="pop">10</td>
+          <td class="odds">29.9</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ラブカムーン</td>
+          <td class="pop">12</td>
+          <td class="odds">43.9</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">オオゾラヒバリ</td>
+          <td class="pop">8</td>
+          <td class="odds">20.4</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">バーニングフレーム</td>
+          <td class="pop">16</td>
+          <td class="odds">148.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ラヴェンデル</td>
+          <td class="pop">13</td>
+          <td class="odds">50.8</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">プロクレイア</td>
+          <td class="pop">14</td>
+          <td class="odds">67.6</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">ビスケット</td>
+          <td class="pop">15</td>
+          <td class="odds">96.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">10R</span>
+      <span class="course">🌿芝2000m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">14</td>
+          <td class="horse">マリアイリダータ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.2</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">5</td>
+          <td class="horse">フルレゾン</td>
+          <td class="pop">7</td>
+          <td class="odds">17.4</td>
+          <td class="score">0.082</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">13</td>
+          <td class="horse">タッチアンドムーブ</td>
+          <td class="pop">6</td>
+          <td class="odds">16.7</td>
+          <td class="score">0.067</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">10</td>
+          <td class="horse">ジェットブレード</td>
+          <td class="pop">13</td>
+          <td class="odds">50.3</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">2</td>
+          <td class="horse">バードウォッチャー</td>
+          <td class="pop">11</td>
+          <td class="odds">30.7</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">コンフォルツァ</td>
+          <td class="pop">2</td>
+          <td class="odds">6.5</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">コスモアバンサ</td>
+          <td class="pop">14</td>
+          <td class="odds">83.8</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">ホウオウシンデレラ</td>
+          <td class="pop">9</td>
+          <td class="odds">20.6</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">クロシェットノエル</td>
+          <td class="pop">4</td>
+          <td class="odds">10.5</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ホウオウレイヴン</td>
+          <td class="pop">10</td>
+          <td class="odds">30.0</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">パッションリッチ</td>
+          <td class="pop">3</td>
+          <td class="odds">7.6</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.08</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">バンフィエルド</td>
+          <td class="pop">15</td>
+          <td class="odds">92.5</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ワザモノ</td>
+          <td class="pop">12</td>
+          <td class="odds">31.1</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ジャンビ</td>
+          <td class="pop">5</td>
+          <td class="odds">16.6</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">16</td>
+          <td class="horse">ズイウンゴサイ</td>
+          <td class="pop">8</td>
+          <td class="odds">19.2</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ハイディージェン</td>
+          <td class="pop">16</td>
+          <td class="odds">105.6</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">11R</span>
+      <span class="course">🌿芝1800m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">6</td>
+          <td class="horse">エストゥペンダ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.6</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-high">EV+0.15</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">3</td>
+          <td class="horse">ミナデオロ</td>
+          <td class="pop">2</td>
+          <td class="odds">6.5</td>
+          <td class="score">0.101</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">7</td>
+          <td class="horse">マイエレメント</td>
+          <td class="pop">3</td>
+          <td class="odds">8.0</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">8</td>
+          <td class="horse">バッデレイト</td>
+          <td class="pop">6</td>
+          <td class="odds">11.7</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">14</td>
+          <td class="horse">ミエスペランサ</td>
+          <td class="pop">7</td>
+          <td class="odds">15.7</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">モズロックンロール</td>
+          <td class="pop">4</td>
+          <td class="odds">9.4</td>
+          <td class="score">0.028</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">タイキラフター</td>
+          <td class="pop">9</td>
+          <td class="odds">21.1</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">16</td>
+          <td class="horse">ミラビリスマジック</td>
+          <td class="pop">8</td>
+          <td class="odds">18.9</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ピンキープロミス</td>
+          <td class="pop">11</td>
+          <td class="odds">33.4</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">ピックアチェリー</td>
+          <td class="pop">5</td>
+          <td class="odds">11.6</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">ルクスビッグスター</td>
+          <td class="pop">15</td>
+          <td class="odds">66.9</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">エレクトリックブギ</td>
+          <td class="pop">12</td>
+          <td class="odds">42.4</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">ガジュノリ</td>
+          <td class="pop">10</td>
+          <td class="odds">28.6</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">キントリヒ</td>
+          <td class="pop">13</td>
+          <td class="odds">50.6</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">ワイドアラジン</td>
+          <td class="pop">16</td>
+          <td class="odds">73.7</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ドラゴンヘッド</td>
+          <td class="pop">14</td>
+          <td class="odds">50.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">12R</span>
+      <span class="course">🌿芝1200m</span>
+      <span class="n-horses">11頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">3</td>
+          <td class="horse">バシリス</td>
+          <td class="pop">2</td>
+          <td class="odds">4.7</td>
+          <td class="score">0.271</td>
+          <td class="ev-col"><span class="ev-high">EV+0.10</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">シルフレイ</td>
+          <td class="pop">3</td>
+          <td class="odds">5.6</td>
+          <td class="score">0.249</td>
+          <td class="ev-col"><span class="ev-high">EV+0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">5</td>
+          <td class="horse">ジーティームッシュ</td>
+          <td class="pop">1</td>
+          <td class="odds">3.6</td>
+          <td class="score">0.121</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">7</td>
+          <td class="horse">エルムラント</td>
+          <td class="pop">5</td>
+          <td class="odds">7.0</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">1</td>
+          <td class="horse">ワンウェイトゥヘル</td>
+          <td class="pop">6</td>
+          <td class="odds">9.4</td>
+          <td class="score">0.082</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">ユーウェイン</td>
+          <td class="pop">9</td>
+          <td class="odds">27.9</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">スーパーバイザー</td>
+          <td class="pop">4</td>
+          <td class="odds">6.2</td>
+          <td class="score">0.031</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ビアフォーナウ</td>
+          <td class="pop">7</td>
+          <td class="odds">16.2</td>
+          <td class="score">0.028</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">ティピティーナ</td>
+          <td class="pop">8</td>
+          <td class="odds">18.7</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">コンストラクション</td>
+          <td class="pop">11</td>
+          <td class="odds">79.7</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ブルーリヴァーサル</td>
+          <td class="pop">10</td>
+          <td class="odds">79.2</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    </div>
+
+    <div class="venue-col">
+      <div class="venue-title">東京</div>
+      
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">1R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">2</td>
+          <td class="horse">ミライヘノティアラ</td>
+          <td class="pop">3</td>
+          <td class="odds">6.3</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-high">EV+0.33</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">イデアクリスタル</td>
+          <td class="pop">4</td>
+          <td class="odds">6.8</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.08</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">13</td>
+          <td class="horse">ビレッジルイーザ</td>
+          <td class="pop">5</td>
+          <td class="odds">8.1</td>
+          <td class="score">0.067</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">15</td>
+          <td class="horse">オーケーグレイス</td>
+          <td class="pop">10</td>
+          <td class="odds">25.1</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">16</td>
+          <td class="horse">ダイユウアドバンス</td>
+          <td class="pop">6</td>
+          <td class="odds">12.8</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ロット</td>
+          <td class="pop">9</td>
+          <td class="odds">22.5</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">コーリンクレア</td>
+          <td class="pop">1</td>
+          <td class="odds">3.6</td>
+          <td class="score">0.031</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.19</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ソフィアプルーマ</td>
+          <td class="pop">11</td>
+          <td class="odds">34.5</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">キミガハマ</td>
+          <td class="pop">7</td>
+          <td class="odds">16.8</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">スウェーバック</td>
+          <td class="pop">8</td>
+          <td class="odds">19.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ルプルミエラムール</td>
+          <td class="pop">14</td>
+          <td class="odds">88.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">デルマザオウ</td>
+          <td class="pop">12</td>
+          <td class="odds">45.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">ビリキナータ</td>
+          <td class="pop">2</td>
+          <td class="odds">5.2</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.15</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ウイングラナート</td>
+          <td class="pop">16</td>
+          <td class="odds">223.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">ゴーゴーマンゴー</td>
+          <td class="pop">13</td>
+          <td class="odds">84.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">スミレノハナ</td>
+          <td class="pop">15</td>
+          <td class="odds">178.7</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">2R</span>
+      <span class="course">🌿芝1400m</span>
+      <span class="n-horses">16頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">14</td>
+          <td class="horse">デスサイズ</td>
+          <td class="pop">1</td>
+          <td class="odds">1.6</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">5</td>
+          <td class="horse">マナイアカラニ</td>
+          <td class="pop">2</td>
+          <td class="odds">4.8</td>
+          <td class="score">0.212</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">10</td>
+          <td class="horse">ロードクローザー</td>
+          <td class="pop">3</td>
+          <td class="odds">5.3</td>
+          <td class="score">0.171</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">4</td>
+          <td class="horse">エルアン</td>
+          <td class="pop">11</td>
+          <td class="odds">65.6</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">2</td>
+          <td class="horse">マリノステアハート</td>
+          <td class="pop">8</td>
+          <td class="odds">45.0</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">イデアジュアンイハ</td>
+          <td class="pop">12</td>
+          <td class="odds">107.1</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ライクアストリーク</td>
+          <td class="pop">15</td>
+          <td class="odds">237.3</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ケイツータカ</td>
+          <td class="pop">16</td>
+          <td class="odds">292.1</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">グラスアロー</td>
+          <td class="pop">14</td>
+          <td class="odds">195.3</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ココロノヒコボシ</td>
+          <td class="pop">4</td>
+          <td class="odds">14.2</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">キタノシオン</td>
+          <td class="pop">9</td>
+          <td class="odds">52.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">スナップジジ</td>
+          <td class="pop">13</td>
+          <td class="odds">151.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">シンギュラリティ</td>
+          <td class="pop">7</td>
+          <td class="odds">43.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">ナーシリーヤ</td>
+          <td class="pop">5</td>
+          <td class="odds">26.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">ダイヒョウカーク</td>
+          <td class="pop">10</td>
+          <td class="odds">63.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">16</td>
+          <td class="horse">デディカス</td>
+          <td class="pop">6</td>
+          <td class="odds">41.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">3R</span>
+      <span class="course">🌿芝2100m</span>
+      <span class="n-horses">12頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">4</td>
+          <td class="horse">エクストラプッシュ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.3</td>
+          <td class="score">0.457</td>
+          <td class="ev-col"><span class="ev-high">EV+0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">8</td>
+          <td class="horse">アイスアイスベイビ</td>
+          <td class="pop">3</td>
+          <td class="odds">5.8</td>
+          <td class="score">0.142</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">7</td>
+          <td class="horse">アイムスティルミー</td>
+          <td class="pop">4</td>
+          <td class="odds">6.1</td>
+          <td class="score">0.082</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">2</td>
+          <td class="horse">ブルーフレア</td>
+          <td class="pop">2</td>
+          <td class="odds">4.6</td>
+          <td class="score">0.067</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.11</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">9</td>
+          <td class="horse">ネイティヴプライド</td>
+          <td class="pop">5</td>
+          <td class="odds">8.4</td>
+          <td class="score">0.067</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">チャリティチャリス</td>
+          <td class="pop">6</td>
+          <td class="odds">17.3</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">キョウエイシュバル</td>
+          <td class="pop">8</td>
+          <td class="odds">36.0</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">オーキッドワン</td>
+          <td class="pop">9</td>
+          <td class="odds">45.1</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">インサラータ</td>
+          <td class="pop">10</td>
+          <td class="odds">101.7</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">ホグホグナナハン</td>
+          <td class="pop">11</td>
+          <td class="odds">129.3</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ガビーズメロディ</td>
+          <td class="pop">7</td>
+          <td class="odds">29.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">タフバディ</td>
+          <td class="pop">12</td>
+          <td class="odds">241.7</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">4R</span>
+      <span class="course">🌿芝1800m</span>
+      <span class="n-horses">17頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">5</td>
+          <td class="horse">ペカリーナ</td>
+          <td class="pop">4</td>
+          <td class="odds">12.3</td>
+          <td class="score">0.269</td>
+          <td class="ev-col"><span class="ev-high">EV+0.20</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">16</td>
+          <td class="horse">クカイリモク</td>
+          <td class="pop">1</td>
+          <td class="odds">1.8</td>
+          <td class="score">0.212</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.23</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">12</td>
+          <td class="horse">ルシアージュ</td>
+          <td class="pop">5</td>
+          <td class="odds">21.0</td>
+          <td class="score">0.127</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.09</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">4</td>
+          <td class="horse">ニシノマルガリート</td>
+          <td class="pop">6</td>
+          <td class="odds">33.9</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.07</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">13</td>
+          <td class="horse">ピコペアシェイプ</td>
+          <td class="pop">11</td>
+          <td class="odds">256.0</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ティンブロポップ</td>
+          <td class="pop">15</td>
+          <td class="odds">355.9</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ウインシャリーフ</td>
+          <td class="pop">8</td>
+          <td class="odds">86.7</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">キーサーバー</td>
+          <td class="pop">12</td>
+          <td class="odds">287.3</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">17</td>
+          <td class="horse">グランフルス</td>
+          <td class="pop">9</td>
+          <td class="odds">168.8</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ラウターユーベル</td>
+          <td class="pop">13</td>
+          <td class="odds">323.4</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">ケイツースクード</td>
+          <td class="pop">17</td>
+          <td class="odds">567.4</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">イニスフェイル</td>
+          <td class="pop">3</td>
+          <td class="odds">10.7</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">シルバープレミア</td>
+          <td class="pop">10</td>
+          <td class="odds">214.7</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">デイズインザサン</td>
+          <td class="pop">14</td>
+          <td class="odds">351.2</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">スパークルレイ</td>
+          <td class="pop">16</td>
+          <td class="odds">417.1</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">マジックパレス</td>
+          <td class="pop">2</td>
+          <td class="odds">2.4</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.33</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">スチールギターラグ</td>
+          <td class="pop">7</td>
+          <td class="odds">73.7</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">5R</span>
+      <span class="course">🌿芝2400m</span>
+      <span class="n-horses">11頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">11</td>
+          <td class="horse">ショウナンマルチ</td>
+          <td class="pop">1</td>
+          <td class="odds">1.5</td>
+          <td class="score">0.582</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">10</td>
+          <td class="horse">レッドブライトン</td>
+          <td class="pop">3</td>
+          <td class="odds">6.2</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">5</td>
+          <td class="horse">ウルフマン</td>
+          <td class="pop">2</td>
+          <td class="odds">3.1</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.21</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">9</td>
+          <td class="horse">コスモアマデウス</td>
+          <td class="pop">9</td>
+          <td class="odds">143.1</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">3</td>
+          <td class="horse">フレキシブル</td>
+          <td class="pop">5</td>
+          <td class="odds">38.2</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">レッドリアライズ</td>
+          <td class="pop">6</td>
+          <td class="odds">44.0</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">ゴールデンダガー</td>
+          <td class="pop">4</td>
+          <td class="odds">19.7</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">ウインスターリング</td>
+          <td class="pop">8</td>
+          <td class="odds">71.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">クリスタルドレス</td>
+          <td class="pop">11</td>
+          <td class="odds">194.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ルアグロール</td>
+          <td class="pop">7</td>
+          <td class="odds">66.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ラスターヴァース</td>
+          <td class="pop">10</td>
+          <td class="odds">158.9</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">6R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">8頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">1</td>
+          <td class="horse">ヴンダーバール</td>
+          <td class="pop">2</td>
+          <td class="odds">3.0</td>
+          <td class="score">0.582</td>
+          <td class="ev-col"><span class="ev-high">EV+0.32</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">ルージュカルデア</td>
+          <td class="pop">6</td>
+          <td class="odds">16.7</td>
+          <td class="score">0.067</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">7</td>
+          <td class="horse">ワイズギャング</td>
+          <td class="pop">4</td>
+          <td class="odds">6.7</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">3</td>
+          <td class="horse">ファンシーズ</td>
+          <td class="pop">7</td>
+          <td class="odds">61.9</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">6</td>
+          <td class="horse">ジュワネング</td>
+          <td class="pop">3</td>
+          <td class="odds">3.3</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.23</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">バルボアパーク</td>
+          <td class="pop">1</td>
+          <td class="odds">2.9</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.26</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">フィアーブル</td>
+          <td class="pop">5</td>
+          <td class="odds">15.9</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">オウケンサクラコ</td>
+          <td class="pop">8</td>
+          <td class="odds">221.1</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">7R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">8頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">5</td>
+          <td class="horse">ヴァロアーク</td>
+          <td class="pop">1</td>
+          <td class="odds">4.0</td>
+          <td class="score">1.000</td>
+          <td class="ev-col"><span class="ev-high">EV+0.80</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">ブルースカイブルー</td>
+          <td class="pop">4</td>
+          <td class="odds">4.3</td>
+          <td class="score">0.082</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.10</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">1</td>
+          <td class="horse">サトノマティーニ</td>
+          <td class="pop">2</td>
+          <td class="odds">4.2</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.19</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">2</td>
+          <td class="horse">トミーバローズ</td>
+          <td class="pop">3</td>
+          <td class="odds">4.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.19</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">3</td>
+          <td class="horse">ギガントマキア</td>
+          <td class="pop">8</td>
+          <td class="odds">117.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">タイセイフレッサ</td>
+          <td class="pop">6</td>
+          <td class="odds">12.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">リアライズリバティ</td>
+          <td class="pop">5</td>
+          <td class="odds">4.8</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.17</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">デアトゥノウ</td>
+          <td class="pop">7</td>
+          <td class="odds">92.2</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">8R</span>
+      <span class="course">🌿芝1800m</span>
+      <span class="n-horses">15頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">1</td>
+          <td class="horse">アドミラルシップ</td>
+          <td class="pop">2</td>
+          <td class="odds">4.4</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">2</td>
+          <td class="horse">ヴァーナリー</td>
+          <td class="pop">5</td>
+          <td class="odds">10.7</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-high">EV+0.12</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">9</td>
+          <td class="horse">ホウオウペトリュス</td>
+          <td class="pop">4</td>
+          <td class="odds">10.1</td>
+          <td class="score">0.134</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.06</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">3</td>
+          <td class="horse">ドルビナ</td>
+          <td class="pop">7</td>
+          <td class="odds">22.4</td>
+          <td class="score">0.110</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">8</td>
+          <td class="horse">エデルクローネ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.9</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.18</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">クモヒトツナイ</td>
+          <td class="pop">6</td>
+          <td class="odds">19.3</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">ペプロス</td>
+          <td class="pop">8</td>
+          <td class="odds">22.8</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">ディープキング</td>
+          <td class="pop">10</td>
+          <td class="odds">33.0</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">バズアップビート</td>
+          <td class="pop">3</td>
+          <td class="odds">4.6</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">ゴガツノアマノガワ</td>
+          <td class="pop">11</td>
+          <td class="odds">41.0</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">カポレイラ</td>
+          <td class="pop">13</td>
+          <td class="odds">82.4</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ヒラボクヒーロー</td>
+          <td class="pop">14</td>
+          <td class="odds">94.7</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">リケアキャンディ</td>
+          <td class="pop">15</td>
+          <td class="odds">142.1</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ウインファヴォリ</td>
+          <td class="pop">9</td>
+          <td class="odds">26.9</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">レリッシュ</td>
+          <td class="pop">12</td>
+          <td class="odds">59.4</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">9R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">12頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">1</td>
+          <td class="horse">オリバナム</td>
+          <td class="pop">4</td>
+          <td class="odds">11.6</td>
+          <td class="score">0.249</td>
+          <td class="ev-col"><span class="ev-high">EV+0.18</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">4</td>
+          <td class="horse">ジーティーマン</td>
+          <td class="pop">2</td>
+          <td class="odds">3.6</td>
+          <td class="score">0.249</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">12</td>
+          <td class="horse">エルマーゴ</td>
+          <td class="pop">1</td>
+          <td class="odds">2.8</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.09</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">7</td>
+          <td class="horse">ミッキースターダム</td>
+          <td class="pop">5</td>
+          <td class="odds">13.6</td>
+          <td class="score">0.082</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">11</td>
+          <td class="horse">クールベイビー</td>
+          <td class="pop">9</td>
+          <td class="odds">28.3</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">マイネルフォルツァ</td>
+          <td class="pop">7</td>
+          <td class="odds">17.2</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">シルバーレイン</td>
+          <td class="pop">3</td>
+          <td class="odds">5.2</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.13</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">リュウノタブーク</td>
+          <td class="pop">11</td>
+          <td class="odds">38.0</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">マンウォル</td>
+          <td class="pop">8</td>
+          <td class="odds">19.4</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ケイケイ</td>
+          <td class="pop">10</td>
+          <td class="odds">28.6</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">デファイ</td>
+          <td class="pop">6</td>
+          <td class="odds">15.2</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ヒロノゴウカイ</td>
+          <td class="pop">12</td>
+          <td class="odds">93.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">10R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">15頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">6</td>
+          <td class="horse">レイワサンサン</td>
+          <td class="pop">10</td>
+          <td class="odds">30.3</td>
+          <td class="score">0.322</td>
+          <td class="ev-col"><span class="ev-high">EV+0.30</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">10</td>
+          <td class="horse">ショウナンヤッホー</td>
+          <td class="pop">13</td>
+          <td class="odds">45.4</td>
+          <td class="score">0.233</td>
+          <td class="ev-col"><span class="ev-high">EV+0.22</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">14</td>
+          <td class="horse">ケイアイアルタイル</td>
+          <td class="pop">2</td>
+          <td class="odds">6.7</td>
+          <td class="score">0.077</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">3</td>
+          <td class="horse">メイショウタイピン</td>
+          <td class="pop">9</td>
+          <td class="odds">20.1</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">1</td>
+          <td class="horse">グロスビーク</td>
+          <td class="pop">1</td>
+          <td class="odds">2.3</td>
+          <td class="score">0.050</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.30</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">サンダーロード</td>
+          <td class="pop">12</td>
+          <td class="odds">40.6</td>
+          <td class="score">0.047</td>
+          <td class="ev-col"><span class="ev-low">EV+0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">コーリンカルベラ</td>
+          <td class="pop">6</td>
+          <td class="odds">13.9</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">グレイスザクラウン</td>
+          <td class="pop">5</td>
+          <td class="odds">12.5</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">トルショー</td>
+          <td class="pop">7</td>
+          <td class="odds">14.4</td>
+          <td class="score">0.028</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">フィーチャリング</td>
+          <td class="pop">3</td>
+          <td class="odds">8.3</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">トラヴェリンバンド</td>
+          <td class="pop">8</td>
+          <td class="odds">15.4</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">キョウエイカンセ</td>
+          <td class="pop">4</td>
+          <td class="odds">10.5</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">キングツェッペリン</td>
+          <td class="pop">11</td>
+          <td class="odds">32.2</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">アースイオス</td>
+          <td class="pop">14</td>
+          <td class="odds">85.9</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">コパノエビータ</td>
+          <td class="pop">15</td>
+          <td class="odds">95.5</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">11R</span>
+      <span class="course">🌿芝1600m</span>
+      <span class="n-horses">18頭</span>
+      
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">12</td>
+          <td class="horse">エンブロイダリー</td>
+          <td class="pop">1</td>
+          <td class="odds">2.0</td>
+          <td class="score">0.271</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.13</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">8</td>
+          <td class="horse">カムニャック</td>
+          <td class="pop">2</td>
+          <td class="odds">5.8</td>
+          <td class="score">0.182</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">6</td>
+          <td class="horse">ラヴァンダ</td>
+          <td class="pop">6</td>
+          <td class="odds">20.6</td>
+          <td class="score">0.094</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">17</td>
+          <td class="horse">パラディレーヌ</td>
+          <td class="pop">13</td>
+          <td class="odds">36.4</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.07</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">7</td>
+          <td class="horse">クイーンズウォーク</td>
+          <td class="pop">3</td>
+          <td class="odds">8.8</td>
+          <td class="score">0.067</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">カピリナ</td>
+          <td class="pop">16</td>
+          <td class="odds">85.1</td>
+          <td class="score">0.057</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">3</td>
+          <td class="horse">マピュース</td>
+          <td class="pop">15</td>
+          <td class="odds">76.2</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-low">EV+0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">16</td>
+          <td class="horse">ニシノティアモ</td>
+          <td class="pop">4</td>
+          <td class="odds">12.3</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">エリカエクスプレス</td>
+          <td class="pop">7</td>
+          <td class="odds">21.2</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">13</td>
+          <td class="horse">カナテープ</td>
+          <td class="pop">10</td>
+          <td class="odds">33.2</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">アイサンサン</td>
+          <td class="pop">12</td>
+          <td class="odds">35.4</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">18</td>
+          <td class="horse">チェルヴィニア</td>
+          <td class="pop">5</td>
+          <td class="odds">18.9</td>
+          <td class="score">0.016</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">10</td>
+          <td class="horse">ドロップオブライト</td>
+          <td class="pop">14</td>
+          <td class="odds">70.5</td>
+          <td class="score">0.015</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">ボンドガール</td>
+          <td class="pop">11</td>
+          <td class="odds">33.9</td>
+          <td class="score">0.014</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">2</td>
+          <td class="horse">ワイドラトゥール</td>
+          <td class="pop">18</td>
+          <td class="odds">135.3</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-low">EV+0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">ココナッツブラウン</td>
+          <td class="pop">9</td>
+          <td class="odds">27.3</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">ジョスラン</td>
+          <td class="pop">8</td>
+          <td class="odds">22.4</td>
+          <td class="score">0.012</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">ケリフレッドアスク</td>
+          <td class="pop">17</td>
+          <td class="odds">95.4</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="race-card">
+    <div class="race-header">
+      <span class="race-label">12R</span>
+      <span class="course">🌿芝1400m</span>
+      <span class="n-horses">16頭</span>
+      <span class="badge-ev">EV+</span>
+    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>印</th><th>馬番</th><th>馬名</th>
+          <th>人気</th><th>オッズ</th><th>score</th><th>EV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-top">
+          <td class="mark" style="color:#cc0000">◎</td>
+          <td class="umaban">16</td>
+          <td class="horse">テリフィックプラン</td>
+          <td class="pop">5</td>
+          <td class="odds">9.6</td>
+          <td class="score">0.269</td>
+          <td class="ev-col"><span class="ev-high">EV+0.19</span></td>
+        </tr>
+        <tr class="row-ev">
+          <td class="mark" style="color:#0055cc">○</td>
+          <td class="umaban">3</td>
+          <td class="horse">コーラルクラウン</td>
+          <td class="pop">3</td>
+          <td class="odds">5.2</td>
+          <td class="score">0.212</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.06</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#007700">▲</td>
+          <td class="umaban">13</td>
+          <td class="horse">メイケイレイン</td>
+          <td class="pop">1</td>
+          <td class="odds">5.0</td>
+          <td class="score">0.197</td>
+          <td class="ev-col"><span class="ev-mid">EV+0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#e06000">△</td>
+          <td class="umaban">10</td>
+          <td class="horse">アスクアイルビゼア</td>
+          <td class="pop">4</td>
+          <td class="odds">8.9</td>
+          <td class="score">0.093</td>
+          <td class="ev-col"><span class="ev-low">EV+0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#777777">×</td>
+          <td class="umaban">2</td>
+          <td class="horse">トゥロン</td>
+          <td class="pop">7</td>
+          <td class="odds">14.7</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">8</td>
+          <td class="horse">ラファル</td>
+          <td class="pop">2</td>
+          <td class="odds">5.1</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.12</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">12</td>
+          <td class="horse">スニーカースキル</td>
+          <td class="pop">6</td>
+          <td class="odds">11.5</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.04</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">5</td>
+          <td class="horse">フウセツ</td>
+          <td class="pop">9</td>
+          <td class="odds">21.4</td>
+          <td class="score">0.034</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.00</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">9</td>
+          <td class="horse">ワークソング</td>
+          <td class="pop">11</td>
+          <td class="odds">26.8</td>
+          <td class="score">0.023</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">11</td>
+          <td class="horse">サトノガレオン</td>
+          <td class="pop">8</td>
+          <td class="odds">15.3</td>
+          <td class="score">0.005</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.05</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">4</td>
+          <td class="horse">コブラ</td>
+          <td class="pop">12</td>
+          <td class="odds">34.3</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">6</td>
+          <td class="horse">エイブラムス</td>
+          <td class="pop">14</td>
+          <td class="odds">45.5</td>
+          <td class="score">0.004</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">1</td>
+          <td class="horse">パルデンス</td>
+          <td class="pop">15</td>
+          <td class="odds">51.4</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">7</td>
+          <td class="horse">ジャスリー</td>
+          <td class="pop">13</td>
+          <td class="odds">44.0</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.02</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">14</td>
+          <td class="horse">ポッドソル</td>
+          <td class="pop">10</td>
+          <td class="odds">25.3</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.03</span></td>
+        </tr>
+        <tr>
+          <td class="mark" style="color:#333"></td>
+          <td class="umaban">15</td>
+          <td class="horse">アジアミッション</td>
+          <td class="pop">16</td>
+          <td class="odds">53.5</td>
+          <td class="score">0.000</td>
+          <td class="ev-col"><span class="ev-neg">EV-0.01</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    </div>
+</div>
+
+<div class="page-footer">
+  clogit model &nbsp;|&nbsp; surface-split conditional logit + isotonic calibration &nbsp;|&nbsp;
+  生成: 2026-05-17 13:37
+</div>
+
+</body>
+</html>
