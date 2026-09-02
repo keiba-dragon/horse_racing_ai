@@ -112,19 +112,22 @@ total_days   = len(daily_rows)
 
 print(f"\n累計: {('+' if total_pf>=0 else '')}{total_pf:,}円  ROI{total_roi:+.1%}  {plus_days}/{total_days}日プラス")
 
-# ── HTML生成 ────────────────────────────────────────────────────
+# ── HTML生成（keiba-dragon.github.io のライト×ブルー基調に合わせる）──────
 SHIKI_ORDER = ['単勝','複勝','ワイド','馬連','枠連','馬単','3連複','3連単','その他']
-col_total = '#2d862d' if total_pf >= 0 else '#c0392b'
+GREEN = '#16a34a'
+RED   = '#dc2626'
+BLUE  = '#2563eb'
+col_total = GREEN if total_pf >= 0 else RED
 
 def pf_td(pf, roi):
     sign = '+' if pf >= 0 else ''
-    col  = '#2d862d' if pf >= 0 else '#c0392b'
-    return f'<td style="color:{col};font-weight:bold;text-align:right">{sign}{pf:,}円<br><small>({roi:+.1%})</small></td>'
+    col  = GREEN if pf >= 0 else RED
+    return f'<td style="color:{col};font-weight:700;text-align:right">{sign}{pf:,}円<br><small>({roi:+.1%})</small></td>'
 
 def cum_td(pf):
-    col = '#2d862d' if pf >= 0 else '#c0392b'
+    col = GREEN if pf >= 0 else RED
     sign = '+' if pf >= 0 else ''
-    return f'<td style="color:{col};font-weight:bold;text-align:right">{sign}{pf:,}円</td>'
+    return f'<td style="color:{col};font-weight:700;text-align:right">{sign}{pf:,}円</td>'
 
 # 式別ミニバッジ
 def shiki_badges(detail):
@@ -132,11 +135,11 @@ def shiki_badges(detail):
     for sg in SHIKI_ORDER:
         if sg not in detail: continue
         d = detail[sg]
-        col = '#2d862d' if d['pf'] >= 0 else '#c0392b'
+        col = GREEN if d['pf'] >= 0 else RED
         sign = '+' if d['pf'] >= 0 else ''
         badges.append(
-            f'<span style="display:inline-block;margin:1px 2px;padding:1px 5px;'
-            f'border-radius:3px;font-size:9px;background:#2a2a4a;color:{col}">'
+            f'<span style="display:inline-block;margin:1px 2px;padding:1px 6px;'
+            f'border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:{col};border:1px solid #dbeafe">'
             f'{sg} {sign}{d["pf"]:,}</span>'
         )
     return ''.join(badges)
@@ -144,8 +147,6 @@ def shiki_badges(detail):
 # 日別行
 rows_html = ''
 for r in daily_rows:
-    cum_col = '#2d862d' if r['累計損益'] >= 0 else '#c0392b'
-    sign = '+' if r['累計損益'] >= 0 else ''
     rows_html += f'''<tr>
 <td style="text-align:center;white-space:nowrap">{r["日付"]}</td>
 <td style="text-align:right">{r["投資"]:,}円</td>
@@ -161,56 +162,134 @@ for sg in SHIKI_ORDER:
     if sg not in shiki_total: continue
     s = shiki_total[sg]
     hit_rate = f'{s["hits"]}/{s["bets"]}' if s["bets"] > 0 else '-'
-    col = '#2d862d' if s['pf'] >= 0 else '#c0392b'
+    col = GREEN if s['pf'] >= 0 else RED
     sign = '+' if s['pf'] >= 0 else ''
     shiki_rows += f'''<tr>
-<td style="font-weight:bold">{sg}</td>
+<td style="font-weight:700">{sg}</td>
 <td style="text-align:right">{s["投資"]:,}円</td>
 <td style="text-align:right">{s["回収"]:,}円</td>
-<td style="color:{col};font-weight:bold;text-align:right">{sign}{s["pf"]:,}円</td>
-<td style="color:{col};font-weight:bold;text-align:right">{s["roi"]:+.1%}</td>
+<td style="color:{col};font-weight:700;text-align:right">{sign}{s["pf"]:,}円</td>
+<td style="color:{col};font-weight:700;text-align:right">{s["roi"]:+.1%}</td>
 <td style="text-align:center">{hit_rate}</td>
 </tr>'''
 
+# ── グラフ用データ ──────────────────────────────────────────────
+import json
+chart_labels = [r['日付'][5:] for r in daily_rows]
+chart_daily  = [r['損益'] for r in daily_rows]
+chart_cumul  = [r['累計損益'] for r in daily_rows]
+chart_colors = [GREEN if v >= 0 else RED for v in chart_daily]
+
 html = f'''<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>実際の馬券ROI 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <style>
-body{{font-family:"Hiragino Kaku Gothic Pro",Meiryo,sans-serif;background:#1a1a2e;color:#e0e0e0;padding:20px}}
-h2{{color:#f0c040;margin-top:28px}}
-h3{{color:#aaddff;margin-top:20px}}
-.summary{{display:flex;gap:16px;justify-content:center;margin:10px 0 20px;flex-wrap:wrap}}
-.card{{background:#16213e;border-radius:8px;padding:12px 20px;text-align:center;min-width:110px}}
-.card .val{{font-size:1.5em;font-weight:bold}}
-table{{width:100%;border-collapse:collapse;font-size:0.85em;margin-bottom:20px}}
-th{{background:#16213e;color:#f0c040;padding:6px 8px;text-align:center;position:sticky;top:0}}
-td{{padding:5px 8px;border-bottom:1px solid #2a2a4a}}
-tr:nth-child(even){{background:#16213e88}}
-tr:hover{{background:#1a3a5a}}
+:root{{--blue:{BLUE};--ink:#1e293b;--muted:#64748b;--border:#e2e8f0;--bg2:#f8fafc}}
+*{{box-sizing:border-box}}
+body{{font-family:"Hiragino Kaku Gothic Pro","Noto Sans JP",Meiryo,sans-serif;background:#ffffff;color:var(--ink);padding:20px;max-width:960px;margin:0 auto}}
+h2{{color:var(--ink);font-weight:800;margin-top:28px;font-size:1.3em}}
+h3{{color:var(--blue);font-weight:800;margin-top:24px;font-size:1.05em}}
+.updated{{color:var(--muted);font-size:0.85em;font-weight:500}}
+.summary{{display:flex;gap:12px;justify-content:center;margin:14px 0 24px;flex-wrap:wrap}}
+.card{{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:14px 20px;text-align:center;min-width:110px;flex:1 1 110px;max-width:170px}}
+.card .lbl{{color:var(--muted);font-size:0.8em;font-weight:600}}
+.card .val{{font-size:1.4em;font-weight:800;margin-top:2px}}
+.chart-wrap{{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:20px}}
+.chart-wrap canvas{{display:block;width:100%!important;height:220px!important}}
+@media(min-width:600px){{.chart-wrap canvas{{height:260px!important}}}}
+.tbl-wrap{{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;border:1px solid var(--border);border-radius:16px}}
+table{{width:100%;border-collapse:collapse;font-size:0.85em;white-space:nowrap}}
+th{{background:var(--bg2);color:var(--blue);font-weight:800;padding:8px 10px;text-align:center;position:sticky;top:0}}
+td{{padding:7px 10px;border-bottom:1px solid var(--border)}}
+tr:hover{{background:#f1f5f9}}
+@media(max-width:480px){{
+  body{{padding:12px}}
+  .card .val{{font-size:1.15em}}
+  table{{font-size:0.78em}}
+}}
 </style></head><body>
-<h2>実際の馬券ROI　（最終更新: {last_date}）</h2>
+<h2>実際の馬券ROI <span class="updated">（最終更新: {last_date}）</span></h2>
 <div class="summary">
-  <div class="card"><div>累計損益</div><div class="val" style="color:{col_total}">{("+" if total_pf>=0 else "")}{total_pf:,}円</div></div>
-  <div class="card"><div>累計ROI</div><div class="val" style="color:{col_total}">{total_roi:+.1%}</div></div>
-  <div class="card"><div>総投資</div><div class="val">{total_invest:,}円</div></div>
-  <div class="card"><div>総回収</div><div class="val">{total_ret:,}円</div></div>
-  <div class="card"><div>プラス日数</div><div class="val">{plus_days}/{total_days}日</div></div>
+  <div class="card"><div class="lbl">累計損益</div><div class="val" style="color:{col_total}">{("+" if total_pf>=0 else "")}{total_pf:,}円</div></div>
+  <div class="card"><div class="lbl">累計ROI</div><div class="val" style="color:{col_total}">{total_roi:+.1%}</div></div>
+  <div class="card"><div class="lbl">総投資</div><div class="val">{total_invest:,}円</div></div>
+  <div class="card"><div class="lbl">総回収</div><div class="val">{total_ret:,}円</div></div>
+  <div class="card"><div class="lbl">プラス日数</div><div class="val">{plus_days}/{total_days}日</div></div>
 </div>
 
+<h3>日別損益グラフ</h3>
+<div class="chart-wrap"><canvas id="dailyChart"></canvas></div>
+<h3>累計損益グラフ</h3>
+<div class="chart-wrap"><canvas id="cumulChart"></canvas></div>
+
 <h3>式別ROI</h3>
-<table>
+<div class="tbl-wrap"><table>
 <thead><tr>
 <th>式別</th><th>投資</th><th>回収</th><th>損益</th><th>ROI</th><th>的中/買い目数</th>
 </tr></thead><tbody>
 {shiki_rows}
-</tbody></table>
+</tbody></table></div>
 
 <h3>日別損益</h3>
-<table>
+<div class="tbl-wrap"><table>
 <thead><tr>
 <th>日付</th><th>投資</th><th>回収</th><th>損益</th><th>式別内訳</th><th>累計損益</th>
 </tr></thead><tbody>
 {rows_html}
-</tbody></table>
+</tbody></table></div>
+
+<script>
+const labels = {json.dumps(chart_labels, ensure_ascii=False)};
+const dailyData = {json.dumps(chart_daily)};
+const cumulData = {json.dumps(chart_cumul)};
+const barColors = {json.dumps(chart_colors)};
+
+const isMobile = window.innerWidth < 600;
+const maxTicks = isMobile ? 8 : 20;
+const ptRadius = isMobile ? 2 : 3;
+const tickSz = isMobile ? 10 : 12;
+const gridColor = '#e2e8f0';
+const tickColor = '#64748b';
+
+function makeScales() {{
+  return {{
+    x: {{ ticks: {{ color: tickColor, maxRotation: 45, maxTicksLimit: maxTicks, font: {{ size: tickSz }} }}, grid: {{ color: gridColor }} }},
+    y: {{ ticks: {{ color: tickColor, font: {{ size: tickSz }}, callback: v => (v>=0?'+':'')+v.toLocaleString()+'円' }}, grid: {{ color: gridColor }} }}
+  }};
+}}
+
+new Chart(document.getElementById('dailyChart'), {{
+  type: 'bar',
+  data: {{ labels: labels, datasets: [{{ label: '日別損益（円）', data: dailyData, backgroundColor: barColors, borderRadius: 4 }}] }},
+  options: {{
+    responsive: true, maintainAspectRatio: false,
+    plugins: {{
+      legend: {{ labels: {{ color: '#1e293b', font: {{ size: tickSz }} }} }},
+      tooltip: {{ callbacks: {{ label: ctx => (ctx.raw >= 0 ? '+' : '') + ctx.raw.toLocaleString() + '円' }} }}
+    }},
+    scales: makeScales()
+  }}
+}});
+
+new Chart(document.getElementById('cumulChart'), {{
+  type: 'line',
+  data: {{ labels: labels, datasets: [{{
+    label: '累計損益（円）', data: cumulData,
+    borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.08)',
+    borderWidth: 2, fill: true, tension: 0.15,
+    pointRadius: ptRadius, pointBackgroundColor: '#2563eb'
+  }}] }},
+  options: {{
+    responsive: true, maintainAspectRatio: false,
+    plugins: {{
+      legend: {{ labels: {{ color: '#1e293b', font: {{ size: tickSz }} }} }},
+      tooltip: {{ callbacks: {{ label: ctx => (ctx.raw >= 0 ? '+' : '') + ctx.raw.toLocaleString() + '円' }} }}
+    }},
+    scales: makeScales()
+  }}
+}});
+</script>
 </body></html>'''
 
 out = r'G:\マイドライブ\競馬AI\actual_bet_roi.html'

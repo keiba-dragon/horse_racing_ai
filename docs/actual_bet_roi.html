@@ -1,93 +1,112 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>実際の馬券ROI 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <style>
-body{font-family:"Hiragino Kaku Gothic Pro",Meiryo,sans-serif;background:#1a1a2e;color:#e0e0e0;padding:20px}
-h2{color:#f0c040;margin-top:28px}
-h3{color:#aaddff;margin-top:20px}
-.summary{display:flex;gap:16px;justify-content:center;margin:10px 0 20px;flex-wrap:wrap}
-.card{background:#16213e;border-radius:8px;padding:12px 20px;text-align:center;min-width:110px}
-.card .val{font-size:1.5em;font-weight:bold}
-table{width:100%;border-collapse:collapse;font-size:0.85em;margin-bottom:20px}
-th{background:#16213e;color:#f0c040;padding:6px 8px;text-align:center;position:sticky;top:0}
-td{padding:5px 8px;border-bottom:1px solid #2a2a4a}
-tr:nth-child(even){background:#16213e88}
-tr:hover{background:#1a3a5a}
+:root{--blue:#2563eb;--ink:#1e293b;--muted:#64748b;--border:#e2e8f0;--bg2:#f8fafc}
+*{box-sizing:border-box}
+body{font-family:"Hiragino Kaku Gothic Pro","Noto Sans JP",Meiryo,sans-serif;background:#ffffff;color:var(--ink);padding:20px;max-width:960px;margin:0 auto}
+h2{color:var(--ink);font-weight:800;margin-top:28px;font-size:1.3em}
+h3{color:var(--blue);font-weight:800;margin-top:24px;font-size:1.05em}
+.updated{color:var(--muted);font-size:0.85em;font-weight:500}
+.summary{display:flex;gap:12px;justify-content:center;margin:14px 0 24px;flex-wrap:wrap}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:14px 20px;text-align:center;min-width:110px;flex:1 1 110px;max-width:170px}
+.card .lbl{color:var(--muted);font-size:0.8em;font-weight:600}
+.card .val{font-size:1.4em;font-weight:800;margin-top:2px}
+.chart-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:20px}
+.chart-wrap canvas{display:block;width:100%!important;height:220px!important}
+@media(min-width:600px){.chart-wrap canvas{height:260px!important}}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;border:1px solid var(--border);border-radius:16px}
+table{width:100%;border-collapse:collapse;font-size:0.85em;white-space:nowrap}
+th{background:var(--bg2);color:var(--blue);font-weight:800;padding:8px 10px;text-align:center;position:sticky;top:0}
+td{padding:7px 10px;border-bottom:1px solid var(--border)}
+tr:hover{background:#f1f5f9}
+@media(max-width:480px){
+  body{padding:12px}
+  .card .val{font-size:1.15em}
+  table{font-size:0.78em}
+}
 </style></head><body>
-<h2>実際の馬券ROI　（最終更新: 2026/08/30）</h2>
+<h2>実際の馬券ROI <span class="updated">（最終更新: 2026/08/30）</span></h2>
 <div class="summary">
-  <div class="card"><div>累計損益</div><div class="val" style="color:#c0392b">-275,300円</div></div>
-  <div class="card"><div>累計ROI</div><div class="val" style="color:#c0392b">-35.0%</div></div>
-  <div class="card"><div>総投資</div><div class="val">787,600円</div></div>
-  <div class="card"><div>総回収</div><div class="val">512,300円</div></div>
-  <div class="card"><div>プラス日数</div><div class="val">11/54日</div></div>
+  <div class="card"><div class="lbl">累計損益</div><div class="val" style="color:#dc2626">-275,300円</div></div>
+  <div class="card"><div class="lbl">累計ROI</div><div class="val" style="color:#dc2626">-35.0%</div></div>
+  <div class="card"><div class="lbl">総投資</div><div class="val">787,600円</div></div>
+  <div class="card"><div class="lbl">総回収</div><div class="val">512,300円</div></div>
+  <div class="card"><div class="lbl">プラス日数</div><div class="val">11/54日</div></div>
 </div>
 
+<h3>日別損益グラフ</h3>
+<div class="chart-wrap"><canvas id="dailyChart"></canvas></div>
+<h3>累計損益グラフ</h3>
+<div class="chart-wrap"><canvas id="cumulChart"></canvas></div>
+
 <h3>式別ROI</h3>
-<table>
+<div class="tbl-wrap"><table>
 <thead><tr>
 <th>式別</th><th>投資</th><th>回収</th><th>損益</th><th>ROI</th><th>的中/買い目数</th>
 </tr></thead><tbody>
 <tr>
-<td style="font-weight:bold">単勝</td>
+<td style="font-weight:700">単勝</td>
 <td style="text-align:right">131,900円</td>
 <td style="text-align:right">111,800円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-20,100円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-15.2%</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-20,100円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-15.2%</td>
 <td style="text-align:center">35/198</td>
 </tr><tr>
-<td style="font-weight:bold">複勝</td>
+<td style="font-weight:700">複勝</td>
 <td style="text-align:right">97,400円</td>
 <td style="text-align:right">83,860円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-13,540円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-13.9%</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-13,540円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-13.9%</td>
 <td style="text-align:center">62/111</td>
 </tr><tr>
-<td style="font-weight:bold">ワイド</td>
+<td style="font-weight:700">ワイド</td>
 <td style="text-align:right">150,500円</td>
 <td style="text-align:right">86,670円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-63,830円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-42.4%</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-63,830円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-42.4%</td>
 <td style="text-align:center">30/182</td>
 </tr><tr>
-<td style="font-weight:bold">馬連</td>
+<td style="font-weight:700">馬連</td>
 <td style="text-align:right">72,300円</td>
 <td style="text-align:right">71,470円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-830円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-1.1%</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-830円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-1.1%</td>
 <td style="text-align:center">18/101</td>
 </tr><tr>
-<td style="font-weight:bold">枠連</td>
+<td style="font-weight:700">枠連</td>
 <td style="text-align:right">14,400円</td>
 <td style="text-align:right">14,490円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+90円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+0.6%</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+90円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+0.6%</td>
 <td style="text-align:center">4/22</td>
 </tr><tr>
-<td style="font-weight:bold">馬単</td>
+<td style="font-weight:700">馬単</td>
 <td style="text-align:right">16,400円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-16,400円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-100.0%</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-16,400円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-100.0%</td>
 <td style="text-align:center">0/20</td>
 </tr><tr>
-<td style="font-weight:bold">3連複</td>
+<td style="font-weight:700">3連複</td>
 <td style="text-align:right">145,300円</td>
 <td style="text-align:right">53,700円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-91,600円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-63.0%</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-91,600円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-63.0%</td>
 <td style="text-align:center">19/85</td>
 </tr><tr>
-<td style="font-weight:bold">3連単</td>
+<td style="font-weight:700">3連単</td>
 <td style="text-align:right">159,400円</td>
 <td style="text-align:right">90,310円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-69,090円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-43.3%</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-69,090円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-43.3%</td>
 <td style="text-align:center">14/88</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
 
 <h3>日別損益</h3>
-<table>
+<div class="tbl-wrap"><table>
 <thead><tr>
 <th>日付</th><th>投資</th><th>回収</th><th>損益</th><th>式別内訳</th><th>累計損益</th>
 </tr></thead><tbody>
@@ -95,380 +114,432 @@ tr:hover{background:#1a3a5a}
 <td style="text-align:center;white-space:nowrap">2026/01/04</td>
 <td style="text-align:right">14,100円</td>
 <td style="text-align:right">11,260円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,840円<br><small>(-20.1%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -340</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -1,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,100</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,840円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,840円<br><small>(-20.1%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -340</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -1,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,100</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,840円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/05</td>
 <td style="text-align:right">7,400円</td>
 <td style="text-align:right">11,220円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+3,820円<br><small>(+51.6%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +3,820</span></td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+980円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+3,820円<br><small>(+51.6%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +3,820</span></td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+980円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/10</td>
 <td style="text-align:right">12,000円</td>
 <td style="text-align:right">7,100円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-4,900円<br><small>(-40.8%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -3,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -500</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-3,920円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-4,900円<br><small>(-40.8%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -3,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -500</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-3,920円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/11</td>
 <td style="text-align:right">31,300円</td>
 <td style="text-align:right">38,400円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+7,100円<br><small>(+22.7%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">単勝 +10,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -120</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">ワイド +3,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -3,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">枠連 +7,240</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -7,870</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -2,650</span></td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+3,180円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+7,100円<br><small>(+22.7%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">単勝 +10,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -120</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">ワイド +3,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -3,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">枠連 +7,240</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -7,870</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -2,650</span></td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+3,180円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/12</td>
 <td style="text-align:right">8,500円</td>
 <td style="text-align:right">1,200円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-7,300円<br><small>(-85.9%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">枠連 -3,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,400</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-4,120円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-7,300円<br><small>(-85.9%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">枠連 -3,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,400</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-4,120円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/17</td>
 <td style="text-align:right">1,000円</td>
 <td style="text-align:right">1,100円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+100円<br><small>(+10.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +100</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-4,020円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+100円<br><small>(+10.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +100</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-4,020円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/18</td>
 <td style="text-align:right">16,300円</td>
 <td style="text-align:right">1,290円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-15,010円<br><small>(-92.1%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">枠連 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -5,110</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -5,700</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-19,030円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-15,010円<br><small>(-92.1%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">枠連 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -5,110</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -5,700</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-19,030円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/24</td>
 <td style="text-align:right">9,100円</td>
 <td style="text-align:right">2,400円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-6,700円<br><small>(-73.6%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">枠連 -2,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,500</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-25,730円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-6,700円<br><small>(-73.6%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">枠連 -2,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,500</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-25,730円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/25</td>
 <td style="text-align:right">11,000円</td>
 <td style="text-align:right">1,280円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-9,720円<br><small>(-88.4%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">枠連 -320</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -5,800</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -3,600</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-35,450円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-9,720円<br><small>(-88.4%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">枠連 -320</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -5,800</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -3,600</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-35,450円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/01/31</td>
 <td style="text-align:right">10,800円</td>
 <td style="text-align:right">8,610円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,190円<br><small>(-20.3%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">単勝 +1,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -200</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">ワイド +480</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -970</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -3,200</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-37,640円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,190円<br><small>(-20.3%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">単勝 +1,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -200</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">ワイド +480</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -970</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -3,200</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-37,640円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/02/01</td>
 <td style="text-align:right">12,800円</td>
 <td style="text-align:right">13,640円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+840円<br><small>(+6.6%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -130</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +2,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連単 +670</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-36,800円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+840円<br><small>(+6.6%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -130</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +2,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連単 +670</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-36,800円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/02/07</td>
 <td style="text-align:right">6,500円</td>
 <td style="text-align:right">1,200円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-5,300円<br><small>(-81.5%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -2,800</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -500</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-42,100円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-5,300円<br><small>(-81.5%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -2,800</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -500</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-42,100円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/02/10</td>
 <td style="text-align:right">3,000円</td>
 <td style="text-align:right">3,200円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+200円<br><small>(+6.7%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +200</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-41,900円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+200円<br><small>(+6.7%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +200</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-41,900円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/02/15</td>
 <td style="text-align:right">10,900円</td>
 <td style="text-align:right">8,400円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,500円<br><small>(-22.9%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,650</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連単 +2,150</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-44,400円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,500円<br><small>(-22.9%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,650</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連単 +2,150</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-44,400円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/02/21</td>
 <td style="text-align:right">25,800円</td>
 <td style="text-align:right">29,390円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+3,590円<br><small>(+13.9%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">ワイド +2,960</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">馬連 +4,130</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -1,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -1,400</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-40,810円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+3,590円<br><small>(+13.9%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">ワイド +2,960</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">馬連 +4,130</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -1,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -1,400</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-40,810円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/02/22</td>
 <td style="text-align:right">28,900円</td>
 <td style="text-align:right">20,140円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-8,760円<br><small>(-30.3%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -6,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -240</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -2,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連単 +3,080</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-49,570円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-8,760円<br><small>(-30.3%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -6,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -240</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -2,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連単 +3,080</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-49,570円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/02/28</td>
 <td style="text-align:right">27,300円</td>
 <td style="text-align:right">17,840円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-9,460円<br><small>(-34.7%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -1,300</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -230</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -6,280</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">馬連 +1,450</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -3,100</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-59,030円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-9,460円<br><small>(-34.7%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -1,300</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -230</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -6,280</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">馬連 +1,450</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -3,100</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-59,030円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/01</td>
 <td style="text-align:right">3,000円</td>
 <td style="text-align:right">5,700円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+2,700円<br><small>(+90.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">単勝 +3,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +300</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-56,330円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+2,700円<br><small>(+90.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">単勝 +3,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +300</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-56,330円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/08</td>
 <td style="text-align:right">6,200円</td>
 <td style="text-align:right">3,600円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,600円<br><small>(-41.9%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +2,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -4,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-58,930円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,600円<br><small>(-41.9%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +2,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -4,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-58,930円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/14</td>
 <td style="text-align:right">100円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-100円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -100</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-59,030円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-100円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -100</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-59,030円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/15</td>
 <td style="text-align:right">16,400円</td>
 <td style="text-align:right">56,450円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+40,050円<br><small>(+244.2%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">単勝 +17,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">ワイド +5,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">馬連 +21,050</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -2,800</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-18,980円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+40,050円<br><small>(+244.2%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">単勝 +17,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">ワイド +5,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">馬連 +21,050</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -2,800</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-18,980円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/21</td>
 <td style="text-align:right">34,500円</td>
 <td style="text-align:right">16,370円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-18,130円<br><small>(-52.6%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -6,480</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -12,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">馬連 +80</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">枠連 +1,770</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -1,200</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-37,110円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-18,130円<br><small>(-52.6%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -6,480</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -12,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">馬連 +80</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">枠連 +1,770</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -1,200</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-37,110円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/22</td>
 <td style="text-align:right">48,100円</td>
 <td style="text-align:right">35,290円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-12,810円<br><small>(-26.6%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -4,150</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,990</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -2,430</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -640</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -800</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-49,920円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-12,810円<br><small>(-26.6%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -4,150</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,990</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -2,430</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -640</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -800</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-49,920円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/28</td>
 <td style="text-align:right">12,600円</td>
 <td style="text-align:right">18,230円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+5,630円<br><small>(+44.7%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">単勝 +5,620</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -750</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連複 +1,760</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-44,290円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+5,630円<br><small>(+44.7%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">単勝 +5,620</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -750</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連複 +1,760</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-44,290円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/03/29</td>
 <td style="text-align:right">40,400円</td>
 <td style="text-align:right">4,780円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-35,620円<br><small>(-88.2%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -9,970</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -8,800</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -2,350</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -2,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -5,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -6,500</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-79,910円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-35,620円<br><small>(-88.2%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -9,970</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -8,800</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -2,350</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -2,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -5,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -6,500</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-79,910円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/04/04</td>
 <td style="text-align:right">6,900円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-6,900円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -5,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -200</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,300</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-86,810円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-6,900円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -5,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -200</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,300</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-86,810円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/04/05</td>
 <td style="text-align:right">11,300円</td>
 <td style="text-align:right">2,130円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-9,170円<br><small>(-81.2%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -1,120</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -1,300</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,350</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -1,400</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-95,980円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-9,170円<br><small>(-81.2%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -1,120</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -1,300</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,350</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -1,400</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-95,980円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/04/12</td>
 <td style="text-align:right">41,200円</td>
 <td style="text-align:right">42,430円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+1,230円<br><small>(+3.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -240</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -1,890</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -3,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -8,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連単 +17,260</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-94,750円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+1,230円<br><small>(+3.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -240</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -1,890</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -3,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -8,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連単 +17,260</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-94,750円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/04/18</td>
 <td style="text-align:right">7,700円</td>
 <td style="text-align:right">6,840円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-860円<br><small>(-11.2%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">単勝 +920</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">複勝 +250</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,230</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -800</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-95,610円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-860円<br><small>(-11.2%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">単勝 +920</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">複勝 +250</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,230</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -800</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-95,610円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/04/19</td>
 <td style="text-align:right">24,100円</td>
 <td style="text-align:right">4,740円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-19,360円<br><small>(-80.3%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -6,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,360</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -7,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -3,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-114,970円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-19,360円<br><small>(-80.3%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -6,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,360</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -800</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -7,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -3,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-114,970円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/04/25</td>
 <td style="text-align:right">20,400円</td>
 <td style="text-align:right">6,730円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-13,670円<br><small>(-67.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -6,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -2,570</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -1,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -1,400</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-128,640円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-13,670円<br><small>(-67.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -6,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -2,570</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -1,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -1,400</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-128,640円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/04/26</td>
 <td style="text-align:right">12,900円</td>
 <td style="text-align:right">2,840円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-10,060円<br><small>(-78.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -680</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">馬連 +420</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -8,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -800</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-138,700円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-10,060円<br><small>(-78.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -680</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">馬連 +420</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -8,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -800</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-138,700円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/02</td>
 <td style="text-align:right">23,300円</td>
 <td style="text-align:right">13,610円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-9,690円<br><small>(-41.6%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -3,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -420</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -3,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">馬連 +4,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -5,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -1,270</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-148,390円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-9,690円<br><small>(-41.6%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -3,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -420</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -3,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">馬連 +4,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -5,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -1,270</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-148,390円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/03</td>
 <td style="text-align:right">6,300円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-6,300円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -4,800</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-154,690円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-6,300円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -4,800</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-154,690円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/09</td>
 <td style="text-align:right">12,100円</td>
 <td style="text-align:right">2,290円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-9,810円<br><small>(-81.1%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -4,300</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -2,910</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-164,500円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-9,810円<br><small>(-81.1%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -4,300</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -2,910</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-164,500円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/10</td>
 <td style="text-align:right">13,500円</td>
 <td style="text-align:right">7,710円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-5,790円<br><small>(-42.9%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,950</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -1,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -2,640</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-170,290円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-5,790円<br><small>(-42.9%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,950</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -1,200</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -2,640</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-170,290円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/16</td>
 <td style="text-align:right">3,600円</td>
 <td style="text-align:right">840円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,760円<br><small>(-76.7%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -360</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -2,400</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-173,050円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,760円<br><small>(-76.7%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -360</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -2,400</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-173,050円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/17</td>
 <td style="text-align:right">16,700円</td>
 <td style="text-align:right">14,270円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,430円<br><small>(-14.6%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -900</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -2,070</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連単 +1,640</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-175,480円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,430円<br><small>(-14.6%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -900</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -2,070</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連単 +1,640</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-175,480円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/23</td>
 <td style="text-align:right">3,100円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-3,100円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -600</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-178,580円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-3,100円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -600</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-178,580円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/24</td>
 <td style="text-align:right">36,500円</td>
 <td style="text-align:right">16,600円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-19,900円<br><small>(-54.5%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">単勝 +4,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -6,820</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -4,980</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -11,100</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-198,480円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-19,900円<br><small>(-54.5%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">単勝 +4,700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -6,820</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -4,980</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -11,100</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-198,480円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/30</td>
 <td style="text-align:right">15,400円</td>
 <td style="text-align:right">8,750円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-6,650円<br><small>(-43.2%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -2,250</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -3,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -300</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-205,130円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-6,650円<br><small>(-43.2%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -2,250</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -3,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -300</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-205,130円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/05/31</td>
 <td style="text-align:right">36,000円</td>
 <td style="text-align:right">18,260円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-17,740円<br><small>(-49.3%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -6,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">馬連 +970</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連複 +6,090</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -16,600</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-222,870円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-17,740円<br><small>(-49.3%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -6,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">馬連 +970</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連複 +6,090</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -16,600</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-222,870円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/06/07</td>
 <td style="text-align:right">9,500円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-9,500円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -2,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -5,900</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-232,370円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-9,500円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -2,600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -5,900</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-232,370円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/06/13</td>
 <td style="text-align:right">500円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-500円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -500</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-232,870円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-500円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -500</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-232,870円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/06/14</td>
 <td style="text-align:right">42,700円</td>
 <td style="text-align:right">25,930円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-16,770円<br><small>(-39.3%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">複勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,860</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -4,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連複 +220</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -9,530</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-249,640円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-16,770円<br><small>(-39.3%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">複勝 -1,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,860</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -4,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連複 +220</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -9,530</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-249,640円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/06/21</td>
 <td style="text-align:right">1,000円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-1,000円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-250,640円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-1,000円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-250,640円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/06/27</td>
 <td style="text-align:right">1,000円</td>
 <td style="text-align:right">5,300円</td>
-<td style="color:#2d862d;font-weight:bold;text-align:right">+4,300円<br><small>(+430.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">ワイド +4,300</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-246,340円</td>
+<td style="color:#16a34a;font-weight:700;text-align:right">+4,300円<br><small>(+430.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">ワイド +4,300</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-246,340円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/07/05</td>
 <td style="text-align:right">1,000円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-1,000円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-247,340円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-1,000円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-247,340円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/08/02</td>
 <td style="text-align:right">4,000円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-4,000円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">枠連 -2,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-251,340円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-4,000円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">枠連 -2,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-251,340円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/08/08</td>
 <td style="text-align:right">3,900円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-3,900円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -800</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-255,240円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-3,900円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -1,100</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -2,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -800</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-255,240円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/08/09</td>
 <td style="text-align:right">3,500円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-3,500円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -2,800</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-258,740円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-3,500円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -700</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -2,800</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-258,740円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/08/16</td>
 <td style="text-align:right">3,000円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-3,000円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -1,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -1,600</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-261,740円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-3,000円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -1,400</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -1,600</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-261,740円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/08/29</td>
 <td style="text-align:right">10,900円</td>
 <td style="text-align:right">0円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-10,900円<br><small>(-100.0%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">ワイド -1,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -3,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連単 -6,000</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-272,640円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-10,900円<br><small>(-100.0%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">ワイド -1,900</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -3,000</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連単 -6,000</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-272,640円</td>
 </tr><tr>
 <td style="text-align:center;white-space:nowrap">2026/08/30</td>
 <td style="text-align:right">17,600円</td>
 <td style="text-align:right">14,940円</td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-2,660円<br><small>(-15.1%)</small></td>
-<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">単勝 -1,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬連 -1,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">馬単 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#c0392b">3連複 -330</span><span style="display:inline-block;margin:1px 2px;padding:1px 5px;border-radius:3px;font-size:9px;background:#2a2a4a;color:#2d862d">3連単 +1,270</span></td>
-<td style="color:#c0392b;font-weight:bold;text-align:right">-275,300円</td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-2,660円<br><small>(-15.1%)</small></td>
+<td style="text-align:left;font-size:9px"><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">単勝 -1,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬連 -1,500</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">馬単 -600</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#dc2626;border:1px solid #dbeafe">3連複 -330</span><span style="display:inline-block;margin:1px 2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:#eff6ff;color:#16a34a;border:1px solid #dbeafe">3連単 +1,270</span></td>
+<td style="color:#dc2626;font-weight:700;text-align:right">-275,300円</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
+
+<script>
+const labels = ["01/04", "01/05", "01/10", "01/11", "01/12", "01/17", "01/18", "01/24", "01/25", "01/31", "02/01", "02/07", "02/10", "02/15", "02/21", "02/22", "02/28", "03/01", "03/08", "03/14", "03/15", "03/21", "03/22", "03/28", "03/29", "04/04", "04/05", "04/12", "04/18", "04/19", "04/25", "04/26", "05/02", "05/03", "05/09", "05/10", "05/16", "05/17", "05/23", "05/24", "05/30", "05/31", "06/07", "06/13", "06/14", "06/21", "06/27", "07/05", "08/02", "08/08", "08/09", "08/16", "08/29", "08/30"];
+const dailyData = [-2840, 3820, -4900, 7100, -7300, 100, -15010, -6700, -9720, -2190, 840, -5300, 200, -2500, 3590, -8760, -9460, 2700, -2600, -100, 40050, -18130, -12810, 5630, -35620, -6900, -9170, 1230, -860, -19360, -13670, -10060, -9690, -6300, -9810, -5790, -2760, -2430, -3100, -19900, -6650, -17740, -9500, -500, -16770, -1000, 4300, -1000, -4000, -3900, -3500, -3000, -10900, -2660];
+const cumulData = [-2840, 980, -3920, 3180, -4120, -4020, -19030, -25730, -35450, -37640, -36800, -42100, -41900, -44400, -40810, -49570, -59030, -56330, -58930, -59030, -18980, -37110, -49920, -44290, -79910, -86810, -95980, -94750, -95610, -114970, -128640, -138700, -148390, -154690, -164500, -170290, -173050, -175480, -178580, -198480, -205130, -222870, -232370, -232870, -249640, -250640, -246340, -247340, -251340, -255240, -258740, -261740, -272640, -275300];
+const barColors = ["#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626"];
+
+const isMobile = window.innerWidth < 600;
+const maxTicks = isMobile ? 8 : 20;
+const ptRadius = isMobile ? 2 : 3;
+const tickSz = isMobile ? 10 : 12;
+const gridColor = '#e2e8f0';
+const tickColor = '#64748b';
+
+function makeScales() {
+  return {
+    x: { ticks: { color: tickColor, maxRotation: 45, maxTicksLimit: maxTicks, font: { size: tickSz } }, grid: { color: gridColor } },
+    y: { ticks: { color: tickColor, font: { size: tickSz }, callback: v => (v>=0?'+':'')+v.toLocaleString()+'円' }, grid: { color: gridColor } }
+  };
+}
+
+new Chart(document.getElementById('dailyChart'), {
+  type: 'bar',
+  data: { labels: labels, datasets: [{ label: '日別損益（円）', data: dailyData, backgroundColor: barColors, borderRadius: 4 }] },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#1e293b', font: { size: tickSz } } },
+      tooltip: { callbacks: { label: ctx => (ctx.raw >= 0 ? '+' : '') + ctx.raw.toLocaleString() + '円' } }
+    },
+    scales: makeScales()
+  }
+});
+
+new Chart(document.getElementById('cumulChart'), {
+  type: 'line',
+  data: { labels: labels, datasets: [{
+    label: '累計損益（円）', data: cumulData,
+    borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.08)',
+    borderWidth: 2, fill: true, tension: 0.15,
+    pointRadius: ptRadius, pointBackgroundColor: '#2563eb'
+  }] },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#1e293b', font: { size: tickSz } } },
+      tooltip: { callbacks: { label: ctx => (ctx.raw >= 0 ? '+' : '') + ctx.raw.toLocaleString() + '円' } }
+    },
+    scales: makeScales()
+  }
+});
+</script>
 </body></html>
