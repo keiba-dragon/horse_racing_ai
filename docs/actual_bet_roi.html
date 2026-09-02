@@ -16,6 +16,14 @@ h3{color:var(--blue);font-weight:800;margin-top:24px;font-size:1.05em}
 .chart-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:20px}
 .chart-wrap canvas{display:block;width:100%!important;height:220px!important}
 @media(min-width:600px){.chart-wrap canvas{height:260px!important}}
+.filter-bar{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:12px 14px;margin-bottom:14px}
+.filter-bar .filter-title{color:var(--muted);font-size:0.8em;font-weight:600;margin-bottom:8px}
+.filter-chks{display:flex;flex-wrap:wrap;gap:6px 10px}
+.chk{display:inline-flex;align-items:center;gap:4px;font-size:0.85em;font-weight:600;color:var(--ink);cursor:pointer;user-select:none}
+.chk input{accent-color:var(--blue);width:15px;height:15px;cursor:pointer}
+.filter-btns{display:flex;gap:8px;margin-top:10px}
+.filter-btns button{font-family:inherit;font-size:0.8em;font-weight:700;color:var(--blue);background:#fff;border:1px solid var(--blue);border-radius:999px;padding:4px 12px;cursor:pointer}
+.filter-btns button:hover{background:#eff6ff}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;border:1px solid var(--border);border-radius:16px}
 table{width:100%;border-collapse:collapse;font-size:0.85em;white-space:nowrap}
 th{background:var(--bg2);color:var(--blue);font-weight:800;padding:8px 10px;text-align:center;position:sticky;top:0}
@@ -36,9 +44,24 @@ tr:hover{background:#f1f5f9}
   <div class="card"><div class="lbl">プラス日数</div><div class="val">11/54日</div></div>
 </div>
 
-<h3>日別損益グラフ</h3>
+<h3>グラフ（式別を選んで絞り込み）</h3>
+<div class="filter-bar">
+  <div class="filter-title">表示する式別</div>
+  <div class="filter-chks" id="shikiChks"><label class="chk"><input type="checkbox" value="単勝" checked>単勝</label><label class="chk"><input type="checkbox" value="複勝" checked>複勝</label><label class="chk"><input type="checkbox" value="ワイド" checked>ワイド</label><label class="chk"><input type="checkbox" value="馬連" checked>馬連</label><label class="chk"><input type="checkbox" value="枠連" checked>枠連</label><label class="chk"><input type="checkbox" value="馬単" checked>馬単</label><label class="chk"><input type="checkbox" value="3連複" checked>3連複</label><label class="chk"><input type="checkbox" value="3連単" checked>3連単</label><label class="chk"><input type="checkbox" value="その他" checked>その他</label></div>
+  <div class="filter-btns">
+    <button type="button" id="btnAll">全選択</button>
+    <button type="button" id="btnNone">全解除</button>
+  </div>
+</div>
+<div class="summary" id="filterSummary">
+  <div class="card"><div class="lbl">絞込損益</div><div class="val" id="fSumPf">-</div></div>
+  <div class="card"><div class="lbl">絞込ROI</div><div class="val" id="fSumRoi">-</div></div>
+  <div class="card"><div class="lbl">絞込投資</div><div class="val" id="fSumInvest">-</div></div>
+  <div class="card"><div class="lbl">絞込回収</div><div class="val" id="fSumRet">-</div></div>
+</div>
+<h4 style="color:var(--ink);font-size:0.95em;margin:0 0 4px">日別損益グラフ</h4>
 <div class="chart-wrap"><canvas id="dailyChart"></canvas></div>
-<h3>累計損益グラフ</h3>
+<h4 style="color:var(--ink);font-size:0.95em;margin:16px 0 4px">累計損益グラフ</h4>
 <div class="chart-wrap"><canvas id="cumulChart"></canvas></div>
 
 <h3>式別ROI</h3>
@@ -493,9 +516,9 @@ tr:hover{background:#f1f5f9}
 
 <script>
 const labels = ["01/04", "01/05", "01/10", "01/11", "01/12", "01/17", "01/18", "01/24", "01/25", "01/31", "02/01", "02/07", "02/10", "02/15", "02/21", "02/22", "02/28", "03/01", "03/08", "03/14", "03/15", "03/21", "03/22", "03/28", "03/29", "04/04", "04/05", "04/12", "04/18", "04/19", "04/25", "04/26", "05/02", "05/03", "05/09", "05/10", "05/16", "05/17", "05/23", "05/24", "05/30", "05/31", "06/07", "06/13", "06/14", "06/21", "06/27", "07/05", "08/02", "08/08", "08/09", "08/16", "08/29", "08/30"];
-const dailyData = [-2840, 3820, -4900, 7100, -7300, 100, -15010, -6700, -9720, -2190, 840, -5300, 200, -2500, 3590, -8760, -9460, 2700, -2600, -100, 40050, -18130, -12810, 5630, -35620, -6900, -9170, 1230, -860, -19360, -13670, -10060, -9690, -6300, -9810, -5790, -2760, -2430, -3100, -19900, -6650, -17740, -9500, -500, -16770, -1000, 4300, -1000, -4000, -3900, -3500, -3000, -10900, -2660];
-const cumulData = [-2840, 980, -3920, 3180, -4120, -4020, -19030, -25730, -35450, -37640, -36800, -42100, -41900, -44400, -40810, -49570, -59030, -56330, -58930, -59030, -18980, -37110, -49920, -44290, -79910, -86810, -95980, -94750, -95610, -114970, -128640, -138700, -148390, -154690, -164500, -170290, -173050, -175480, -178580, -198480, -205130, -222870, -232370, -232870, -249640, -250640, -246340, -247340, -251340, -255240, -258740, -261740, -272640, -275300];
-const barColors = ["#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#16a34a", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626", "#dc2626"];
+// 日別・式別ごとの [投資, 回収]。式別がその日に無ければキー無し。
+const dailyByShiki = [{"3連複": [1100, 0], "複勝": [11600, 11260], "馬連": [1400, 0]}, {"複勝": [7400, 11220]}, {"ワイド": [500, 0], "複勝": [11000, 7100], "馬連": [500, 0]}, {"3連単": [6600, 3950], "3連複": [10600, 2730], "ワイド": [2000, 5600], "単勝": [1000, 11000], "枠連": [3600, 10840], "複勝": [4400, 4280], "馬連": [3100, 0]}, {"3連複": [1400, 0], "ワイド": [800, 0], "単勝": [700, 0], "枠連": [3400, 0], "複勝": [2200, 1200]}, {"複勝": [1000, 1100]}, {"3連単": [5700, 0], "3連複": [6400, 1290], "ワイド": [1700, 0], "枠連": [600, 0], "複勝": [1100, 0], "馬連": [800, 0]}, {"3連複": [1500, 0], "ワイド": [2000, 0], "枠連": [2600, 0], "複勝": [3000, 2400]}, {"3連単": [3600, 0], "3連複": [5800, 0], "枠連": [1600, 1280]}, {"3連単": [3200, 0], "3連複": [4300, 3330], "ワイド": [800, 1280], "単勝": [500, 2200], "複勝": [2000, 1800]}, {"3連単": [400, 1070], "ワイド": [4000, 2800], "単勝": [400, 270], "複勝": [7000, 9500], "馬連": [1000, 0]}, {"ワイド": [2000, 0], "複勝": [4000, 1200], "馬連": [500, 0]}, {"複勝": [3000, 3200]}, {"3連単": [4800, 6950], "3連複": [3100, 1450], "単勝": [1000, 0], "複勝": [2000, 0]}, {"3連単": [1400, 0], "ワイド": [16800, 19760], "単勝": [400, 0], "複勝": [2000, 1500], "馬単": [1200, 0], "馬連": [4000, 8130]}, {"3連単": [2000, 5080], "3連複": [2900, 0], "ワイド": [6900, 0], "単勝": [700, 0], "複勝": [1100, 0], "馬連": [15300, 15060]}, {"3連複": [3100, 0], "ワイド": [11600, 5320], "単勝": [3900, 2600], "複勝": [7200, 6970], "馬連": [1500, 2950]}, {"ワイド": [1000, 0], "単勝": [1000, 4400], "複勝": [1000, 1300]}, {"3連複": [1000, 0], "ワイド": [4200, 0], "複勝": [1000, 3600]}, {"複勝": [100, 0]}, {"3連複": [2800, 0], "ワイド": [8500, 13600], "単勝": [2000, 19400], "複勝": [2000, 1400], "馬単": [100, 0], "馬連": [1000, 22050]}, {"3連単": [1200, 0], "ワイド": [12000, 0], "単勝": [14200, 7720], "枠連": [600, 2370], "複勝": [4800, 5200], "馬単": [700, 0], "馬連": [1000, 1080]}, {"3連単": [800, 0], "3連複": [2500, 1860], "ワイド": [15300, 13310], "単勝": [20200, 16050], "複勝": [3100, 1100], "馬単": [800, 0], "馬連": [5400, 2970]}, {"3連複": [1800, 3560], "ワイド": [1000, 0], "単勝": [7700, 13320], "複勝": [2100, 1350]}, {"3連単": [6500, 0], "3連複": [5600, 0], "ワイド": [8800, 0], "単勝": [13700, 3730], "馬単": [2400, 0], "馬連": [3400, 1050]}, {"ワイド": [1300, 0], "単勝": [5400, 0], "複勝": [200, 0]}, {"3連単": [1400, 0], "3連複": [2400, 1050], "ワイド": [2000, 0], "単勝": [2200, 1080], "馬単": [2000, 0], "馬連": [1300, 0]}, {"3連単": [13600, 30860], "3連複": [8400, 0], "ワイド": [5200, 3300], "単勝": [4700, 4460], "馬単": [3600, 0], "馬連": [5700, 3810]}, {"ワイド": [2500, 1270], "単勝": [3300, 4220], "複勝": [1100, 1350], "馬連": [800, 0]}, {"3連単": [3000, 0], "3連複": [7600, 0], "ワイド": [2600, 1240], "単勝": [10100, 3500], "馬連": [800, 0]}, {"3連単": [1400, 0], "ワイド": [6100, 4400], "単勝": [6400, 0], "複勝": [4900, 2330], "馬連": [1600, 0]}, {"3連単": [800, 0], "3連複": [8000, 0], "単勝": [1000, 0], "複勝": [2500, 1820], "馬連": [600, 1020]}, {"3連単": [5600, 4330], "3連複": [5100, 0], "ワイド": [3100, 0], "単勝": [3900, 0], "複勝": [2100, 1680], "馬連": [3500, 7600]}, {"3連単": [4800, 0], "3連複": [1500, 0]}, {"3連単": [5200, 2290], "3連複": [4300, 0], "ワイド": [2000, 0], "馬連": [600, 0]}, {"3連複": [8800, 6160], "ワイド": [3500, 1550], "馬単": [1200, 0]}, {"3連単": [2400, 0], "3連複": [1200, 840]}, {"3連単": [5700, 7340], "3連複": [6500, 4430], "ワイド": [900, 0], "単勝": [3100, 2500], "複勝": [500, 0]}, {"3連単": [600, 0], "3連複": [1400, 0], "単勝": [1100, 0]}, {"3連単": [11100, 0], "3連複": [8200, 3220], "ワイド": [1100, 0], "単勝": [6300, 11000], "馬単": [600, 0], "馬連": [9200, 2380]}, {"3連複": [1000, 0], "ワイド": [7500, 4400], "単勝": [6600, 4350], "馬連": [300, 0]}, {"3連単": [16600, 0], "3連複": [9600, 15690], "単勝": [6600, 0], "複勝": [1000, 0], "馬単": [600, 0], "馬連": [1600, 2570]}, {"3連単": [5900, 0], "馬単": [2600, 0], "馬連": [1000, 0]}, {"ワイド": [500, 0]}, {"3連単": [25600, 16070], "3連複": [5300, 5520], "ワイド": [5400, 3540], "単勝": [500, 0], "複勝": [1000, 0], "馬連": [4900, 800]}, {"ワイド": [1000, 0]}, {"ワイド": [1000, 5300]}, {"ワイド": [1000, 0]}, {"ワイド": [2000, 0], "枠連": [2000, 0]}, {"3連単": [800, 0], "3連複": [2000, 0], "単勝": [1100, 0]}, {"3連複": [2800, 0], "単勝": [700, 0]}, {"3連単": [1600, 0], "3連複": [1400, 0]}, {"3連単": [6000, 0], "3連複": [3000, 0], "ワイド": [1900, 0]}, {"3連単": [11100, 12370], "3連複": [2900, 2570], "単勝": [1500, 0], "馬単": [600, 0], "馬連": [1500, 0]}];
+const shikiOrder = ["単勝", "複勝", "ワイド", "馬連", "枠連", "馬単", "3連複", "3連単", "その他"];
 
 const isMobile = window.innerWidth < 600;
 const maxTicks = isMobile ? 8 : 20;
@@ -503,6 +526,7 @@ const ptRadius = isMobile ? 2 : 3;
 const tickSz = isMobile ? 10 : 12;
 const gridColor = '#e2e8f0';
 const tickColor = '#64748b';
+const GREEN = '#16a34a', RED = '#dc2626', BLUE = '#2563eb';
 
 function makeScales() {
   return {
@@ -511,9 +535,9 @@ function makeScales() {
   };
 }
 
-new Chart(document.getElementById('dailyChart'), {
+const dailyChart = new Chart(document.getElementById('dailyChart'), {
   type: 'bar',
-  data: { labels: labels, datasets: [{ label: '日別損益（円）', data: dailyData, backgroundColor: barColors, borderRadius: 4 }] },
+  data: { labels: labels, datasets: [{ label: '日別損益（円）', data: [], backgroundColor: [], borderRadius: 4 }] },
   options: {
     responsive: true, maintainAspectRatio: false,
     plugins: {
@@ -524,13 +548,13 @@ new Chart(document.getElementById('dailyChart'), {
   }
 });
 
-new Chart(document.getElementById('cumulChart'), {
+const cumulChart = new Chart(document.getElementById('cumulChart'), {
   type: 'line',
   data: { labels: labels, datasets: [{
-    label: '累計損益（円）', data: cumulData,
-    borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.08)',
+    label: '累計損益（円）', data: [],
+    borderColor: BLUE, backgroundColor: 'rgba(37,99,235,0.08)',
     borderWidth: 2, fill: true, tension: 0.15,
-    pointRadius: ptRadius, pointBackgroundColor: '#2563eb'
+    pointRadius: ptRadius, pointBackgroundColor: BLUE
   }] },
   options: {
     responsive: true, maintainAspectRatio: false,
@@ -541,5 +565,60 @@ new Chart(document.getElementById('cumulChart'), {
     scales: makeScales()
   }
 });
+
+function selectedShiki() {
+  return [...document.querySelectorAll('#shikiChks input:checked')].map(el => el.value);
+}
+
+function recompute() {
+  const chosen = selectedShiki();
+  let cum = 0, totalInvest = 0, totalRet = 0, plusDays = 0, activeDays = 0;
+  const dailyPf = [], cumulPf = [], colors = [];
+  dailyByShiki.forEach(dayMap => {
+    let invest = 0, ret = 0, hasAny = false;
+    chosen.forEach(sg => {
+      if (dayMap[sg]) { invest += dayMap[sg][0]; ret += dayMap[sg][1]; hasAny = true; }
+    });
+    const pf = ret - invest;
+    cum += pf;
+    dailyPf.push(hasAny ? pf : 0);
+    cumulPf.push(cum);
+    colors.push(pf >= 0 ? GREEN : RED);
+    if (hasAny) {
+      activeDays++;
+      totalInvest += invest; totalRet += ret;
+      if (pf >= 0) plusDays++;
+    }
+  });
+
+  dailyChart.data.datasets[0].data = dailyPf;
+  dailyChart.data.datasets[0].backgroundColor = colors;
+  dailyChart.update();
+  cumulChart.data.datasets[0].data = cumulPf;
+  cumulChart.update();
+
+  const pf = totalRet - totalInvest;
+  const roi = totalInvest > 0 ? (totalRet / totalInvest - 1) : 0;
+  const col = pf >= 0 ? GREEN : RED;
+  const sign = pf >= 0 ? '+' : '';
+  document.getElementById('fSumPf').textContent = sign + pf.toLocaleString() + '円';
+  document.getElementById('fSumPf').style.color = col;
+  document.getElementById('fSumRoi').textContent = (roi >= 0 ? '+' : '') + (roi*100).toFixed(1) + '%';
+  document.getElementById('fSumRoi').style.color = col;
+  document.getElementById('fSumInvest').textContent = totalInvest.toLocaleString() + '円';
+  document.getElementById('fSumRet').textContent = totalRet.toLocaleString() + '円';
+}
+
+document.getElementById('shikiChks').addEventListener('change', recompute);
+document.getElementById('btnAll').addEventListener('click', () => {
+  document.querySelectorAll('#shikiChks input').forEach(el => el.checked = true);
+  recompute();
+});
+document.getElementById('btnNone').addEventListener('click', () => {
+  document.querySelectorAll('#shikiChks input').forEach(el => el.checked = false);
+  recompute();
+});
+
+recompute();
 </script>
 </body></html>

@@ -179,6 +179,15 @@ chart_labels = [r['日付'][5:] for r in daily_rows]
 chart_daily  = [r['損益'] for r in daily_rows]
 chart_cumul  = [r['累計損益'] for r in daily_rows]
 chart_colors = [GREEN if v >= 0 else RED for v in chart_daily]
+# 式別ごとの日別 投資/回収（グラフの絞り込み用）
+daily_by_shiki = [
+    {sg: [d['投資'], d['回収']] for sg, d in r['式別'].items()}
+    for r in daily_rows
+]
+shiki_checkboxes = ''.join(
+    f'<label class="chk"><input type="checkbox" value="{sg}" checked>{sg}</label>'
+    for sg in SHIKI_ORDER
+)
 
 html = f'''<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -198,6 +207,14 @@ h3{{color:var(--blue);font-weight:800;margin-top:24px;font-size:1.05em}}
 .chart-wrap{{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:20px}}
 .chart-wrap canvas{{display:block;width:100%!important;height:220px!important}}
 @media(min-width:600px){{.chart-wrap canvas{{height:260px!important}}}}
+.filter-bar{{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:12px 14px;margin-bottom:14px}}
+.filter-bar .filter-title{{color:var(--muted);font-size:0.8em;font-weight:600;margin-bottom:8px}}
+.filter-chks{{display:flex;flex-wrap:wrap;gap:6px 10px}}
+.chk{{display:inline-flex;align-items:center;gap:4px;font-size:0.85em;font-weight:600;color:var(--ink);cursor:pointer;user-select:none}}
+.chk input{{accent-color:var(--blue);width:15px;height:15px;cursor:pointer}}
+.filter-btns{{display:flex;gap:8px;margin-top:10px}}
+.filter-btns button{{font-family:inherit;font-size:0.8em;font-weight:700;color:var(--blue);background:#fff;border:1px solid var(--blue);border-radius:999px;padding:4px 12px;cursor:pointer}}
+.filter-btns button:hover{{background:#eff6ff}}
 .tbl-wrap{{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;border:1px solid var(--border);border-radius:16px}}
 table{{width:100%;border-collapse:collapse;font-size:0.85em;white-space:nowrap}}
 th{{background:var(--bg2);color:var(--blue);font-weight:800;padding:8px 10px;text-align:center;position:sticky;top:0}}
@@ -218,9 +235,24 @@ tr:hover{{background:#f1f5f9}}
   <div class="card"><div class="lbl">プラス日数</div><div class="val">{plus_days}/{total_days}日</div></div>
 </div>
 
-<h3>日別損益グラフ</h3>
+<h3>グラフ（式別を選んで絞り込み）</h3>
+<div class="filter-bar">
+  <div class="filter-title">表示する式別</div>
+  <div class="filter-chks" id="shikiChks">{shiki_checkboxes}</div>
+  <div class="filter-btns">
+    <button type="button" id="btnAll">全選択</button>
+    <button type="button" id="btnNone">全解除</button>
+  </div>
+</div>
+<div class="summary" id="filterSummary">
+  <div class="card"><div class="lbl">絞込損益</div><div class="val" id="fSumPf">-</div></div>
+  <div class="card"><div class="lbl">絞込ROI</div><div class="val" id="fSumRoi">-</div></div>
+  <div class="card"><div class="lbl">絞込投資</div><div class="val" id="fSumInvest">-</div></div>
+  <div class="card"><div class="lbl">絞込回収</div><div class="val" id="fSumRet">-</div></div>
+</div>
+<h4 style="color:var(--ink);font-size:0.95em;margin:0 0 4px">日別損益グラフ</h4>
 <div class="chart-wrap"><canvas id="dailyChart"></canvas></div>
-<h3>累計損益グラフ</h3>
+<h4 style="color:var(--ink);font-size:0.95em;margin:16px 0 4px">累計損益グラフ</h4>
 <div class="chart-wrap"><canvas id="cumulChart"></canvas></div>
 
 <h3>式別ROI</h3>
@@ -241,9 +273,9 @@ tr:hover{{background:#f1f5f9}}
 
 <script>
 const labels = {json.dumps(chart_labels, ensure_ascii=False)};
-const dailyData = {json.dumps(chart_daily)};
-const cumulData = {json.dumps(chart_cumul)};
-const barColors = {json.dumps(chart_colors)};
+// 日別・式別ごとの [投資, 回収]。式別がその日に無ければキー無し。
+const dailyByShiki = {json.dumps(daily_by_shiki, ensure_ascii=False)};
+const shikiOrder = {json.dumps(SHIKI_ORDER, ensure_ascii=False)};
 
 const isMobile = window.innerWidth < 600;
 const maxTicks = isMobile ? 8 : 20;
@@ -251,6 +283,7 @@ const ptRadius = isMobile ? 2 : 3;
 const tickSz = isMobile ? 10 : 12;
 const gridColor = '#e2e8f0';
 const tickColor = '#64748b';
+const GREEN = '{GREEN}', RED = '{RED}', BLUE = '{BLUE}';
 
 function makeScales() {{
   return {{
@@ -259,9 +292,9 @@ function makeScales() {{
   }};
 }}
 
-new Chart(document.getElementById('dailyChart'), {{
+const dailyChart = new Chart(document.getElementById('dailyChart'), {{
   type: 'bar',
-  data: {{ labels: labels, datasets: [{{ label: '日別損益（円）', data: dailyData, backgroundColor: barColors, borderRadius: 4 }}] }},
+  data: {{ labels: labels, datasets: [{{ label: '日別損益（円）', data: [], backgroundColor: [], borderRadius: 4 }}] }},
   options: {{
     responsive: true, maintainAspectRatio: false,
     plugins: {{
@@ -272,13 +305,13 @@ new Chart(document.getElementById('dailyChart'), {{
   }}
 }});
 
-new Chart(document.getElementById('cumulChart'), {{
+const cumulChart = new Chart(document.getElementById('cumulChart'), {{
   type: 'line',
   data: {{ labels: labels, datasets: [{{
-    label: '累計損益（円）', data: cumulData,
-    borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.08)',
+    label: '累計損益（円）', data: [],
+    borderColor: BLUE, backgroundColor: 'rgba(37,99,235,0.08)',
     borderWidth: 2, fill: true, tension: 0.15,
-    pointRadius: ptRadius, pointBackgroundColor: '#2563eb'
+    pointRadius: ptRadius, pointBackgroundColor: BLUE
   }}] }},
   options: {{
     responsive: true, maintainAspectRatio: false,
@@ -289,6 +322,61 @@ new Chart(document.getElementById('cumulChart'), {{
     scales: makeScales()
   }}
 }});
+
+function selectedShiki() {{
+  return [...document.querySelectorAll('#shikiChks input:checked')].map(el => el.value);
+}}
+
+function recompute() {{
+  const chosen = selectedShiki();
+  let cum = 0, totalInvest = 0, totalRet = 0, plusDays = 0, activeDays = 0;
+  const dailyPf = [], cumulPf = [], colors = [];
+  dailyByShiki.forEach(dayMap => {{
+    let invest = 0, ret = 0, hasAny = false;
+    chosen.forEach(sg => {{
+      if (dayMap[sg]) {{ invest += dayMap[sg][0]; ret += dayMap[sg][1]; hasAny = true; }}
+    }});
+    const pf = ret - invest;
+    cum += pf;
+    dailyPf.push(hasAny ? pf : 0);
+    cumulPf.push(cum);
+    colors.push(pf >= 0 ? GREEN : RED);
+    if (hasAny) {{
+      activeDays++;
+      totalInvest += invest; totalRet += ret;
+      if (pf >= 0) plusDays++;
+    }}
+  }});
+
+  dailyChart.data.datasets[0].data = dailyPf;
+  dailyChart.data.datasets[0].backgroundColor = colors;
+  dailyChart.update();
+  cumulChart.data.datasets[0].data = cumulPf;
+  cumulChart.update();
+
+  const pf = totalRet - totalInvest;
+  const roi = totalInvest > 0 ? (totalRet / totalInvest - 1) : 0;
+  const col = pf >= 0 ? GREEN : RED;
+  const sign = pf >= 0 ? '+' : '';
+  document.getElementById('fSumPf').textContent = sign + pf.toLocaleString() + '円';
+  document.getElementById('fSumPf').style.color = col;
+  document.getElementById('fSumRoi').textContent = (roi >= 0 ? '+' : '') + (roi*100).toFixed(1) + '%';
+  document.getElementById('fSumRoi').style.color = col;
+  document.getElementById('fSumInvest').textContent = totalInvest.toLocaleString() + '円';
+  document.getElementById('fSumRet').textContent = totalRet.toLocaleString() + '円';
+}}
+
+document.getElementById('shikiChks').addEventListener('change', recompute);
+document.getElementById('btnAll').addEventListener('click', () => {{
+  document.querySelectorAll('#shikiChks input').forEach(el => el.checked = true);
+  recompute();
+}});
+document.getElementById('btnNone').addEventListener('click', () => {{
+  document.querySelectorAll('#shikiChks input').forEach(el => el.checked = false);
+  recompute();
+}});
+
+recompute();
 </script>
 </body></html>'''
 
