@@ -112,6 +112,24 @@ total_days   = len(daily_rows)
 
 print(f"\n累計: {('+' if total_pf>=0 else '')}{total_pf:,}円  ROI{total_roi:+.1%}  {plus_days}/{total_days}日プラス")
 
+# ── 月別集計 ───────────────────────────────────────────────────
+from collections import OrderedDict
+monthly = OrderedDict()
+for r in daily_rows:
+    ym = r['日付'][:7]  # 'YYYY/MM'
+    m = monthly.setdefault(ym, {'投資': 0, '回収': 0, '日数': 0, 'プラス日数': 0})
+    m['投資'] += r['投資']
+    m['回収'] += r['回収']
+    m['日数'] += 1
+    if r['損益'] >= 0:
+        m['プラス日数'] += 1
+monthly_rows = []
+for ym, m in monthly.items():
+    pf = m['回収'] - m['投資']
+    roi = m['回収'] / m['投資'] - 1.0 if m['投資'] > 0 else 0
+    monthly_rows.append({'月': ym, '投資': m['投資'], '回収': m['回収'], '損益': pf, 'ROI': roi,
+                          '日数': m['日数'], 'プラス日数': m['プラス日数']})
+
 # ── HTML生成（keiba-dragon.github.io のライト×ブルー基調に合わせる）──────
 SHIKI_ORDER = ['単勝','複勝','ワイド','馬連','枠連','馬単','3連複','3連単','その他']
 GREEN = '#16a34a'
@@ -171,6 +189,20 @@ for sg in SHIKI_ORDER:
 <td style="color:{col};font-weight:700;text-align:right">{sign}{s["pf"]:,}円</td>
 <td style="color:{col};font-weight:700;text-align:right">{s["roi"]:+.1%}</td>
 <td style="text-align:center">{hit_rate}</td>
+</tr>'''
+
+# 月別行
+monthly_html = ''
+for m in monthly_rows:
+    col = GREEN if m['損益'] >= 0 else RED
+    sign = '+' if m['損益'] >= 0 else ''
+    monthly_html += f'''<tr>
+<td style="text-align:center;white-space:nowrap">{m["月"]}</td>
+<td style="text-align:right">{m["投資"]:,}円</td>
+<td style="text-align:right">{m["回収"]:,}円</td>
+<td style="color:{col};font-weight:700;text-align:right">{sign}{m["損益"]:,}円</td>
+<td style="color:{col};font-weight:700;text-align:right">{m["ROI"]:+.1%}</td>
+<td style="text-align:center">{m["プラス日数"]}/{m["日数"]}日</td>
 </tr>'''
 
 # ── グラフ用データ ──────────────────────────────────────────────
@@ -269,6 +301,14 @@ tr:hover{{background:#f1f5f9}}
 <th>日付</th><th>投資</th><th>回収</th><th>損益</th><th>式別内訳</th><th>累計損益</th>
 </tr></thead><tbody>
 {rows_html}
+</tbody></table></div>
+
+<h3>月別損益</h3>
+<div class="tbl-wrap"><table>
+<thead><tr>
+<th>月</th><th>投資</th><th>回収</th><th>損益</th><th>ROI</th><th>プラス日数</th>
+</tr></thead><tbody>
+{monthly_html}
 </tbody></table></div>
 
 <script>
