@@ -424,3 +424,9 @@ out = r'G:\マイドライブ\競馬AI\actual_bet_roi.html'
 with open(out, 'w', encoding='utf-8') as f:
     f.write(html)
 print(f"\n出力: {out}")
+
+# GitHub Pages公開用（コミット・プッシュして https://keiba-dragon.github.io/horse_racing_ai/actual_bet_roi.html に反映する）
+docs_out = os.path.join(base_dir, 'docs', 'actual_bet_roi.html')
+with open(docs_out, 'w', encoding='utf-8') as f:
+    f.write(html)
+print(f"出力: {docs_out}")
